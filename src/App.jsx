@@ -1,0 +1,42 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy } from "react";
+import RootLayout from "./layout/RootLayout";
+
+const HomePage = lazy(() => import('./pages/HomePage/HomePage.jsx'));
+const ArticlesPage = lazy(() => import('./pages/ArticlesPage/ArticlesPage.jsx'));
+const ArticleDetailPage = lazy(() => import('./pages/ArticleDetailPage/ArticleDetailPage.jsx'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage/RegisterPage.jsx'));
+const UploadPhotoPage = lazy(() => import('./pages/UploadPhotoPage/UploadPhotoPage.jsx'));
+const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage.jsx'));
+const CreatorsPage = lazy(() => import('./pages/CreatorsPage/CreatorsPage.jsx'));
+const CreatorDetailPage = lazy(() => import('./pages/CreatorDetailPage/CreatorDetailPage.jsx'));
+const CreateArticlePage = lazy(() => import('./pages/CreateArticlePage/CreateArticlePage.jsx'));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "articles", element: <ArticlesPage /> },
+      { path: "articles/:id", element: <ArticleDetailPage /> },
+      { path: "register", element: <RegisterPage /> },
+      { path: "photo", element: <UploadPhotoPage /> },
+      { path: "login", element: <LoginPage /> },
+      { path: "authors", element: <CreatorsPage /> },
+      { path: "authors/:id", element: <CreatorDetailPage /> },
+      { path: "create", element: <CreateArticlePage /> },
+    ],
+  },
+]);
+
+function App() {
+
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  )
+}
+
+export default App
