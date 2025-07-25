@@ -1,22 +1,44 @@
 // import styles from "./ArticlesPage.module.css";
-
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+
+import {
+  selectArticles,
+  selectError,
+  selectLoading,
+} from "../../redux/articles/selectors";
+import ArticlesList from "../../components/ArticlesList/ArticlesList";
+
 export default function ArticlesPage() {
-  const N = Math.round(Math.random() * 10);
+  const articlesItems = useSelector(selectArticles);
+  const isLoading = useSelector(selectLoading);
+  const isError = useSelector(selectError);
+
   useEffect(() => {
-    console.log(5);
+    console.log("Юз eфект спрацював");
   }, []);
+
+  const articlesItemsLength = articlesItems.length;
+
   return (
     <div>
-       <div>
-         <h1>Articles</h1> <p>{N > 1 ? ` ${N} articles` : `${N} article`} </p> 
+      <div>
+        <h1>Articles</h1>{" "}
+        <p>
+          {articlesItemsLength > 1
+            ? ` ${articlesItemsLength} articles`
+            : `${articlesItemsLength} article`}
+        </p>
       </div>
       <div>
-         <select name="filter" id="choice">
-           <option value="all">All</option> 
-          <option value="popular">Popular</option> 
+        <select name="filter" id="choice">
+          <option value="all">All</option>
+          <option value="popular">Popular</option>
         </select>{" "}
-      </div>{" "}
+          </div>{" "}
+          {articlesItemsLength > 0 && <ArticlesList/>}
+      {isLoading && <p>Почекайте</p>}
+      {isError && <p>Упс,помилка</p>}
     </div>
   );
 }
