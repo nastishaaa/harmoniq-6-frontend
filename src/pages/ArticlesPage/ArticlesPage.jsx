@@ -1,4 +1,5 @@
 // import styles from "./ArticlesPage.module.css";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -23,7 +24,7 @@ export default function ArticlesPage() {
   return (
     <div>
       <div>
-        <h1>Articles</h1>{" "}
+        <SectionTitle title="Articles" />
         <p>
           {articlesItemsLength > 1
             ? ` ${articlesItemsLength} articles`
@@ -35,8 +36,8 @@ export default function ArticlesPage() {
           <option value="all">All</option>
           <option value="popular">Popular</option>
         </select>{" "}
-          </div>{" "}
-          {articlesItemsLength > 0 && <ArticlesList/>}
+      </div>{" "}
+      {articlesItemsLength > 0 && <ArticlesList />}
       {isLoading && <p>Почекайте</p>}
       {isError && <p>Упс,помилка</p>}
     </div>
