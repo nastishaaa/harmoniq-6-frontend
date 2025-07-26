@@ -1,0 +1,41 @@
+.section {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+/* Видалити потім */
+.infoPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 33px;
+  margin: 16px 0px 16px 0px;
+}
+
+.itemsTotal {
+  font-family: "Manrope";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  margin: 0;
+  color: #070721;
+}
+
+ 
+   .filter {
+  width: 169px;            
+  padding: 4px 8px;        
+  font-size: 16px;          
+  border-radius: 8px;      
+  border: 1px solid #9f9f9f;   
+   color: #595d62;            
+ 
+}
+.filter:hover {
+  box-shadow: 0 0 2px #595d62;
+}
+
+.filter:focus {
+  outline: none;
+   box-shadow: 0 0 2px #595d62;
+}
+ 

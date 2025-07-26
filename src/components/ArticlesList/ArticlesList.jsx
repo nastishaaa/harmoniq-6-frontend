@@ -1,5 +1,4 @@
-// import styles from "./ArticlesList.module.css";
-
+import styles from "./ArticlesList.module.css";
 import { useSelector } from "react-redux";
 import { selectArticles } from "../../redux/articles/selectors";
 import ArticlesItem from "../ArticlesItem/ArticlesItem";
@@ -10,7 +9,7 @@ export default function ArticlesList() {
 
   return (
     <div>
-      <ul>
+      <ul className={styles.list}>
         {articlesItems.map((article) => (
           <li key={article._id.$oid}>
             <ArticlesItem article={article} id={article._id.$oid} />
@@ -18,4 +17,5 @@ export default function ArticlesList() {
         ))}
       </ul>
     </div>
-  );}
+  );
+}
