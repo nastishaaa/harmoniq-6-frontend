@@ -1,7 +1,10 @@
 import styles from './HomePage.module.css';
+import Hero from '../../components/Hero/Hero';
 
 export default function HomePage() {
     return (
-        <div>HomePage</div>
+        <div className={styles.container}>
+            <Hero />
+        </div>
     )
 }
