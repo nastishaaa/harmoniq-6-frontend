@@ -102,12 +102,17 @@
   border-color: #070721;
 }
 
-.bookmarkWrapper {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  background-color: red;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+
+
+
+
+
+/* Виправити */
+.bookmarkIcon:hover rect {
+  fill: #649179;
+}
+
+.bookmarkIcon:hover path {
+  stroke: #ffffff;
 }

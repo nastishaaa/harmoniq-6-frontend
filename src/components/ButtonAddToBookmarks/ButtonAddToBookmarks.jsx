@@ -1,5 +1,5 @@
-export default function ButtonAddToBookmarks() {
-  return <> </>;
+export default function ButtonAddToBookmarks({children}) {
+  return <>{children}</>;
 }
 
 // export default function ButtonAddToBookmarks({id}){
