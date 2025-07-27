@@ -38,7 +38,7 @@
   margin: 0;
   color: #070721;
 }
-
+/* 
 .filter {
   width: 169px;
   padding: 4px 8px;
@@ -54,7 +54,7 @@
 .filter:focus {
   outline: none;
   box-shadow: 0 0 2px #595d62;
-}
+} */
 
 .btnLoadMore {
      box-sizing: border-box;
