@@ -17,7 +17,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  display: flex; /* Додаємо для вирівнювання вмісту */
+  display: flex;
   align-items: center;
 }
 
@@ -31,7 +31,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Logo */
 .logo {
   padding: 0;
 }
@@ -41,7 +40,6 @@ body {
   display: block;
 }
 
-/* Основний стиль для оверлею меню */
 .menuOverlay {
   position: fixed;
   top: 74px;
@@ -57,8 +55,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  overflow-x: hidden; /* Додаємо це */
-  width: 100vw; /* Фіксуємо ширину */
+  overflow-x: hidden;
+  width: 100vw;
   max-width: 100%;
 }
 
@@ -67,7 +65,6 @@ body {
   visibility: visible;
 }
 
-/* Стилі для навігації всередині оверлею */
 .menuOverlay .nav {
   display: block;
   position: static;
@@ -87,7 +84,7 @@ body {
   gap: 32px;
   width: 100%;
   max-width: 100%;
-  padding: 0 16px; /* Додаємо бокові відступи */
+  padding: 0 16px;
   box-sizing: border-box;
 }
 
@@ -107,7 +104,6 @@ body {
   opacity: 0.5;
 }
 
-/* Стилі для кнопки Join Now в меню */
 .menuOverlay .joinNowMobile .joinNow {
   background-color: #649179;
   padding: 0;
@@ -121,7 +117,6 @@ body {
   justify-content: center;
 }
 
-/* Burger button */
 .burger {
   width: 32px;
   height: 32px;
@@ -145,7 +140,7 @@ body {
 .joinNowMobile {
   transition: all 0.3s ease;
 }
-/* Nav menu (hidden by default) */
+
 .nav {
   display: none;
   position: absolute;
@@ -197,12 +192,10 @@ joinNow:hover {
   transform: translateY(-1px);
 }
 
-/* Menu open */
 .open {
   display: block;
 }
 
-/* Стилі для планшетної версії Join Now */
 .joinNowTablet {
   background-color: #649179;
   color: #ffffff !important;
@@ -213,7 +206,7 @@ joinNow:hover {
   font-family: "Manrope", sans-serif;
   width: 100px;
   height: 46px;
-  display: none; /* Приховано за замовчуванням */
+  display: none;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
@@ -226,11 +219,10 @@ joinNow:hover {
   background-color: #374f42;
 }
 
-/* Стилі для мобільної версії Join Now */
 .joinNowMobile {
   display: block;
   font-weight: 700;
-  font-size: 16px; /* Показуємо в бургер-меню */
+  font-size: 16px;
   font-family: "Manrope", sans-serif;
 }
 
@@ -238,10 +230,9 @@ joinNow:hover {
   display: none;
 }
 
-/* Планшетна версія (768px-1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .joinNowTablet {
-    display: flex !important; /* Показуємо кнопку */
+    display: flex !important;
   }
   .burger {
     order: 2;
@@ -252,27 +243,24 @@ joinNow:hover {
   .joinNowMobile {
     display: none !important;
   }
-  /* Логотип - зліва, інше - справа */
   .logo {
     margin-right: auto;
   }
 }
 
-/* Tablet styles (min-width: 600px) */
 @media (min-width: 768px) {
   .header {
-    padding: 14px 32px; /* Горизонтальне меню */
+    padding: 14px 32px;
   }
 
   body {
-    padding-top: 70px; /* Зменшуємо відступ для більших екранів */
+    padding-top: 70px;
   }
   .nav ul {
     gap: 16px;
   }
 }
 
-/* Desktop styles (min-width: 1024px) */
 @media (min-width: 1024px) {
   .header {
     padding: 14px 108px;

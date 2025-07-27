@@ -9,13 +9,13 @@ export default function Footer() {
           <img src="/src/assets/icons/footer-logo.svg" alt="Harmoniq logo" />
         </div>
 
+        <div className={styles.copy}>© 2025 Harmoniq. All rights reserved.</div>
+
         <div className={styles.links}>
           <Link to="/articles" className={styles.link}>
             Articles
           </Link>
         </div>
-
-        <div className={styles.copy}>© 2025 Harmoniq. All rights reserved.</div>
       </div>
     </footer>
   );
