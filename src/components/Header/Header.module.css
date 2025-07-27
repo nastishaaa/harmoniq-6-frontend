@@ -1,0 +1,340 @@
+body {
+  margin: 0;
+  padding-top: 80px;
+}
+
+.header {
+  background-color: #d1e0d8;
+  padding: 14px 16px;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  color: #374f42;
+  width: 100%;
+  height: 74px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.logo {
+  padding: 0;
+}
+.logo img {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+.menuOverlay {
+  position: fixed;
+  top: 74px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d1e0d8;
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100vw;
+  max-width: 100%;
+}
+
+.menuOverlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menuOverlay .nav {
+  display: block;
+  position: static;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.menuOverlay .nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.menuOverlay .nav li {
+  margin: 0;
+}
+
+.menuOverlay .nav a {
+  color: #374f42;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+  font-family: "Manrope", sans-serif;
+}
+
+.menuOverlay .nav a:hover {
+  opacity: 0.5;
+}
+
+.menuOverlay .joinNowMobile .joinNow {
+  background-color: #649179;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Manrope", sans-serif;
+  width: 100px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.burger {
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.burgerIcon {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.joinNowTablet,
+.joinNowMobile {
+  transition: all 0.3s ease;
+}
+
+.nav {
+  display: none;
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  background-color: #d1e0d8;
+  border-radius: 8px;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li {
+  margin: 12px 0;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #1d1d1f;
+}
+
+.joinNow {
+  background-color: #649179;
+  color: #ffffff !important;
+  border-radius: 64px;
+  font-weight: 700;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  width: 100px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+joinNow:hover {
+  background-color: #374f42;
+  transform: translateY(-1px);
+}
+
+.open {
+  display: block;
+}
+
+.joinNowTablet {
+  background-color: #649179;
+  color: #ffffff !important;
+  border-radius: 64px;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  font-family: "Manrope", sans-serif;
+  width: 100px;
+  height: 46px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+  margin-right: 16px;
+  order: 1;
+}
+
+.joinNowTablet:hover {
+  background-color: #374f42;
+}
+
+.joinNowMobile {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  font-family: "Manrope", sans-serif;
+}
+
+.navDesktop {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .joinNowTablet {
+    display: flex !important;
+  }
+  .burger {
+    order: 2;
+  }
+  .container {
+    justify-content: flex-end;
+  }
+  .joinNowMobile {
+    display: none !important;
+  }
+  .logo {
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 14px 32px;
+  }
+
+  body {
+    padding-top: 70px;
+  }
+  .nav ul {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    padding: 14px 108px;
+    display: flex;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+
+  .navDesktop {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+  }
+
+  .navDesktop ul {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .navDesktop li {
+    margin: 0;
+  }
+  .navDesktop a {
+    color: #374f42;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    padding: 8px 0;
+  }
+
+  .navDesktop a:hover {
+    color: #374f42;
+    opacity: 0.5;
+  }
+
+  .joinNow {
+    background-color: #649179;
+    color: #ffffff !important;
+    border-radius: 64px;
+    font-weight: 700;
+    font-family: "Manrope", sans-serif;
+    width: 100px;
+    height: 46px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+  .joinNow:hover {
+    background-color: #374f42;
+  }
+
+  .burger,
+  .joinNowTablet,
+  .menuOverlay,
+  .navMobile {
+    display: none !important;
+  }
+}
