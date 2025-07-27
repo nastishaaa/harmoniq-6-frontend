@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "clsx": "^2.1.1",
     "formik": "^2.4.6",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
+    "react-loader-spinner": "^6.1.6",
     "react-paginate": "^8.3.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.7.0",
