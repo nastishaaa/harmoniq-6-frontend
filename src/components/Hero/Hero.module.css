@@ -1,0 +1,150 @@
+.hero {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+    position: relative;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding-left: 108px;
+    padding-right: 108px;
+    padding-top: 48px;
+    padding-bottom: 0;
+    min-height: 562px;
+  }
+}
+
+.heroPhoto {
+  width: 361px;
+  height: 321px;
+
+  @media screen and (min-width: 768px) {
+    width: 430px;
+    height: 383px;
+    position: absolute;
+    top: 21px;
+    right: 32px;
+    z-index: -1000;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 806px;
+    height: 562px;
+    top: 48px;
+    right: 105px;
+  }
+}
+
+.heroTitle {
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #374f42;
+  line-height: 1.4;
+
+  @media screen and (min-width: 1440px) {
+    font-size: 92px;
+    font-weight: 800;
+    line-height: 1;
+  }
+}
+
+.heroTitleSpan {
+  font-family: "Merienda", sans-serif;
+}
+
+.heroTitleAndBtns {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+
+  @media screen and (min-width: 768px) {
+    max-width: 403px;
+    row-gap: 133px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    max-width: 599px;
+    row-gap: 56px;
+  }
+}
+
+.heroBtns {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+
+  @media screen and (min-width: 768px) {
+    max-width: 249px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    max-width: none;
+    flex-direction: row;
+    column-gap: 24px;
+  }
+}
+
+.heroGoToBtn {
+  padding: 16px;
+  background-color: #649179;
+  border-radius: 64px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #f7fffb;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease;
+
+  @media screen and (min-width: 1440px) {
+    min-width: 184px;
+    padding: 16px 0;
+  }
+}
+
+.heroGoToBtn:hover {
+  background-color: #374f42;
+  color: #f7fffb;
+}
+
+.heroGoToBtn:focus {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px rgba(78 70 180 / 0.12);
+  color: #f7fffb;
+}
+
+.heroRegisterBtn {
+  padding: 16px;
+  border-radius: 64px;
+  background-color: transparent;
+  border: 1px solid #374f42;
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #374f42;
+  text-decoration: none;
+  text-align: center;
+  transition: border-color 0.3s ease;
+
+  @media screen and (min-width: 1440px) {
+    min-width: 184px;
+    padding: 16px 0;
+  }
+}
+
+.heroRegisterBtn:hover {
+  border-color: #649179;
+  color: #649179;
+}
+
+.heroRegisterBtn:focus {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px rgba(78 70 180 / 0.12);
+  color: #649179;
+}
