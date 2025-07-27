@@ -1,50 +1,77 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .footer {
-  background-color: #fafafa;
+  background-color: #d1e0d8;
   padding: 32px 16px;
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
-  color: #8e8e93;
-  text-align: center;
+  font-family: "Manrope", sans-serif;
+  margin-top: auto;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .logo img {
   height: 32px;
-  margin-bottom: 16px;
+  width: auto;
 }
 
 .links {
-  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
 }
 
-.links a {
-  color: #1d1d1f;
+.link {
+  color: #374f42; /* Згідно з кольоровою схемою */
   text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  transition: opacity 0.3s ease;
+}
+
+.link:hover {
+  opacity: 0.5; /* Згідно з ТЗ */
 }
 
 .copy {
   color: #8e8e93;
+  font-size: 14px;
 }
 
-/* Desktop styles */
+/* Десктопна версія (1024px+) */
 @media (min-width: 1024px) {
   .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-    padding: 32px;
+    padding: 32px 108px; /* Так само як хедер */
   }
 
-  .logo {
-    margin-bottom: 0;
+  .container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .links {
-    margin: 0;
+    order: 1; /* Посилання праворуч */
+    margin-left: auto;
+    margin-right: 32px;
+  }
+
+  .copy {
+    order: 2; /* Копірайт зліва */
   }
 }

@@ -6,11 +6,13 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <img src="/logo.png" alt="Harmoniq logo" />
+          <img src="/src/assets/icons/footer-logo.svg" alt="Harmoniq logo" />
         </div>
 
         <div className={styles.links}>
-          <Link to="/articles">Articles</Link>
+          <Link to="/articles" className={styles.link}>
+            Articles
+          </Link>
         </div>
 
         <div className={styles.copy}>© 2025 Harmoniq. All rights reserved.</div>

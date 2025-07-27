@@ -33,20 +33,20 @@ export default function Header() {
                 <Link to="/articles">Articles</Link>
               </li>
               <li>
-                <Link to="/creators">Creators</Link>
+                <Link to="/authors">Creators</Link>
               </li>
               <li>
                 <Link to="/login">Login</Link>
               </li>
               <li>
-                <Link to="/signup" className={styles.joinNow}>
+                <Link to="/register" className={styles.joinNow}>
                   Join Now
                 </Link>
               </li>
             </ul>
           </nav>
 
-          <Link to="/signup" className={styles.joinNowTablet}>
+          <Link to="/register" className={styles.joinNowTablet}>
             Join Now
           </Link>
           <button
@@ -76,7 +76,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/creators" onClick={() => setIsOpen(false)}>
+              <Link to="/authors" onClick={() => setIsOpen(false)}>
                 Creators
               </Link>
             </li>
@@ -87,7 +87,7 @@ export default function Header() {
             </li>
             <li className={styles.joinNowMobile}>
               <Link
-                to="/signup"
+                to="/register"
                 className={styles.joinNow}
                 onClick={() => setIsOpen(false)}
               >
