@@ -1,0 +1,79 @@
+:root {
+  --color-black: #000000;
+  --color-dark-blue: #070721;
+  --color-light-green: #d1e0d8;
+  --color-dark-green: #374f42;
+  --color-off-white: #f7fffb;
+
+  --font-family: "Manrope", sans-serif;
+
+  --font-size-base: 16px;
+  --font-size-lg: 24px;
+
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+/* Видалити потім */
+
+.section {
+ 
+  margin-right: 100px;
+  margin-left: 100px;
+}
+/* Видалити потім */
+.infoPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 33px;
+  margin: 16px 0px 16px 0px;
+}
+
+.itemsTotal {
+  font-family: "Manrope";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  margin: 0;
+  color: #070721;
+}
+/* 
+.filter {
+  width: 169px;
+  padding: 4px 8px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #9f9f9f;
+  color: #595d62;
+}
+.filter:hover {
+  box-shadow: 0 0 2px #595d62;
+}
+
+.filter:focus {
+  outline: none;
+  box-shadow: 0 0 2px #595d62;
+} */
+
+.btnLoadMore {
+     box-sizing: border-box;
+     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 361px;
+    height: 57px;
+    border-radius: 64px;
+    border: none;
+    padding: 0 16px;
+    gap: 16px;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-bold);
+    font-size: 18px;
+    line-height: 1;
+    background-color: #649179;
+    color: var(--color-off-white);
+    cursor: pointer;
+  }
+ 
