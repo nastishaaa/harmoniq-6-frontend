@@ -1,0 +1,77 @@
+.form {
+    min-width: 320px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.formImg {
+    background-color: #9f9f9f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 16px;
+    padding: 72px 115px;
+    height: 100px;
+    margin-bottom: 24px;
+}
+.formTitle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.formTitleLabel {
+    font-weight: 400;
+    font-size: 18px;
+}
+.fieldTitle {
+    border: 1px solid  #9f9f9f;
+    border-radius: 8px;
+    padding: 12px;
+    width: 300px;
+}
+.formArticle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.fieldArticleField {
+    border: 1px solid  #9f9f9f;
+    border-radius: 8px;
+    padding: 12px;
+    width: 300px;
+    height: 393px;
+}
+.formDatePublish {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.formDate {
+    width: 300px;
+    border: 1px solid  #9f9f9f;
+}
+.btnFormArticle {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: row;
+   gap: 12px;
+   border-radius: 64px;
+   padding: 12px 16px;
+   width: 320px;
+   height: 46px;
+   margin-bottom: 24px;
+   background-color:  #649179;
+   color: white;
+   font-size: 16px;
+}
