@@ -45,11 +45,11 @@ export default function ArticleDetailPage() {
       </div>
     );
   }
-
+ 
   return (
+    
     <div className={styles.section}>
-      <div>
-        <Link to="/articles">
+         {/* <Link to="/articles">
           {" "}
           <svg
             className={styles.goBackIcon}
@@ -66,7 +66,7 @@ export default function ArticleDetailPage() {
               strokeLinejoin="round"
             />
           </svg>
-        </Link>
+        </Link> */}
         <h2 className={styles.title}>{article.title}</h2>{" "}
         <img
           src={article.img}
@@ -160,6 +160,5 @@ export default function ArticleDetailPage() {
           </div>
         </div>
       </div>
-    </div>
-  );
+   );
 }

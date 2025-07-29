@@ -14,36 +14,31 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 }
-/* потім видаліти */
 
 .section {
   max-width: 393px;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin: 48px auto;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
   .section {
-    max-width: 704px;
-    margin-left: 100px;
-    margin-right: 100px;
+    max-width: 768px;
+    padding: 0 32px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .section {
-    max-width: 1440px;
-    margin-left: 200px;
-    margin-right: 150px;
+    max-width: 1225px;
   }
 }
-
-/* потім видаліти */
 
 .title {
   font-family: var(--font-family);
   font-weight: var(--font-weight-bold);
-  width: 100%;
+  width: auto;
   font-size: 32px;
   line-height: 1;
   color: var(--color-dark-blue);
@@ -191,7 +186,7 @@
   width: 40px;
   height: 40px;
 }
-.goBackIcon {
+/* .goBackIcon {
   display: inline-flex;
   align-items: center;
   width: 32px;
@@ -204,7 +199,7 @@
 
 .goBackIcon:hover {
   color: var(--color-dark-green);
-}
+} */
 
 .btnSave {
   box-sizing: border-box;
@@ -236,6 +231,7 @@
   }
   .title {
     font-size: 40px;
+    width: 704px;
   }
   .articleTextWrapper {
     width: 704px;
@@ -262,10 +258,13 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .image {
     width: 1226px;
     height: 624px;
+  }
+  .title {
+    width: 1225px;
   }
   .articleTextWrapper {
     width: 808px;
