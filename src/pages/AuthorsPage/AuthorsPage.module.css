@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+* {
+  font-family: 'Manrope', sans-serif;
+}
+
+.authorsPage {
+  margin: 48px 16px;
+}
+
+.authorsName {
+  font-weight: 700;
+  font-size: 40px;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.loadMore {
+  margin: 0 auto;
+  display: block;
+  border-radius: 64px;
+  padding: 16px;
+  width: 340px;
+  height: 57px;
+  font-weight: 700;
+  font-size: 18px;
+  background: #649179;
+  color: #f7fffb;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .authorsPage {
+    margin: 48px 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .authorsPage {
+    margin: 48px 108px;
+  }
+}
