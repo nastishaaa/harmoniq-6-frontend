@@ -14,22 +14,12 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 }
-/* Видалити потім */
 
 .section {
- 
-  margin-right: 100px;
-  margin-left: 100px;
+  max-width: 393px;
+  margin: 48px auto;
+  box-sizing: border-box; 
 }
-/* Видалити потім */
-.infoPanel {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 33px;
-  margin: 16px 0px 16px 0px;
-}
-
 .itemsTotal {
   font-family: "Manrope";
   font-weight: 700;
@@ -38,42 +28,55 @@
   margin: 0;
   color: #070721;
 }
-/* 
-.filter {
-  width: 169px;
-  padding: 4px 8px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #9f9f9f;
-  color: #595d62;
+.infoPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 361px;
+  height: 33px;
+  margin: 16px 0;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-.filter:hover {
-  box-shadow: 0 0 2px #595d62;
-}
-
-.filter:focus {
-  outline: none;
-  box-shadow: 0 0 2px #595d62;
-} */
-
 .btnLoadMore {
-     box-sizing: border-box;
-     margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 361px;
-    height: 57px;
-    border-radius: 64px;
-    border: none;
-    padding: 0 16px;
-    gap: 16px;
-    font-family: var(--font-family);
-    font-weight: var(--font-weight-bold);
-    font-size: 18px;
-    line-height: 1;
-    background-color: #649179;
-    color: var(--color-off-white);
-    cursor: pointer;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 361px;
+  height: 57px;
+  border-radius: 64px;
+  border: none;
+  margin-top: 24px;
+  padding: 0 16px;
+  gap: 16px;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: 18px;
+  line-height: 1;
+  background-color: #649179;
+  color: var(--color-off-white);
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .section {
+    max-width: 704px;
   }
- 
+  .infoPanel {
+    width: 704px;
+  }
+  .btnLoadMore{
+      width: 390px;
+
+  }
+}
+
+@media (min-width: 1440px) {
+  .section {
+    max-width: 1225px;
+  }
+  .infoPanel {
+    width: 1225px;
+  }
+}

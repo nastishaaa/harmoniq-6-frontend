@@ -18,21 +18,7 @@
 .section {
   max-width: 393px;
   margin: 48px auto;
-  padding: 0 16px;
   box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .section {
-    max-width: 768px;
-    padding: 0 32px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .section {
-    max-width: 1225px;
-  }
 }
 
 .title {
@@ -225,6 +211,10 @@
   border: 1px solid var(--color-dark-green);
 }
 @media (min-width: 768px) {
+  .section {
+    max-width: 704px;
+    padding: 0 32px;
+  }
   .image {
     width: 704px;
     height: 359px;
@@ -259,6 +249,9 @@
 }
 
 @media (min-width: 1440px) {
+  .section {
+    max-width: 1225px;
+  }
   .image {
     width: 1226px;
     height: 624px;
