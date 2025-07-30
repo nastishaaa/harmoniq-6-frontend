@@ -1,9 +1,8 @@
-import styles from "./ArticlesPage.module.css";
-import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Select from "react-select";
-
+import styles from './ArticlesPage.module.css'
+import SectionTitle from '../../components/SectionTitle/SectionTitle'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import Select from 'react-select'
 import {
   selectArticles,
   selectError,
@@ -55,19 +54,18 @@ const customStyles = {
 };
 
   useEffect(() => {
-    console.log("Юз eфект спрацював");
-  }, []);
+    console.log('Юз eфект спрацював')
+  }, [])
 
-  const articlesItemsLength = articlesItems.length;
+  const articlesItemsLength = articlesItems.length
 
   return (
     <div className={styles.section}>
+      <ModalErrorSave />
       <SectionTitle title="Articles" />
       <div className={styles.infoPanel}>
         <p className={styles.itemsTotal}>
-          {articlesItemsLength > 1
-            ? ` ${articlesItemsLength} articles`
-            : `${articlesItemsLength} article`}
+          {articlesItemsLength > 1 ? ` ${articlesItemsLength} articles` : `${articlesItemsLength} article`}
         </p>
         <Select
           value={selectedOption}
@@ -76,11 +74,11 @@ const customStyles = {
           styles={customStyles}
            isSearchable={false}
         />
-      </div>{" "}
+      </div>{' '}
       {articlesItemsLength > 0 && <ArticlesList />}
       {isLoading && <p>Почекайте</p>}
       {isError && <p>Упс,помилка</p>}
       <button className={styles.btnLoadMore}>LoadMore</button>
     </div>
-  );
+  )
 }
