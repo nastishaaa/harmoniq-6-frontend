@@ -1,7 +1,11 @@
-import styles from './LoginPage.module.css';
+
+// import css from './LoginPage.module.css';
 
 export default function LoginPage() {
     return (
-        <div>LoginPage</div>
+          <div>
+        <h2>Longin</h2>
+        <LoginForm />
+      </div>
     )
 }
