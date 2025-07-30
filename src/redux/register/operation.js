@@ -5,9 +5,7 @@ export const API = axios.create({
   baseURL: 'https://harmoniq-6.onrender.com',
 });
 
-const setAuthHeader = token => {
-  API.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
+
 
 
 export const registerThunk = createAsyncThunk('register', async (body, thunkAPI) => {
@@ -18,7 +16,7 @@ export const registerThunk = createAsyncThunk('register', async (body, thunkAPI)
       formData.append('password', body.password);
 
     const response = await API.post('/auth/register', formData);
-    setAuthHeader(response.data.token);
+    
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);

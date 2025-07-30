@@ -7,7 +7,8 @@ import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import  EyeIcon from '../../assets/icons/EyeOffIcon.svg';
-import  EyeOffIcon  from '../../assets/icons/EyeIcon.svg';
+import EyeOffIcon from '../../assets/icons/EyeIcon.svg';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -44,7 +45,8 @@ const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const togglePassword = () => setShowPassword(prev => !prev);       
-  const toggleConfirm = () => setShowConfirm(prev => !prev); 
+  const toggleConfirm = () => setShowConfirm(prev => !prev);
+    const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm }) => {
     const { name, email, password } = values; 
@@ -53,7 +55,7 @@ const RegistrationForm = () => {
     if (registerThunk.fulfilled.match(resultAction)) {
       toast.success('Registration successful!');
       resetForm();
-       Navigate('/photo');
+       navigate('/photo');
       console.log('Форма відправлена успішно! Дані:', values);
     } else {
       toast.error(resultAction.payload || 'Something went wrong during registration.');
