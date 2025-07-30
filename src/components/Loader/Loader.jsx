@@ -1,6 +1,7 @@
-import { Rings } from 'react-loader-spinner'
-import styles from './Loader.module.css'
 import clsx from 'clsx'
+import { Rings } from 'react-loader-spinner'
+
+import styles from './Loader.module.css'
 
 export const Loader = () => {
   return (
