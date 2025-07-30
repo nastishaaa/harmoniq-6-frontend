@@ -1,0 +1,160 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.wrapperOpen {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 56px 32px 32px 32px;
+  width: 420px;
+  border-radius: 32px;
+  opacity: 0;
+  transform: scale(0.5);
+  background-color: #d1e0d8;
+  transition: 0.5s;
+}
+
+.modalOpen {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.closeButton {
+  position: absolute;
+  top: 16px;
+  right: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closeButton:hover {
+  transform: scale(1.2);
+}
+
+.closeButton img {
+  width: 24px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.caption {
+  width: 80%;
+  line-height: 155%;
+  text-align: center;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 64px;
+  width: 164.5px;
+  height: 46px;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.buttonRegister,
+.buttonRegister:visited {
+  color: #f7fffb;
+  background-color: #649179;
+}
+
+.buttonRegister:hover {
+  background-color: #374f42;
+}
+
+.buttonLogin,
+.buttonLogin:visited {
+  color: #000;
+  border: 1px solid #000;
+}
+
+.buttonLogin:hover {
+  background-color: #f7fffb;
+}
+
+@media screen and (max-width: 770px) {
+  .modal {
+    width: 499px;
+  }
+
+  .caption {
+    width: 60%;
+  }
+
+  .button {
+    width: 204px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .modal {
+    width: 361px;
+  }
+
+  .caption {
+    width: 80%;
+  }
+
+  .buttonsContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Monrope', sans-serif;
+}

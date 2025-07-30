@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
+import globalReducer from "./global/slice";
 import articlesReducer from "./articles/slice";
-import userReducer from "./user/slice";
-import authorArticlesReducer from "./authorArticles/authorArticlesSlice";
+import { registerReducer } from "./register/slice";
 
 export const store = configureStore({
   reducer: {
+    global: globalReducer,
     articles: articlesReducer,
-    authorArticles: authorArticlesReducer,
-    user: userReducer,
+    register: registerReducer,
   },
 });

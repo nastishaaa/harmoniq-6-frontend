@@ -1,6 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
 import RootLayout from "./layout/RootLayout";
+import { useSelector } from "react-redux";
+import { Loader } from "./components/Loader/Loader.jsx";
+import { isLoading } from "./redux/global/selectors.js";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -48,8 +51,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const isGlobalLoading = useSelector(isLoading);
   return (
     <>
+      {isGlobalLoading && <Loader />}
       <RouterProvider router={router} />
     </>
   );

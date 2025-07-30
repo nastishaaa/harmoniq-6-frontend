@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+
 import styles from './Pagination.module.css'
 
 export const Pagination = ({ currentPage = 2, pages = 10 }) => {
@@ -53,11 +54,11 @@ export const Pagination = ({ currentPage = 2, pages = 10 }) => {
   return (
     <div className={styles.container}>
       <div className={styles.iconWrapper}>
-        <img className={clsx(styles.icon, styles.iconPrev)} src="../../../public/top-right.svg" alt="Arrow icon" />
+        <img className={clsx(styles.icon, styles.iconPrev)} src="src/assets/icons/top-right.svg" alt="Arrow icon" />
       </div>
       <div className={styles.pages}>{renderPages()}</div>
       <div className={clsx(styles.iconWrapper, styles.iconNext)}>
-        <img className={clsx(styles.icon, styles.iconNext)} src="../../../public/top-right.svg" alt="Arrow icon" />
+        <img className={clsx(styles.icon, styles.iconNext)} src="src/assets/icons/top-right.svg" alt="Arrow icon" />
       </div>
     </div>
   )
