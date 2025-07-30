@@ -58,6 +58,11 @@ export default function ArticlesPage() {
     console.log("Юз eфект спрацював");
   }, []);
 
+  // Потрібний ефект для скролу на початок сторінки після переходу на сторінку ArticlesPage
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   const articlesItemsLength = articlesItems.length;
 
   return (

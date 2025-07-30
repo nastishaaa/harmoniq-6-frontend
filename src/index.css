@@ -50,3 +50,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
