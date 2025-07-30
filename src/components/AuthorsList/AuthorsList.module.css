@@ -1,0 +1,20 @@
+.authorsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+  .authorsList {
+    gap: 24px;
+    padding: 0 54px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .authorsList {
+    padding: 0;
+  }
+}

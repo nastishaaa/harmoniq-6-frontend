@@ -21,7 +21,12 @@ export default function Header() {
       <header className={styles.header}>
         <div className={styles.container}>
           <div className={styles.logo}>
-            <img src="/src/assets/icons/header-logo.svg" alt="Harmoniq logo" />
+            <Link to="/">
+              <img
+                src="/src/assets/icons/header-logo.svg"
+                alt="Harmoniq logo"
+              />
+            </Link>
           </div>
 
           <nav className={styles.navDesktop}>
