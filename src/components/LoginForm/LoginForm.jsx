@@ -43,38 +43,34 @@ export default function LoginForm() {
   };
 
 return (
-  <div>
+  <div className={css.containerLoginForm}>
     <h2>Login</h2>
     <Formik validationSchema={loginSchema} initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
       <Form autoComplete='off'>
         <div>
-          <label  htmlFor='email'>Enter your email address</label>
-      
-        <Field type='email' name='email' placeholder="email@gmail.com"/>
-    
-   
+          <label  htmlFor='email' className={css.labelLoginForm}>Enter your email address
+        <Field className={css.fieldLoginForm} type='email' name='email' placeholder="email@gmail.com"/>
             <ErrorMessage name='email' component='span' />
-       
+            </label>
            </div >
-        <div> <label htmlFor='password'>  Enter your password</label>
+       
+          <label htmlFor='password' className={css.labelLoginForm}>  Enter your password
            <div  className = {css.label}>
-            <Field  type='password' name='password'  placeholder="*********" />
-          </div>
-          <ErrorMessage  name='password' component='span' />
-
-        </div>
-          
+            <Field className={css.fieldLoginForm} type='password' name='password'  placeholder="*********" />
+          <ErrorMessage  name='password' component='span' />    
              <button
-                type="button"
+              type="button"
+              className={css.eyeButton}
                 onClick={handlePasswordClick}
                 aria-label={passwordEye ? "Hide password" : "Show password"}
             >
               {passwordEye ? <FiEye /> : <FiEyeOff />}
-           </button>
-    
-          {/* <button type="submit">
+            </button>
+             </div>
+        </label>
+          <button type="submit" className={css.loginButton}>
             Login
-          </button> */}
+          </button>
         </Form>
     </Formik>
       <p>
