@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function ArticlesItem({ article, id }) {
   return (
-    <article key={id} className={styles.card}>
+    <article className={styles.card}>
       <img
         src={article.img}
         alt={article.title}

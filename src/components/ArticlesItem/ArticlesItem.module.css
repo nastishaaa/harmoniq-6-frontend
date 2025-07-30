@@ -1,5 +1,5 @@
 .card {
-  width: 392px;
+  width: 361px;
   height: 492px;
   box-sizing: border-box;
   justify-content: space-between;
@@ -8,26 +8,22 @@
   padding: 12px;
   background-color: #d1e0d8;
 }
-
 .image {
   display: block;
   margin: 0 auto;
-  width: 368px;
+  width: 337px;
   height: 233px;
   opacity: 1;
   border-radius: 24px;
 }
-
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 195px;
+  height: 171px;
 }
-
 .author {
   height: 22px;
-  width: 368px;
   padding: 0;
   margin: 0;
   font-family: Manrope;
@@ -41,7 +37,6 @@
   text-overflow: ellipsis;
   color: #070721;
 }
-
 .title {
   display: -webkit-box;
   padding: 0;
@@ -59,7 +54,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .description {
   display: -webkit-box;
   padding: 0;
@@ -68,7 +62,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 1.55;
-  letter-spacing: 0%;
   color: #070721;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -76,16 +69,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .bottomNavi {
   display: flex;
   justify-content: space-between;
 }
-
 .btnLearnMore {
   box-sizing: border-box;
   background-color: transparent;
-  width: 320px;
+  width: 280px;
   height: 40px;
   opacity: 1;
   border-radius: 64px;
@@ -102,11 +93,32 @@
   border-color: #070721;
 }
 
+@media (min-width: 768px) {
+  .card {
+    width: 340px;
+  }
+  .image {
+    width: 316px;
+  }
+  .content {
+    height: 195px;
+  }
+  .btnLearnMore {
+    width: 268px;
+  }
+}
 
-
-
-
-
+@media (min-width: 1440px) {
+  .card {
+    width: 392px;
+  }
+  .image {
+    width: 368px;
+  }
+  .btnLearnMore {
+    width: 320px;
+  }
+}
 
 /* Виправити */
 .bookmarkIcon:hover rect {
