@@ -4,15 +4,14 @@ import { useSelector } from "react-redux";
 import { selectLoading, selectError } from "../../redux/articles/selectors.js";
 //import {addArticle} from '../../redux/addArticles/addArticlesOperations.js';
 import css from "./CreateArticlePage.module.css";
-import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
+import { selectIsLoggedIn } from "../../redux/register/selector.js";
 
 export default function CreateArticlePage() {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-const isLoggedIn = useSelector(selectIsLoggedIn);
-if (!isLoggedIn) {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
   return (
