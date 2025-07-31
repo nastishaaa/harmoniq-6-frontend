@@ -1,0 +1,71 @@
+.containerLoginForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 48px 32px;
+    border-radius: 32px;
+    max-width: 362px;
+    width: 420px;
+    background-color: #D1E0D8;
+    box-sizing: border-box;
+    margin: 56px auto 16px auto;
+}
+
+.eyeButton {
+    position: absolute;
+    top: 35%;
+    right: 8px;
+    transform: translateY(-50%);
+    background:transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+} 
+
+.loginButton{
+    box-sizing: border-box;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 328px;
+        height: 38px;
+        border-radius: 64px;
+        border: none;
+        margin-top: 24px;
+        padding: 0 16px;
+        gap: 16px;
+        font-family: var(--font-family);
+        font-weight: var(--font-weight-bold);
+        font-size: 18px;
+        line-height: 1;
+        background-color: #649179;
+        color: var(--color-off-white);
+        cursor: pointer;
+}
+
+.labelLoginForm{
+    font-size: 12px;
+    color:#070721;
+    font-family: "Manrope", sans-serif;
+    line-height: 1.5;
+}
+.fieldLoginForm{
+    color: #000000;
+        border: 1px solid #9F9F9F;
+        border-radius: 8px;
+        width: 100%;
+        margin-top: 4px;
+        padding: 8px;
+        font-size: 12px;
+        background-color: #ffffff;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+        box-sizing: border-box;
+        height: 41px;
+        padding-right: 32px;
+}
