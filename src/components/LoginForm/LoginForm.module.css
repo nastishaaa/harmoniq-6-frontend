@@ -69,3 +69,14 @@
         height: 41px;
         padding-right: 32px;
 }
+
+.errorInput {
+    border: 1.5px solid #c80000;
+}
+
+.errorFixed {
+    /* color: #c80000; */
+    color:forestgreen;
+    font-size: 12px;
+    margin: 4px;
+}
