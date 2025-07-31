@@ -55,8 +55,9 @@ function App() {
   return (
     <>
       {isGlobalLoading && <Loader />}
-      <RouterProvider router={router} />
-      <ModalErrorSave />
+      <RouterProvider router={router} >
+        <ModalErrorSave />
+      </RouterProvider>
     </>
   );
 }
