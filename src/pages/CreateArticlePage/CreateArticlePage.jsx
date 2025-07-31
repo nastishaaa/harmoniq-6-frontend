@@ -7,19 +7,19 @@ import css from "./CreateArticlePage.module.css";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
 
 export default function CreateArticlePage() {
-  //const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  if (!isLoggedIn) {
+const isLoggedIn = useSelector(selectIsLoggedIn);
+if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
-
   return (
     <div className={css.form}>
       <h1>Create an article</h1>
       {loading && <p>Loading ...</p>}
+
       {error && <p>{error}</p>}
       <AddArticleForm />
     </div>
