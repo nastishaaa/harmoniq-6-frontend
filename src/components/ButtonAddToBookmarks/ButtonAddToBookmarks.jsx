@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import clsx from "clsx";
 import styles from "./ButtonAddToBookmarks.module.css";
-
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
+import { selectIsLoggedIn } from "../../redux/register/selector";
 
 export default function ButtonAddToBookmarks({ articleId, children }) {
   const dispatch = useDispatch();

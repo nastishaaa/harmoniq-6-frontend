@@ -1,12 +1,8 @@
 import ButtonAddToBookmarks from "../ButtonAddToBookmarks/ButtonAddToBookmarks";
 import styles from "./ArticlesItem.module.css";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
 
 export default function ArticlesItem({ article, id }) {
-  const dispath = useDispatch();
-
   return (
     <article className={styles.card}>
       <img
