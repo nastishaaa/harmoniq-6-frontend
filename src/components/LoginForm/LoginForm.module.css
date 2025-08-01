@@ -15,8 +15,8 @@
 
 .eyeButton {
     position: absolute;
-    top: 35%;
-    right: 8px;
+    top: 47%;
+    right: 15px;
     transform: translateY(-50%);
     background:transparent;
     border: none;
@@ -54,6 +54,9 @@
     color:#070721;
     font-family: "Manrope", sans-serif;
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 .fieldLoginForm{
     color: #000000;
@@ -75,8 +78,8 @@
 }
 
 .errorFixed {
-    /* color: #c80000; */
-    color:forestgreen;
+    color: #c80000;
+    /* color:forestgreen; */
     font-size: 12px;
     margin: 4px;
 }

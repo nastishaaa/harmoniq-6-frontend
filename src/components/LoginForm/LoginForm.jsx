@@ -29,17 +29,36 @@ export default function LoginForm() {
     setPasswordEye((prev) => !prev);
   };
 
- const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     try {
       await dispatch(login(values)).unwrap();
       actions.resetForm();
       navigate("/");
     } catch (error) {
       console.error(error);
-      toast.error('Invalid username or password. Please try again.');
+      const errorMessage =
+        error?.response?.data?.message || error.message || "Login failed";
 
+      // shows the same message for both fields
+      actions.setFieldError("email", errorMessage);
+      actions.setFieldError("password", errorMessage);
+
+      // makes fields "touched" to make the frame red
+      actions.setTouched({ email: true, password: true }, false);
+      toast.error(errorMessage);
     }
   };
+//  const handleSubmit = async (values, actions) => {
+//     try {
+//       await dispatch(login(values)).unwrap();
+//       actions.resetForm();
+//       navigate("/");
+//     } catch (error) {
+//       console.error(error);
+//       toast.error('Invalid username or password. Please try again.');
+
+//     }
+//   };
 
 return (
   <div className={css.containerLoginForm}>
@@ -127,7 +146,10 @@ return (
 
  	// TO do:
   // -find the solution to the eye button
-  // -how to make it send to backend? 
+// -how to make it send to backend?
+// adaptive design
+  
+
 // По результату валідації:
 // - у разі наявності помилок валідації - біля відповідних полів форми потрібно вивести повідомлення з суттю помилки і заблокувати відправку запиту з форми на backend.
 // - у разі, якщо всі значення валідні, - дані слід відправити на backend.
