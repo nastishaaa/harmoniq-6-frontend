@@ -23,12 +23,15 @@ const authorArticlesSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAuthorArticles.fulfilled, (state, action) => {
-        const { data, pagination } = action.payload;
+        const { data, pagination } = action.payload || {};
+        if (!Array.isArray(data)) return; // safety
+
         state.items.push(...data);
         state.page = pagination.page + 1;
         state.hasMore = pagination.hasMore;
         state.isLoading = false;
       })
+
       .addCase(fetchAuthorArticles.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "Error fetching author articles";

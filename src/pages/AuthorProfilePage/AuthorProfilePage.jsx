@@ -3,17 +3,14 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import ArticlesListReusable from "../../components/ArticlesList/ArticlesListReusable";
+import { resetAuthorArticles } from "../../redux/authorArticles/authorArticlesSlice";
 
-import {
-  fetchAuthorArticles,
-  fetchAuthorInfo,
-} from "../../redux/authorArticles/authorArticlesOperations";
+import { fetchAuthorArticles } from "../../redux/authorArticles/authorArticlesOperations";
 import {
   selectAuthorArticles,
   selectAuthorArticlesHasMore,
   selectAuthorArticlesLoading,
   selectAuthorArticlesPage,
-  selectAuthorInfo,
 } from "../../redux/authorArticles/authorArticlesSelectors";
 
 import {
@@ -31,24 +28,21 @@ export default function AuthorProfilePage() {
 
   const currentUserId = useSelector((state) => state.user.currentUser?._id);
   const isOwnProfile = id === currentUserId;
+  console.log("isOwnProfile:", isOwnProfile);
 
   const [activeTab, setActiveTab] = useState("my");
-
+  console.log("activeTab:", activeTab);
   const articles = useSelector(selectAuthorArticles);
+  console.log("Author articles:", articles);
   const savedArticles = useSelector(selectSavedArticles);
   const createdArticles = useSelector(selectCreatedArticles);
   const isLoading = useSelector(selectAuthorArticlesLoading);
   const hasMore = useSelector(selectAuthorArticlesHasMore);
   const page = useSelector(selectAuthorArticlesPage);
-  const authorInfo = useSelector(selectAuthorInfo);
 
-  // 🔁 Отримуємо загальну інформацію про автора
   useEffect(() => {
-    dispatch(fetchAuthorInfo(id));
-  }, [id, dispatch]);
+    dispatch(resetAuthorArticles());
 
-  // 📦 Отримуємо відповідні статті
-  useEffect(() => {
     if (isOwnProfile) {
       if (activeTab === "my") {
         dispatch(fetchCreatedArticles());
@@ -66,32 +60,6 @@ export default function AuthorProfilePage() {
 
   return (
     <div>
-      {authorInfo && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            marginBottom: "24px",
-          }}
-        >
-          <img
-            src={authorInfo.avatarUrl}
-            alt={authorInfo.name}
-            style={{
-              width: "64px",
-              height: "64px",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
-          />
-          <div>
-            <h2 style={{ margin: 0 }}>{authorInfo.name}</h2>
-            <p style={{ margin: 0 }}>{authorInfo.articlesAmount} статей</p>
-          </div>
-        </div>
-      )}
-
       {isOwnProfile && (
         <div
           style={{

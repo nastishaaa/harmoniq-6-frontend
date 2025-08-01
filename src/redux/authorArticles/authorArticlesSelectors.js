@@ -1,4 +1,7 @@
-export const selectAuthorArticles = (state) => state.authorArticles.items;
+// export const selectAuthorArticles = (state) => state.authorArticles.items;
+export const selectAuthorArticles = (state) =>
+  state.authorArticles?.items || [];
+
 export const selectAuthorArticlesLoading = (state) =>
   state.authorArticles.isLoading;
 export const selectAuthorArticlesError = (state) => state.authorArticles.error;
