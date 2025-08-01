@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ArticlesListReusable from "../../components/ArticlesList/ArticlesListReusable";
 import { resetAuthorArticles } from "../../redux/authorArticles/authorArticlesSlice";
-
 import { fetchAuthorArticles } from "../../redux/authorArticles/authorArticlesOperations";
 import {
   selectAuthorArticles,
@@ -28,17 +27,36 @@ export default function AuthorProfilePage() {
 
   const currentUserId = useSelector((state) => state.user.currentUser?._id);
   const isOwnProfile = id === currentUserId;
-  console.log("isOwnProfile:", isOwnProfile);
 
   const [activeTab, setActiveTab] = useState("my");
-  console.log("activeTab:", activeTab);
+  const [authorInfo, setAuthorInfo] = useState(null);
+
   const articles = useSelector(selectAuthorArticles);
-  console.log("Author articles:", articles);
   const savedArticles = useSelector(selectSavedArticles);
   const createdArticles = useSelector(selectCreatedArticles);
   const isLoading = useSelector(selectAuthorArticlesLoading);
   const hasMore = useSelector(selectAuthorArticlesHasMore);
   const page = useSelector(selectAuthorArticlesPage);
+
+  // Fetch author info (name, avatar, etc)
+  useEffect(() => {
+    if (!isOwnProfile) {
+      const fetchAuthorInfo = async () => {
+        try {
+          const res = await fetch(
+            `https://harmoniq-6.onrender.com/users/${id}`
+          );
+          if (!res.ok) throw new Error("Failed to fetch author info");
+          const data = await res.json();
+          setAuthorInfo(data);
+        } catch (error) {
+          console.error("Error loading author info:", error);
+        }
+      };
+
+      fetchAuthorInfo();
+    }
+  }, [id, isOwnProfile]);
 
   useEffect(() => {
     dispatch(resetAuthorArticles());
@@ -58,16 +76,59 @@ export default function AuthorProfilePage() {
     dispatch(fetchAuthorArticles({ authorId: id, page }));
   };
 
+  const displayArticles = isOwnProfile
+    ? activeTab === "my"
+      ? createdArticles
+      : savedArticles
+    : articles;
+
+  const articleCount = displayArticles.length;
+
   return (
-    <div>
-      {isOwnProfile && (
+    <div style={{ padding: "20px" }}>
+      {!isOwnProfile && authorInfo && (
         <div
           style={{
             display: "flex",
-            gap: "12px",
-            marginBottom: "20px",
+            alignItems: "center",
+            gap: "16px",
+            marginBottom: "24px",
           }}
         >
+          {authorInfo.avatarUrl ? (
+            <img
+              src={authorInfo.avatarUrl}
+              alt={authorInfo.name}
+              width="137"
+              height="137"
+              style={{ borderRadius: "50%", objectFit: "cover" }}
+            />
+          ) : (
+            <div
+              style={{
+                width: "137px",
+                height: "137px",
+                borderRadius: "50%",
+                backgroundColor: "#ccc",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "32px",
+                color: "#fff",
+              }}
+            >
+              {authorInfo.name?.charAt(0).toUpperCase()}
+            </div>
+          )}
+          <div>
+            <h2 style={{ margin: 0 }}>{authorInfo.name}</h2>
+            <p style={{ margin: 0 }}>{articleCount} articles</p>
+          </div>
+        </div>
+      )}
+
+      {isOwnProfile && (
+        <div style={{ display: "flex", gap: "12px", marginBottom: "20px" }}>
           <button
             onClick={() => setActiveTab("my")}
             disabled={activeTab === "my"}
@@ -83,15 +144,7 @@ export default function AuthorProfilePage() {
         </div>
       )}
 
-      <ArticlesListReusable
-        articles={
-          isOwnProfile
-            ? activeTab === "my"
-              ? createdArticles
-              : savedArticles
-            : articles
-        }
-      />
+      <ArticlesListReusable articles={displayArticles} />
 
       {!isOwnProfile && hasMore && (
         <button onClick={handleLoadMore} disabled={isLoading}>
