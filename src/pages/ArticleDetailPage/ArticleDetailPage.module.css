@@ -29,7 +29,26 @@
   line-height: 1;
   color: var(--color-dark-blue);
 }
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  
+}
 
+.notFoundTitle {
+  text-align: center;
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark-blue);
+}
+.goBackLink{
+  color:var(--color-dark-green)
+}
+.goBackLink:hover{
+  color: var(--color-dark-blue);
+}
 .image {
   display: block;
   margin: 32px 0;
