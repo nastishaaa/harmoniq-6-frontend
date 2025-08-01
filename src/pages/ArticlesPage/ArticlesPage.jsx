@@ -62,6 +62,10 @@ export default function ArticlesPage() {
     dispatch(fetchArticles());
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   const articlesItemsLength = articlesItems.length;
 
   return (

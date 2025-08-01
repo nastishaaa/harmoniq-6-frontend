@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage} from 'formik';
 import { useId } from "react";
 import * as Yup from "yup";
 import { useDispatch } from 'react-redux';
-//import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
@@ -40,14 +40,14 @@ const handleSubmit = async (values, actions) => {
     const resultAction = await dispatch(addArticle(formData));
 
     if (addArticle.fulfilled.match(resultAction)) {
-      alert.success('Article published successfully!');
+      toast.success('Article published successfully!');
        navigate(`/articles/${resultAction.payload._id}`);
       actions.resetForm();
     } else {
-      alert.error(resultAction.payload || 'Something went wrong');
+      toast.error(resultAction.payload || 'Something went wrong');
     }
   } catch (error) {
-    alert.error('Unexpected error', error);
+    toast.error('Unexpected error', error);
   }
 };
 
@@ -58,6 +58,7 @@ const articleDateId = useId();
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={ArticleFormSchema}>
         {({ setFieldValue, values }) => (
       <Form className={css.form}>
+        <div className={css.styleForTab}> 
         <div className = {css.formImg}> 
          <label htmlFor="fileInput" class={css.photoLabel}> 
        <input className={css.fieldImg} id="fileInput" hidden  type="file" name="articleimg" accept="image/*" onChange={(event) => {setFieldValue("articleimg", event.currentTarget.files[0]);}}/>
@@ -72,11 +73,12 @@ const articleDateId = useId();
        </div>
        <div className={css.formTitle}>
         <label htmlFor={articlenameId} className={css.formTitleLabel}>Title</label>
-        <Field className={css.fieldTitle} type="text" name="articlename" id={articlenameId} />
+        <Field className={css.fieldTitle} placeholder="Enter the title" type="text" name="articlename" id={articlenameId} />
         <ErrorMessage name="articlename" component="span" className={css.error}/>
         </div>
+        </div>
         <div className={css.formArticle}> 
-       <Field as="textarea" className={css.fieldArticleField} name="articletext" />
+       <Field as="textarea" className={css.fieldArticleField} placeholder="Enter a text" name="articletext" />
         <ErrorMessage name="articletext" component="span" className={css.error}/>
         </div>
         <div className={css.formDatePublish}>

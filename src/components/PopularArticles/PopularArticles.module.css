@@ -1,0 +1,79 @@
+.popularArticles {
+  margin-top: 72px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding-left: 108px;
+    padding-right: 108px;
+  }
+}
+
+.popularArticlesTitleAndLink {
+  display: flex;
+  flex-direction: column;
+  row-gap: 17px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.popularArticlesTitle {
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #070721;
+  line-height: 1.4;
+
+  @media screen and (min-width: 1440px) {
+    font-size: 40px;
+  }
+}
+
+.popularArticlesLink {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.popularArticlesLinkText {
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #374f42;
+}
+
+.popularArticlesLinkIcon {
+  width: 24px;
+  height: 24px;
+  color: #374f42;
+}
+
+.popularArticlesList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  padding-top: 16px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+}
+
+.popularArticlesList > :last-child {
+  @media screen and (min-width: 1440px) {
+    display: none;
+  }
+}

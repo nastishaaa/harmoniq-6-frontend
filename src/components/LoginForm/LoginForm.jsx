@@ -1,6 +1,6 @@
 
 import * as Yup from "yup";
-// import clsx from "clsx";
+import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -36,55 +36,88 @@ export default function LoginForm() {
       navigate("/");
     } catch (error) {
       console.error(error);
-
       toast.error('Invalid username or password. Please try again.');
 
     }
   };
 
 return (
-  <div>
+  <div className={css.containerLoginForm}>
     <h2>Login</h2>
     <Formik validationSchema={loginSchema} initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
       <Form autoComplete='off'>
-        <div>
-          <label  htmlFor='email'>Enter your email address</label>
-      
-        <Field type='email' name='email' placeholder="email@gmail.com"/>
-    
-   
+        
+        <label className={css.labelLoginForm}>Enter your email address
+           <Field name="email">
+              {({ field, meta }) => (
+                <>
+                  <input
+                    {...field}
+                    type="email"
+                    placeholder="email@gmail.com"
+                    className={clsx(
+                      css.fieldLoginForm,
+                      meta.touched && meta.error && css.errorInput
+                    )}
+                  />
+                  <div className={css.errorFixed}>
+                    {meta.touched && meta.error ? meta.error : "\u00A0"}
+                  </div>
+                </>
+              )}
+          </Field>
+            </label>
+          {/* ========================================================
+        <Field className={css.fieldLoginForm} type='email' name='email' placeholder="email@gmail.com"/>
             <ErrorMessage name='email' component='span' />
-       
-           </div >
-        <div> <label htmlFor='password'>  Enter your password</label>
-           <div  className = {css.label}>
-            <Field  type='password' name='password'  placeholder="*********" />
-          </div>
-          <ErrorMessage  name='password' component='span' />
-
-        </div>
+        </label>
+        =========================================================== */}
           
+          <label htmlFor='password' className={css.labelLoginForm}>  Enter your password
+          <div className={css.label}>
+              <Field name="password">
+                {({ field, meta }) => (
+                  <>
+                    <input
+                      {...field}
+                      type={passwordEye ? "text" : "password"}
+                      placeholder="*********"
+                      className={clsx(
+                        css.fieldLoginForm,
+                        meta.touched && meta.error && css.errorInput
+                      )}
+                  />
+                  {/* we keep the height of the block to avoid "jumping" "\u00A0" */}
+                    <div className={css.errorFixed}>
+                      {meta.touched && meta.error ? meta.error : "\u00A0"}
+                    </div>
+                  </>
+                )}
+              </Field>
+            {/* =================================================================
+            <Field className={css.fieldLoginForm} type='password' name='password'  placeholder="*********" />
+            <ErrorMessage name='password' component='span' />   
+          ====================================================================   */}
              <button
-                type="button"
+              type="button"
+              className={css.eyeButton}
                 onClick={handlePasswordClick}
                 aria-label={passwordEye ? "Hide password" : "Show password"}
             >
               {passwordEye ? <FiEye /> : <FiEyeOff />}
-           </button>
-    
-          {/* <button type="submit">
+            </button>
+             </div>
+        </label>
+          <button type="submit" className={css.loginButton}>
             Login
-          </button> */}
+          </button>
         </Form>
     </Formik>
       <p>
-      {/* Don't have an account?{" "} */}
       Don't have an account?
-      {/* //to="/api/auth/register" check on route*/}
-      <NavLink to="/auth/register">
+      <NavLink to="/register">
         Register
         </NavLink>   
-        
     </p>
      </div>
   );
@@ -92,7 +125,9 @@ return (
 
 
 
- 	
+ 	// TO do:
+  // -find the solution to the eye button
+  // -how to make it send to backend? 
 // По результату валідації:
 // - у разі наявності помилок валідації - біля відповідних полів форми потрібно вивести повідомлення з суттю помилки і заблокувати відправку запиту з форми на backend.
 // - у разі, якщо всі значення валідні, - дані слід відправити на backend.
