@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import AuthorsList from '../../components/AuthorsList/AuthorsList'
-import styles from './AuthorsPage.module.css'
+import React, { useState, useEffect } from "react";
+import AuthorsList from "../../components/AuthorsList/AuthorsList";
+import styles from "./AuthorsPage.module.css";
 
 const AuthorsPage = () => {
-  const [allAuthors, setAllAuthors] = useState([])
-  const [visibleAuthors, setVisibleAuthors] = useState([])
-  const [hasMore, setHasMore] = useState(true)
-  const authorsPerPage = 20
+  const [allAuthors, setAllAuthors] = useState([]);
+  const [visibleAuthors, setVisibleAuthors] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const authorsPerPage = 20;
 
   useEffect(() => {
-    fetchAuthors()
-  }, [])
+    fetchAuthors();
+  }, []);
 
   const fetchAuthors = async () => {
     try {
-      const response = await fetch('https://harmoniq-6.onrender.com/users/authors')
+      const response = await fetch("https://harmoniq-6.onrender.com/users/");
 
       if (!response.ok) {
-        throw new Error('Ошибка при загрузке авторов')
+        throw new Error("Error loading authors");
       }
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (data && data.data) {
-        setAllAuthors(data.data)
-        setVisibleAuthors(data.data.slice(0, authorsPerPage))
-        setHasMore(data.data.length > authorsPerPage)
+        setAllAuthors(data.data);
+        setVisibleAuthors(data.data.slice(0, authorsPerPage));
+        setHasMore(data.data.length > authorsPerPage);
       }
     } catch (error) {
-      console.error('Ошибка при загрузке авторов:', error)
+      console.error("Error loading authors:", error);
     }
-  }
+  };
 
   const handleLoadMore = () => {
-    const currentLength = visibleAuthors.length
-    const newVisible = allAuthors.slice(0, currentLength + authorsPerPage)
-    setVisibleAuthors(newVisible)
-    setHasMore(newVisible.length < allAuthors.length)
-  }
+    const currentLength = visibleAuthors.length;
+    const newVisible = allAuthors.slice(0, currentLength + authorsPerPage);
+    setVisibleAuthors(newVisible);
+    setHasMore(newVisible.length < allAuthors.length);
+  };
 
   return (
     <div className={styles.authorsPage}>
@@ -49,7 +49,7 @@ const AuthorsPage = () => {
         </button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AuthorsPage
+export default AuthorsPage;

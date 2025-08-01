@@ -21,11 +21,8 @@ const UploadPhotoPage = lazy(() =>
   import("./pages/UploadPhotoPage/UploadPhotoPage.jsx")
 );
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage.jsx"));
-const CreatorsPage = lazy(() =>
-  import("./pages/CreatorsPage/CreatorsPage.jsx")
-);
-const CreatorDetailPage = lazy(() =>
-  import("./pages/CreatorDetailPage/CreatorDetailPage.jsx")
+const AuthorProfilePage = lazy(() =>
+  import("./pages/AuthorProfilePage/AuthorProfilePage.jsx")
 );
 const CreateArticlePage = lazy(() =>
   import("./pages/CreateArticlePage/CreateArticlePage.jsx")
@@ -43,8 +40,7 @@ const router = createBrowserRouter([
       { path: "register", element: <RegisterPage /> },
       { path: "photo", element: <UploadPhotoPage /> },
       { path: "login", element: <LoginPage /> },
-      { path: "authors", element: <CreatorsPage /> },
-      { path: "authors/:id", element: <CreatorDetailPage /> },
+      { path: "users/:id", element: <AuthorProfilePage /> },
       { path: "create", element: <CreateArticlePage /> },
     ],
   },
@@ -55,7 +51,7 @@ function App() {
   return (
     <>
       {isGlobalLoading && <Loader />}
-      <RouterProvider router={router} >
+      <RouterProvider router={router}>
         <ModalErrorSave />
       </RouterProvider>
     </>
