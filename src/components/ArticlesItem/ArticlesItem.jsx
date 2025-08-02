@@ -12,7 +12,7 @@ export default function ArticlesItem({ article, id }) {
         loading="lazy"
       />
       <div className={styles.content}>
-        <p className={styles.author}>{article.ownerId.$oid}</p>
+        <p className={styles.author}>{article.author}</p>
         <h3 className={styles.title}>{article.title}</h3>
         <p className={styles.description}>{article.desc}</p>
       </div>
@@ -24,7 +24,6 @@ export default function ArticlesItem({ article, id }) {
         >
           Learn more
         </Link>
-
         <ButtonAddToBookmarks articleId={id}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +49,7 @@ export default function ArticlesItem({ article, id }) {
             />
           </svg>
         </ButtonAddToBookmarks>
-      </div>
+      </div> 
     </article>
   );
 }

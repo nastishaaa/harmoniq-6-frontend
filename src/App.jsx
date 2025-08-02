@@ -4,7 +4,6 @@ import RootLayout from "./layout/RootLayout";
 import { useSelector } from "react-redux";
 import { Loader } from "./components/Loader/Loader.jsx";
 import { isLoading } from "./redux/global/selectors.js";
-import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -51,9 +50,7 @@ function App() {
   return (
     <>
       {isGlobalLoading && <Loader />}
-      <RouterProvider router={router}>
-        <ModalErrorSave />
-      </RouterProvider>
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }

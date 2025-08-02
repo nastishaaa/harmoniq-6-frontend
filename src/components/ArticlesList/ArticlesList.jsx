@@ -6,13 +6,12 @@ import ArticlesItem from "../ArticlesItem/ArticlesItem";
 export default function ArticlesList() {
   // filterArticles---Зробити логіку фільтру
   const articlesItems = useSelector(selectArticles);
-
-  return (
+    return (
     <div>
       <ul className={styles.list}>
         {articlesItems.map((article) => (
-          <li key={article._id.$oid}>
-            <ArticlesItem article={article} id={article._id.$oid} />
+          <li key={article._id}>
+            <ArticlesItem article={article} id={article._id} />
           </li>
         ))}
       </ul>
