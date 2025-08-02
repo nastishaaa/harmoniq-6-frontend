@@ -37,7 +37,6 @@ const router = createBrowserRouter([
 
 function App() {
   const isGlobalLoading = useSelector(isLoading)
-
   return (
     <>
       {isGlobalLoading && <Loader />}

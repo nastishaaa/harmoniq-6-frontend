@@ -8,8 +8,13 @@ export default function ArticlesItem({ article, id }) {
   const dispath = useDispatch()
 
   return (
-    <article key={id} className={styles.card}>
-      <img src={article.img} alt={article.title} className={styles.image} loading="lazy" />
+    <article className={styles.card}>
+      <img
+        src={article.img}
+        alt={article.title}
+        className={styles.image}
+        loading="lazy"
+      />
       <div className={styles.content}>
         <p className={styles.author}>{article.ownerId.$oid}</p>
         <h3 className={styles.title}>{article.title}</h3>
