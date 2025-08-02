@@ -18,6 +18,7 @@
 .section {
   max-width: 393px;
   margin: 48px auto;
+  padding: 0px 5px;
   box-sizing: border-box;
 }
 
@@ -29,7 +30,26 @@
   line-height: 1;
   color: var(--color-dark-blue);
 }
+.notFoundWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+.notFoundTitle {
+  text-align: center;
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark-blue);
+}
+.goBackLink {
+  color: var(--color-dark-green);
+}
+.goBackLink:hover {
+  color: var(--color-dark-blue);
+}
 .image {
   display: block;
   margin: 32px 0;
@@ -172,20 +192,6 @@
   width: 40px;
   height: 40px;
 }
-/* .goBackIcon {
-  display: inline-flex;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  gap: 8px;
-  color: var(--color-dark-blue);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.goBackIcon:hover {
-  color: var(--color-dark-green);
-} */
 
 .btnSave {
   box-sizing: border-box;

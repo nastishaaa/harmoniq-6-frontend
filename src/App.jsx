@@ -4,7 +4,6 @@ import RootLayout from "./layout/RootLayout";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader } from "./components/Loader/Loader.jsx";
 import { isLoading } from "./redux/global/selectors.js";
-import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
 
 import { selectIsRefreshing } from "./redux/authorization/selectors.js";
 import { refresh } from "./redux/authorization/operations.js";
@@ -68,7 +67,6 @@ function App() {
   }, []);
   return (
     <>
-      
       {isGlobalLoading && <Loader /> || isRefreshing && <Loader />}
       <RouterProvider router={router}>
         <ModalErrorSave />
