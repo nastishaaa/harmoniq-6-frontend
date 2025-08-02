@@ -18,6 +18,7 @@
 .section {
   max-width: 393px;
   margin: 48px auto;
+  padding: 0px 5px;
   box-sizing: border-box;
 }
 

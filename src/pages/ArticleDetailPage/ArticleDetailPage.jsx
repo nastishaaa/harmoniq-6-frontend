@@ -10,6 +10,8 @@ import {
   selectLoadingArticle,
 } from "../../redux/articles/selectors";
 import { Loader } from "../../components/Loader/Loader";
+import ButtonAddToBookmarks from "../../components/ButtonAddToBookmarks/ButtonAddToBookmarks";
+
 import {
   fetchArticleById,
   fetchArticles,
@@ -35,7 +37,7 @@ export default function ArticleDetailPage() {
   const isLoadingArticle = useSelector(selectLoadingArticle);
   const isErrorArticle = useSelector(selectErrorArticle);
 
-  const dispatch = useDispatch();
+   const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -128,25 +130,34 @@ export default function ArticleDetailPage() {
                   ))}
                 </ul>
               </aside>
-              <button className={styles.btnSave}>
-                Save
-                <span>
+              <div className={styles.btnSave}>
+                 <ButtonAddToBookmarks articleId={articleId}>
+                  Save
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 41 40"
                     fill="none"
+                    className={styles.bookmarkIcon}
                   >
+                    <rect
+                      x="1"
+                      y="0.5"
+                      width="39"
+                      height="39"
+                      rx="19.5"
+                      stroke="#374F42"
+                    />
                     <path
-                      d="M11.9971 3.73828C13.2607 3.73829 14.4206 3.8592 15.3398 3.99902C16.5036 4.17605 17.416 4.97358 17.6758 6.08789C17.9894 7.43313 18.2969 9.47969 18.2441 12.2285C18.1859 15.2616 17.7432 17.4499 17.3164 18.8779C17.201 19.2639 16.9339 19.4626 16.6318 19.5137C16.316 19.567 15.9263 19.4619 15.6094 19.1465C15.0326 18.5723 14.3719 17.9521 13.7627 17.4727C13.4586 17.2334 13.1558 17.02 12.875 16.8643C12.6101 16.7174 12.2995 16.584 11.9971 16.584C11.6993 16.584 11.3783 16.7152 11.0977 16.8594C10.7986 17.013 10.4675 17.2238 10.1289 17.4629C9.45038 17.942 8.69895 18.5627 8.03711 19.1377C7.68779 19.4412 7.27644 19.513 6.95215 19.4248C6.63917 19.3396 6.37522 19.0992 6.29395 18.6807C6.01488 17.2427 5.75 15.1188 5.75 12.2383C5.75 9.3648 6.04615 7.33797 6.34082 6.0332C6.58505 4.95184 7.4671 4.18203 8.60156 4.00684C9.52893 3.86363 10.7091 3.73828 11.9971 3.73828Z"
-                      stroke="#F7FFFB"
+                      d="M20.4971 11.5C21.7607 11.5 22.9206 11.6209 23.8398 11.7607C25.0036 11.9378 25.916 12.7353 26.1758 13.8496C26.4894 15.1948 26.7969 17.2414 26.7441 19.9902C26.6859 23.0233 26.2432 25.2117 25.8164 26.6396C25.701 27.0256 25.4339 27.2243 25.1318 27.2754C24.816 27.3287 24.4263 27.2236 24.1094 26.9082C23.5326 26.334 22.8719 25.7138 22.2627 25.2344C21.9586 24.9951 21.6558 24.7817 21.375 24.626C21.1101 24.4791 20.7995 24.3457 20.4971 24.3457C20.1993 24.3457 19.8783 24.4769 19.5977 24.6211C19.2986 24.7747 18.9675 24.9855 18.6289 25.2246C17.9504 25.7037 17.1989 26.3244 16.5371 26.8994C16.1878 27.2029 15.7764 27.2747 15.4521 27.1865C15.1392 27.1013 14.8752 26.8609 14.7939 26.4424C14.5149 25.0044 14.25 22.8805 14.25 20C14.25 17.1265 14.5461 15.0997 14.8408 13.7949C15.085 12.7136 15.9671 11.9437 17.1016 11.7686C18.0289 11.6253 19.2091 11.5 20.4971 11.5Z"
+                      stroke="#374F42"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
-                </span>
-              </button>
+                </ButtonAddToBookmarks>
+              </div>
             </div>
           </div>
         </div>
