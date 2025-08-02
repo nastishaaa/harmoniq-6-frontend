@@ -8,7 +8,7 @@ import ArticlesItem from '../ArticlesItem/ArticlesItem';
 const PopularArticles = () => {
     const homeArticles = useSelector(selectHomeArticles);
   return (
-      <section className={styles.popularArticles}>
+      <section id="home-articles" className={styles.popularArticles}>
           <div className={styles.popularArticlesTitleAndLink}>
               <h2 className={styles.popularArticlesTitle}>Popular Articles</h2>
               <Link to="/articles" className={styles.popularArticlesLink}>
