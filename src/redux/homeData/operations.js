@@ -13,3 +13,12 @@ export const fetchHomeArticles = createAsyncThunk("homeData/fetchHomeArticles", 
         return rejectWithValue(e.message);
     }
 });
+
+export const fetchTopCreators = createAsyncThunk("homeData/fetchTopCreators", async (_, { rejectWithValue }) => { 
+    try {
+        const response = await homeDataAPI.get('/users?page=1&perPage=6');
+         return response.data['data']
+    } catch (e) {
+        return rejectWithValue(e.message);
+    }
+});
