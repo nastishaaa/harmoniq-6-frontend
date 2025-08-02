@@ -1,5 +1,22 @@
-.form {
-    min-width: 320px;
+.createArticle {
     padding-left: 16px;
     padding-right: 16px;
+}
+.createArticleTitle{
+font-weight: 500;
+font-size: 30px;
+color: black;
+margin-bottom: 16px;
+}
+
+@media (min-width: 393px) {
+  .createArticleTitle {
+    font-size: 40px;
+  }
+}
+@media (min-width: 1440px) {
+    .createArticle {
+    padding-left: 108px;
+    padding-right: 108px;
+}
 }
