@@ -9,6 +9,14 @@ import heroDesktop2x from './images/hero-desktop@2x.png';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
+  function handleSmoothScroll(event, targetId) {
+  event.preventDefault();
+  const element = document.getElementById(targetId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+  
   return (
       <section className={styles.hero}>
               <img
@@ -34,8 +42,11 @@ const Hero = () => {
                     Find your <span className={styles.heroTitleSpan}>harmony</span> in community
                 </h1>
                 <div className={styles.heroBtns}>
-                    <a href='#home-articles' className={styles.heroGoToBtn}>Go to Articles</a>
-                    <Link to="/register" className={styles.heroRegisterBtn}>Register</Link>
+                  <a href='#home-articles'
+                    className={styles.heroGoToBtn}
+                    onClick={(e) => handleSmoothScroll(e, 'home-articles')}>Go to Articles
+                  </a>
+                  <Link to="/register" className={styles.heroRegisterBtn}>Register</Link>
                 </div>
               </div>
       </section>
