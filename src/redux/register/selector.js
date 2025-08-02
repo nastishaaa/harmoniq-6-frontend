@@ -1,1 +1,1 @@
-export const selectIsLoggedIn = state => state.register.isLoggedIn;
+export const selectUserData = (state) => state.register;
