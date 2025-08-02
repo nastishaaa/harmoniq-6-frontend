@@ -49,8 +49,7 @@ export default function ArticleDetailPage() {
     .filter(({ _id }) => String(_id) !== String(articleId))
     .slice(0, 3);
 
-<<<<<<< HEAD
-  return (
+   return (
     <>
       {isLoadingArticle && <Loader />}
 
