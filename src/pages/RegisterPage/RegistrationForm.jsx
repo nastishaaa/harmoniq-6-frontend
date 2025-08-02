@@ -7,7 +7,8 @@ import { useState } from "react";
 import EyeIcon from "../../assets/icons/EyeOffIcon.svg";
 import EyeOffIcon from "../../assets/icons/EyeIcon.svg";
 import { useNavigate } from "react-router-dom";
-import { setUserData } from "../../redux/register/slice.js";
+// import { setUserData } from "../../redux/authorization/slice";
+import { registerThunk } from "../../redux/authorization/operations";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -47,24 +48,40 @@ const RegistrationForm = () => {
   const toggleConfirm = () => setShowConfirm((prev) => !prev);
   const navigate = useNavigate();
 
+  // const handleSubmit = async (values, { resetForm }) => {
+  //   // const { name, email, password } = values;
+  //   dispatch(registerThunk(values));
+
+  //   // dispatch(setUserData({ name, email, password }));
+  //   resetForm();
+  //   navigate("/photo");
+
+  //   // if (registerThunk.fulfilled.match(resultAction)) {
+  //   //   toast.success("Registration successful!");
+
+  //   //   console.log("Форма відправлена успішно! Дані:", values);
+  //   // } else {
+  //   //   toast.error(
+  //   //     resultAction.payload || "Something went wrong during registration."
+  //   //   );
+  //   // }
+  // };
+
   const handleSubmit = async (values, { resetForm }) => {
-    const { name, email, password } = values;
+  try {
+    const resultAction = await dispatch(registerThunk(values));
 
-    dispatch(setUserData({ name, email, password }));
-    resetForm();
-    navigate("/photo");
-
-    // if (registerThunk.fulfilled.match(resultAction)) {
-    //   toast.success("Registration successful!");
-
-    //   console.log("Форма відправлена успішно! Дані:", values);
-    // } else {
-    //   toast.error(
-    //     resultAction.payload || "Something went wrong during registration."
-    //   );
-    // }
-  };
-
+    if (registerThunk.fulfilled.match(resultAction)) {
+      resetForm();
+      navigate("/photo");
+    } else {
+      // Якщо реєстрація неуспішна — можна вивести помилку
+      console.error("Registration failed:", resultAction.payload);
+    }
+  } catch (error) {
+    console.error("Registration error:", error);
+  }
+};
   return (
     <Formik
       initialValues={initialValues}

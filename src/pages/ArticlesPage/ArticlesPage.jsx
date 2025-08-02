@@ -9,6 +9,7 @@ import {
   selectLoading,
 } from "../../redux/articles/selectors";
 import ArticlesList from "../../components/ArticlesList/ArticlesList";
+import { ModalErrorSave } from '../../components/ModalErrorSave/ModalErrorSave'
 
 export default function ArticlesPage() {
   const articlesItems = useSelector(selectArticles);
@@ -53,9 +54,9 @@ const customStyles = {
   }),
 };
 
-  useEffect(() => {
-    console.log('Юз eфект спрацював')
-  }, [])
+  // useEffect(() => {
+  //   console.log('Юз eфект спрацював')
+  // }, [])
   
   // Потрібний ефект для скролу на початок сторінки після переходу на сторінку ArticlesPage
   useEffect(() => {

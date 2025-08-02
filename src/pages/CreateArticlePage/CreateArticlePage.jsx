@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectLoading, selectError } from "../../redux/articles/selectors.js";
 //import {addArticle} from '../../redux/addArticles/addArticlesOperations.js';
 import css from "./CreateArticlePage.module.css";
-import { selectIsLoggedIn } from "../../redux/auth/selector.js";
+import { selectIsLoggedIn } from "../../redux/authorization/selectors.js";
 
 export default function CreateArticlePage() {
   const loading = useSelector(selectLoading);

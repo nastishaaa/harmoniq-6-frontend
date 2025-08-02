@@ -5,6 +5,7 @@ import Footer from '../components/Footer/Footer'
 import { Loader } from '../components/Loader/Loader'
 
 export default function RootLayout() {
+  
   return (
     <>
       <Header />
