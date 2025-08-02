@@ -21,6 +21,7 @@ import {
   selectCreatedArticles,
 } from "../../redux/user/userSelectors";
 
+
 export default function AuthorProfilePage() {
   const { id } = useParams();
   const dispatch = useDispatch();

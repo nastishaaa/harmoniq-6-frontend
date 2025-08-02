@@ -6,11 +6,10 @@ import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import css from "./UploadForm.module.css";
 import uploadIcon from "../../assets/icons/photo.svg";
-import { registerThunk } from "../../redux/register/operation.js";
-import { selectUserData } from "../../redux/register/selector.js";
-import { setAuth } from "../../redux/auth/slice.js";
-import { clearUserData } from "../../redux/register/slice.js";
-
+import { registerThunk } from "../../redux/authorization/operations.js"
+import { selectUser } from "../../redux/authorization/selectors.js";
+import { setAuth } from "../../redux/authorization/slice.js";
+import { clearUserData } from "../../redux/authorization/slice.js"
 const validationSchema = Yup.object().shape({
   avatar: Yup.mixed()
     .required("Please select a photo.")
@@ -30,7 +29,7 @@ const UploadForm = () => {
   const [preview, setPreview] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector(selectUserData);
+  const userData = useSelector(selectUser);
 
   useEffect(() => {
     if (!userData.name || !userData.email || !userData.password) {
