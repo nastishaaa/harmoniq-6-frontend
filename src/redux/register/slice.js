@@ -1,26 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerThunk } from "./operation";
 
 const initialState = {
-    user: {
-        name: null,
-        email: null,
-    },
-    token: null,
-    isLoggedIn: false,
-    isRefreshing: false,
+  name: "",
+  email: "",
+  password: "",
 };
 
-const slice = createSlice({
-    name: 'register',
-    initialState,
-    extraReducers: builder => {
-        builder
-            .addCase(registerThunk.fulfilled, (state, action) => {
-                state.user = action.payload.user;
-                state.token = action.payload.token;
-                state.isLoggedIn = true;
-            });
+const registerSlice = createSlice({
+  name: "register",
+  initialState,
+  reducers: {
+    setUserData(state, action) {
+      state.name = action.payload.name;
+      state.email = action.payload.email;
+      state.password = action.payload.password;
     },
+    clearUserData(state) {
+      state.name = "";
+      state.email = "";
+      state.password = "";
+    },
+  },
 });
-export const registerReducer = slice.reducer;
+
+export const { setUserData, clearUserData } = registerSlice.actions;
+export const registerReducer = registerSlice.reducer;

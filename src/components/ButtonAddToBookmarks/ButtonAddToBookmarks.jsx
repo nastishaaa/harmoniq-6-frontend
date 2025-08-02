@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import clsx from "clsx";
 import styles from "./ButtonAddToBookmarks.module.css";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
-import { selectIsLoggedIn } from "../../redux/register/selector";
+import { selectIsLoggedIn } from "../../redux/auth/selector.js";
 
 export default function ButtonAddToBookmarks({ articleId, children }) {
   const dispatch = useDispatch();

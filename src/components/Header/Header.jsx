@@ -38,7 +38,7 @@ export default function Header() {
                 <Link to="/articles">Articles</Link>
               </li>
               <li>
-                <Link to="/authors">Creators</Link>
+                <Link to="/users">Creators</Link>
               </li>
               <li>
                 <Link to="/login">Login</Link>
@@ -81,7 +81,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/authors" onClick={() => setIsOpen(false)}>
+              <Link to="/users" onClick={() => setIsOpen(false)}>
                 Creators
               </Link>
             </li>

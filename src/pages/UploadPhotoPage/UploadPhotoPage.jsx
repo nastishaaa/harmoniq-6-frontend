@@ -1,7 +1,12 @@
-import styles from './UploadPhotoPage.module.css';
+import UploadForm from "../../components/UploadForm/UploadForm.jsx";
+import css from "./UploadPhotoPage.module.css";
 
-export default function UploadPhotoPage() {
-    return (
-        <div>UploadPhotoPage</div>
-    )
-}
+const UploadPhotoPage = () => {
+  return (
+    <div className={css.container}>
+      <UploadForm />
+    </div>
+  );
+};
+
+export default UploadPhotoPage;
