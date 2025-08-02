@@ -1,10 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import RootLayout from "./layout/RootLayout";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Loader } from "./components/Loader/Loader.jsx";
 import { isLoading } from "./redux/global/selectors.js";
 import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
+
+import { selectIsRefreshing } from "./redux/authorization/selectors.js";
+import { refresh } from "./redux/authorization/operations.js";
+import { store } from "./redux/store.js";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -47,10 +51,25 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const isRefreshing = useSelector(selectIsRefreshing);
   const isGlobalLoading = useSelector(isLoading);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(refresh());
+  // }, []);
+
+  
+  useEffect(() => {
+    const token = store.getState().authorization.token;
+  if (token) {
+    dispatch(refresh());
+  }
+  }, []);
   return (
     <>
-      {isGlobalLoading && <Loader />}
+      
+      {isGlobalLoading && <Loader /> || isRefreshing && <Loader />}
       <RouterProvider router={router}>
         <ModalErrorSave />
       </RouterProvider>
