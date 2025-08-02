@@ -49,7 +49,7 @@ export default function ArticlesItem({ article, id }) {
             />
           </svg>
         </ButtonAddToBookmarks>
-      </div>
+      </div> 
     </article>
   );
 }
