@@ -1,6 +1,7 @@
 .createArticle {
-    padding-left: 16px;
-    padding-right: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 48px;
 }
 .createArticleTitle{
 font-weight: 500;
@@ -14,9 +15,15 @@ margin-bottom: 16px;
     font-size: 40px;
   }
 }
+@media (min-width: 768px) {
+  .createArticle {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+}
 @media (min-width: 1440px) {
     .createArticle {
-    padding-left: 108px;
-    padding-right: 108px;
+  padding-left: 108px;
+  padding-right: 108px;
 }
 }
