@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import styles from "./AuthorProfilePage.module.css";
+
 import ArticlesListReusable from "../../components/ArticlesList/ArticlesListReusable";
 import { resetAuthorArticles } from "../../redux/authorArticles/authorArticlesSlice";
 import { fetchAuthorArticles } from "../../redux/authorArticles/authorArticlesOperations";
@@ -21,7 +23,6 @@ import {
   selectCreatedArticles,
 } from "../../redux/user/userSelectors";
 
-
 export default function AuthorProfilePage() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -39,7 +40,6 @@ export default function AuthorProfilePage() {
   const hasMore = useSelector(selectAuthorArticlesHasMore);
   const page = useSelector(selectAuthorArticlesPage);
 
-  // Fetch author info (name, avatar, etc)
   useEffect(() => {
     if (!isOwnProfile) {
       const fetchAuthorInfo = async () => {
@@ -74,7 +74,13 @@ export default function AuthorProfilePage() {
   }, [id, dispatch, isOwnProfile, activeTab]);
 
   const handleLoadMore = () => {
-    dispatch(fetchAuthorArticles({ authorId: id, page }));
+    dispatch(fetchAuthorArticles({ authorId: id, page })).then(() => {
+      // Скрол до початку статей
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
   };
 
   const displayArticles = isOwnProfile
@@ -86,57 +92,44 @@ export default function AuthorProfilePage() {
   const articleCount = displayArticles.length;
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className={`container ${styles.wrapper}`}>
       {!isOwnProfile && authorInfo && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            marginBottom: "24px",
-          }}
-        >
+        <div className={styles.authorHeader}>
           {authorInfo.avatarUrl ? (
             <img
               src={authorInfo.avatarUrl}
               alt={authorInfo.name}
               width="137"
               height="137"
-              style={{ borderRadius: "50%", objectFit: "cover" }}
+              className={styles.avatar}
             />
           ) : (
-            <div
-              style={{
-                width: "137px",
-                height: "137px",
-                borderRadius: "50%",
-                backgroundColor: "#ccc",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "32px",
-                color: "#fff",
-              }}
-            >
+            <div className={styles.avatarPlaceholder}>
               {authorInfo.name?.charAt(0).toUpperCase()}
             </div>
           )}
           <div>
-            <h2 style={{ margin: 0 }}>{authorInfo.name}</h2>
-            <p style={{ margin: 0 }}>{articleCount} articles</p>
+            <h2 className={styles.name}>{authorInfo.name}</h2>
+            <p className={styles.count}>{articleCount} articles</p>
           </div>
         </div>
       )}
 
       {isOwnProfile && (
-        <div style={{ display: "flex", gap: "12px", marginBottom: "20px" }}>
+        <div className={styles.tabs}>
           <button
+            className={`${styles.tab} ${
+              activeTab === "my" ? styles.active : ""
+            }`}
             onClick={() => setActiveTab("my")}
             disabled={activeTab === "my"}
           >
             My Articles
           </button>
           <button
+            className={`${styles.tab} ${
+              activeTab === "saved" ? styles.active : ""
+            }`}
             onClick={() => setActiveTab("saved")}
             disabled={activeTab === "saved"}
           >
@@ -148,7 +141,11 @@ export default function AuthorProfilePage() {
       <ArticlesListReusable articles={displayArticles} />
 
       {!isOwnProfile && hasMore && (
-        <button onClick={handleLoadMore} disabled={isLoading}>
+        <button
+          className={styles.loadMoreBtn}
+          onClick={handleLoadMore}
+          disabled={isLoading}
+        >
           {isLoading ? "Loading..." : "Load More"}
         </button>
       )}
