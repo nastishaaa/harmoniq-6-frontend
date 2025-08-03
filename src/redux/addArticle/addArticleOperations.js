@@ -8,7 +8,7 @@ export const addArticle = createAsyncThunk(
         const state = thunkAPI.getState();
         const token = state.auth.token;
 
-      const response = await axios.post('https://harmoniq-6.onrender.com/api-docs/articles', formData, {
+      const response = await axios.post('https://harmoniq-6.onrender.com/articles', formData, {
         headers: { 'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`, 
         },

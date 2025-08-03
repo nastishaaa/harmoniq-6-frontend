@@ -56,3 +56,36 @@ ul {
   padding: 0;
   list-style: none;
 }
+
+/* CONTAINERS_STYLES */
+
+/* default (mobile-first) */
+.container {
+  min-width: 320px;
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* phone */
+@media only screen and (min-width: 393px) {
+  .container {
+    max-width: 393px;
+  }
+}
+
+/* tablet*/
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-inline: 32px;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding-inline: 107px;
+  }
+}
