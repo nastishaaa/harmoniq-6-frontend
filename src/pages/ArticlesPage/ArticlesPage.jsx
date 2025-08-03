@@ -6,22 +6,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchArticles } from "../../redux/articles/operations";
 import Select from "react-select";
 import {
-  selectArticles,
   selectErrorArticles,
   selectLoadingArticles,
+  selectTotalArticles,
+  selectHasNextPage,
+  selectArticles,
 } from "../../redux/articles/selectors";
 import ArticlesList from "../../components/ArticlesList/ArticlesList";
 import { ModalErrorSave } from "../../components/ModalErrorSave/ModalErrorSave";
+import { Link } from "react-router-dom";
 
 export default function ArticlesPage() {
-  const articlesItems = useSelector(selectArticles);
   const isLoading = useSelector(selectLoadingArticles);
   const isError = useSelector(selectErrorArticles);
+  const articles = useSelector(selectArticles);
+  const totalArticles = useSelector(selectTotalArticles);
+  const hasNextPage = useSelector(selectHasNextPage);
 
   const [selectedOption, setSelectedOption] = useState({
     value: "popular",
     label: "Popular",
   });
+  const [page, setPage] = useState(1);
+
   const options = [
     { value: "all", label: "All" },
     { value: "popular", label: "Popular" },
@@ -57,27 +64,32 @@ export default function ArticlesPage() {
   };
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    dispatch(fetchArticles());
-  }, [dispatch]);
+    setPage(1);
+  }, [selectedOption]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, []);
+    dispatch(fetchArticles({ filter: selectedOption.value, page }));
+  }, [dispatch, selectedOption, page]);
 
-  const articlesItemsLength = articlesItems.length;
+  const handleLoadMore = () => {
+    if (!isLoading && hasNextPage) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
   return (
     <div className={styles.section}>
       <ModalErrorSave />
-      <SectionTitle title="Articles" />
-      {articlesItemsLength > 0 && (
+      {<SectionTitle title="Articles" />}{" "}
+      {totalArticles > 0 && articles && (
         <div className={styles.infoPanel}>
           <p className={styles.itemsTotal}>
-            {articlesItemsLength > 1
-              ? ` ${articlesItemsLength} articles`
-              : `${articlesItemsLength} article`}
+            {totalArticles > 1
+              ? ` ${totalArticles} articles`
+              : `${totalArticles} article`}
           </p>
           <Select
             value={selectedOption}
@@ -88,12 +100,20 @@ export default function ArticlesPage() {
           />
         </div>
       )}
-      {articlesItemsLength > 0 && <ArticlesList />}
-      {/* {articlesItemsLength === 0 && <SectionTitle title="The articles not found" />} */}
+      <ArticlesList />
       {isLoading && <Loader />}
-      {isError && <p>Упс,помилка</p>}
-      {articlesItemsLength > 0 && (
-        <button className={styles.btnLoadMore}>LoadMore</button>
+      {isError && (
+        <div className={styles.notFoundWrapper}>
+          <h2 className={styles.notFoundTitle}>No articles available</h2>
+          <Link to="/" className={styles.goBackLink}>
+            Go back to home
+          </Link>
+        </div>
+      )}
+      {hasNextPage && (
+        <button className={styles.btnLoadMore} onClick={handleLoadMore}>
+          Load More
+        </button>
       )}{" "}
     </div>
   );
