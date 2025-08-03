@@ -1,53 +1,46 @@
-import React, { useState, useEffect } from "react";
-import AuthorsList from "../../components/AuthorsList/AuthorsList";
-import styles from "./AuthorsPage.module.css";
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { authors } from '../../redux/authors/selectors'
+import { fetchAuthors } from '../../redux/authors/operations'
+import AuthorsList from '../../components/AuthorsList/AuthorsList'
+
+import styles from './AuthorsPage.module.css'
 
 const AuthorsPage = () => {
-  const [authors, setAuthors] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const authorsPerPage = 20;
+  const dispatch = useDispatch()
+  const [page, setPage] = useState(1)
+  const { data, pagination } = useSelector(authors) || {}
+
+  const newItemRef = useRef(null)
+  const prevDataLength = useRef(0)
 
   useEffect(() => {
-    fetchAuthors(page);
-  }, [page]);
+    dispatch(fetchAuthors({ page }))
+  }, [dispatch, page])
 
-  const fetchAuthors = async (pageNumber) => {
-    try {
-      const response = await fetch(
-        `https://harmoniq-6.onrender.com/users?page=${pageNumber}&perPage=${authorsPerPage}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Error loading authors");
-      }
-
-      const data = await response.json();
-
-      if (data?.data) {
-        setAuthors((prev) => [...prev, ...data.data]);
-        setHasMore(data.pagination?.hasMore);
-      }
-    } catch (error) {
-      console.error("Error loading authors:", error);
+  useEffect(() => {
+    if (page > 1 && newItemRef.current) {
+      newItemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-  };
-
+    prevDataLength.current = data?.length || 0
+  }, [data, page])
   const handleLoadMore = () => {
-    setPage((prev) => prev + 1);
-  };
+    if (pagination?.hasMore) setPage((prev) => prev + 1)
+  }
+
+  const firstNewIndex = prevDataLength.current
 
   return (
     <div className={styles.authorsPage}>
       <h1 className={styles.authorsName}>Authors</h1>
-      <AuthorsList authors={authors} />
-      {hasMore && (
+      {data && <AuthorsList authors={data} newItemRef={newItemRef} firstNewIndex={firstNewIndex} />}
+      {pagination?.hasMore && (
         <button className={styles.loadMore} onClick={handleLoadMore}>
           Load More
         </button>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default AuthorsPage;
+export default AuthorsPage
