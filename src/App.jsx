@@ -8,7 +8,6 @@ import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave";
 import { selectIsRefreshing } from "./redux/authorization/selectors.js";
 import { refresh } from "./redux/authorization/operations.js";
 import { store } from "./redux/store.js";
-import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -61,9 +60,9 @@ function App() {
 
   useEffect(() => {
     const token = store.getState().authorization.token;
-  if (token) {
-    dispatch(refresh());
-  }
+    if (token) {
+      dispatch(refresh());
+    }
   }, [dispatch]);
   return (
     <>
