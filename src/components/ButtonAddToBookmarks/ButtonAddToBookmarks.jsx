@@ -19,14 +19,12 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
 
     const fetchSavedStatus = async () => {
       try {
-        const method = isSaved ? "DELETE" : "POST";
+        // const method = isSaved ? "DELETE" : "POST";
 
         const res = await fetch(
-          `http://localhost:3000/api/articles/${articleId}/${
-            isSaved ? "unsave" : "save"
-          }`,
+          `http://localhost:3000/api/articles/${articleId}/is-saved`,
           {
-            method,
+            method: "GET",
             credentials: "include",
           }
         );
@@ -36,7 +34,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
         const data = await res.json();
         setIsSaved(data.isSaved);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching saved status:", err);
       }
     };
 
@@ -44,7 +42,6 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
   }, [articleId, isLoggedIn]);
 
   const handleClick = async () => {
-    console.log("isLoggedIn:", isLoggedIn);
     if (!isLoggedIn) {
       dispatch(setIsModalErrorSaveOpen(true));
       return;
@@ -53,7 +50,9 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
     setIsLoading(true);
 
     try {
-      const url = `/api/articles/${articleId}/${isSaved ? "unsave" : "save"}`;
+      const url = `http://localhost:3000/api/articles/${articleId}/${
+        isSaved ? "unsave" : "save"
+      }`;
       const method = isSaved ? "DELETE" : "POST";
 
       const res = await fetch(url, {
