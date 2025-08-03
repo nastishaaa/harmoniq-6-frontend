@@ -18,15 +18,18 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { addArticlesReducer } from "./addArticle/addArticlesSlice.js";
 
 const authPersistConfig = {
     key: 'authorization',
     storage,
+    whitelist: ['token', 'user'],
 };
 
 export const store = configureStore({
   reducer: {
     global: globalReducer,
+    addArticles: addArticlesReducer,
     articles: articlesReducer,
     homeData: homeDataReducer,
     authorization: persistReducer(authPersistConfig, authorizationReducer),
