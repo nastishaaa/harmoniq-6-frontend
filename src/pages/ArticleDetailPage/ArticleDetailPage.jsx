@@ -1,163 +1,166 @@
 import styles from "./ArticleDetailPage.module.css";
 
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { selectArticles } from "../../redux/articles/selectors";
-import SectionTitle from "../../components/SectionTitle/SectionTitle";
+import {
+  selectArticles,
+  selectSelectedArticle,
+  selectErrorArticle,
+  selectLoadingArticle,
+} from "../../redux/articles/selectors";
+import { Loader } from "../../components/Loader/Loader";
+import ButtonAddToBookmarks from "../../components/ButtonAddToBookmarks/ButtonAddToBookmarks";
+
+import { 
+  fetchArticleById,
+  fetchArticles,
+} from "../../redux/articles/operations";
+
+function formatDate(dateString) {
+  if (!dateString) {
+    return "XX.XX.XXXX";
+  }
+  const date = new Date(dateString);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}.${month}.${year}`;
+}
 
 export default function ArticleDetailPage() {
   const { id: articleId } = useParams();
   const articles = useSelector(selectArticles);
+  const article = useSelector(selectSelectedArticle);
+  const isLoadingArticle = useSelector(selectLoadingArticle);
+  const isErrorArticle = useSelector(selectErrorArticle);
 
-  const article = articles.find(({ _id }) => _id?.$oid === articleId);
-
-  const related = articles
-    .filter(({ _id }) => _id.$oid !== articleId)
-    .slice(0, 3);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect спрацював");
-  }, []);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    dispatch(fetchArticleById(articleId));
+    dispatch(fetchArticles());
+  }, [dispatch, articleId]);
 
-  if (!article) {
-    return (
-      <div>
-        <Link to="/articles">
-          {" "}
-          <svg
-            className={styles.goBackIcon}
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-          >
-            <path
-              d="M25.5 16L10.8846 16M10.8846 16L15.2692 11.6154M10.8846 16L15.2692 20.3846M13.0769 6.5L9.42308 6.5C7.80871 6.5 6.5 7.80871 6.5 9.42308L6.5 22.5769C6.5 24.1913 7.80871 25.5 9.42308 25.5H13.0769"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Link>{" "}
-        <SectionTitle title={"Стаття не знайдена"} />
-      </div>
-    );
-  }
-
+  const related = articles
+    .filter(({ _id }) => String(_id) !== String(articleId))
+    .slice(0, 3);
   return (
-    <div className={styles.section}>
-      {/* <Link to="/articles">
-          {" "}
-          <svg
-            className={styles.goBackIcon}
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-          >
-            <path
-              d="M25.5 16L10.8846 16M10.8846 16L15.2692 11.6154M10.8846 16L15.2692 20.3846M13.0769 6.5L9.42308 6.5C7.80871 6.5 6.5 7.80871 6.5 9.42308L6.5 22.5769C6.5 24.1913 7.80871 25.5 9.42308 25.5H13.0769"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+    <>
+      {isLoadingArticle && <Loader />}
+
+      {article && (
+        <div className={styles.section}>
+          <h2 className={styles.title}>{article.title}</h2>
+          <img
+            src={article.img}
+            alt={article.title}
+            className={styles.image}
+            loading="lazy"
+          />
+          <div className={styles.wrapper}>
+            <div
+              className={styles.articleTextWrapper}
+              dangerouslySetInnerHTML={{
+                __html: article?.article
+                  ? article.article.replace(/\/n/g, "<br/><br/>")
+                  : "",
+              }}
             />
-          </svg>
-        </Link> */}
-      <h2 className={styles.title}>{article.title}</h2>{" "}
-      <img
-        src={article.img}
-        alt={article.title}
-        className={styles.image}
-        loading="lazy"
-      />
-      <div className={styles.wrapper}>
-        <div
-          className={styles.articleTextWrapper}
-          dangerouslySetInnerHTML={{
-            __html: article.article.replace(/\/n/g, "<br /><br />"),
-          }}
-        />
-        <div className={styles.sidebarWithAction}>
-          <aside className={styles.sidebar}>
-            <h3>
-              Author:{" "}
-              <Link to={`/users/${article.ownerId.$oid}`}>
-                <span className={styles.author}>{article.ownerId.$oid}</span>
-              </Link>
-            </h3>
-            <h3>
-              Publication date: <span>{article.date}</span>
-            </h3>
-            <h4>You can also interested</h4>
-            <ul className={styles.listItem}>
-              {related.map((el) => (
-                <li key={el._id.$oid} className={styles.item}>
-                  <div className={styles.anotherArticleContainer}>
-                    <h5>{el.title}</h5>
-                    <Link
-                      to={`/articles/${el._id.$oid}`}
-                      className={styles.anotherArticleLink}
-                      aria-label={`Read article: ${el.title}`}
-                    >
-                      <svg
-                        className={styles.arrowIcon}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="41"
-                        height="40"
-                        viewBox="0 0 41 40"
-                        fill="none"
-                      >
-                        <rect
-                          x="1"
-                          y="0.5"
-                          width="39"
-                          height="39"
-                          rx="19.5"
-                          stroke="currentColor"
-                        />
-                        <path
-                          d="M13.375 27.125L27.6195 12.875M27.6195 12.875H19.948M27.6195 12.875L27.6196 20.5466"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </Link>
-                  </div>
-                  <Link
-                    to={`authors/${el.ownerId.$oid}`}
-                    className={styles.ownerTitle}
-                  >
-                    {el.ownerId.$oid}
+            <div className={styles.sidebarWithAction}>
+              <aside className={styles.sidebar}>
+                <h3>
+                  Author:{" "}
+                  <Link to={`/authors/${article.ownerId}`}>
+                    <span className={styles.author}>
+                      {article.author ?? "Author"}
+                    </span>
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </aside>
-          <button className={styles.btnSave}>
-            Save
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M11.9971 3.73828C13.2607 3.73829 14.4206 3.8592 15.3398 3.99902C16.5036 4.17605 17.416 4.97358 17.6758 6.08789C17.9894 7.43313 18.2969 9.47969 18.2441 12.2285C18.1859 15.2616 17.7432 17.4499 17.3164 18.8779C17.201 19.2639 16.9339 19.4626 16.6318 19.5137C16.316 19.567 15.9263 19.4619 15.6094 19.1465C15.0326 18.5723 14.3719 17.9521 13.7627 17.4727C13.4586 17.2334 13.1558 17.02 12.875 16.8643C12.6101 16.7174 12.2995 16.584 11.9971 16.584C11.6993 16.584 11.3783 16.7152 11.0977 16.8594C10.7986 17.013 10.4675 17.2238 10.1289 17.4629C9.45038 17.942 8.69895 18.5627 8.03711 19.1377C7.68779 19.4412 7.27644 19.513 6.95215 19.4248C6.63917 19.3396 6.37522 19.0992 6.29395 18.6807C6.01488 17.2427 5.75 15.1188 5.75 12.2383C5.75 9.3648 6.04615 7.33797 6.34082 6.0332C6.58505 4.95184 7.4671 4.18203 8.60156 4.00684C9.52893 3.86363 10.7091 3.73828 11.9971 3.73828Z"
-                  stroke="#F7FFFB"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-          </button>
+                </h3>
+                <h3>
+                  Publication date: <span>{formatDate(article.date)}</span>
+                </h3>
+                <h4>You can also interested</h4>
+                <ul className={styles.listItem}>
+                  {related.map((el) => (
+                    <li key={el._id} className={styles.item}>
+                      <div className={styles.anotherArticleContainer}>
+                        <h5>{el.title}</h5>
+                        <Link
+                          to={`/articles/${el._id}`}
+                          className={styles.anotherArticleLink}
+                          aria-label={`Read article: ${el.title}`}
+                        >
+                          <svg
+                            className={styles.arrowIcon}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="41"
+                            height="40"
+                            viewBox="0 0 41 40"
+                            fill="none"
+                          >
+                            <rect
+                              x="1"
+                              y="0.5"
+                              width="39"
+                              height="39"
+                              rx="19.5"
+                              stroke="currentColor"
+                            />
+                            <path
+                              d="M13.375 27.125L27.6195 12.875M27.6195 12.875H19.948M27.6195 12.875L27.6196 20.5466"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </Link>
+                      </div>
+                      <Link
+                        to={`authors/${el.ownerId}`}
+                        className={styles.ownerTitle}
+                      >
+                        {el.author ?? "Author"}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+              <ButtonAddToBookmarks articleId={articleId}>
+                <div className={styles.btnSave}>
+                  <p>Save</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                    className={styles.bookmarkIcon}
+                  >
+                    <path
+                      d="M12.4971 4C13.7607 4.00001 14.9206 4.12091 15.8398 4.26074C17.0036 4.43777 17.916 5.2353 18.1758 6.34961C18.4894 7.69485 18.7969 9.74141 18.7441 12.4902C18.6859 15.5233 18.2432 17.7117 17.8164 19.1396C17.701 19.5256 17.4339 19.7243 17.1318 19.7754C16.816 19.8287 16.4263 19.7236 16.1094 19.4082C15.5326 18.834 14.8719 18.2138 14.2627 17.7344C13.9586 17.4951 13.6558 17.2817 13.375 17.126C13.1101 16.9791 12.7995 16.8457 12.4971 16.8457C12.1993 16.8457 11.8783 16.9769 11.5977 17.1211C11.2986 17.2747 10.9675 17.4855 10.6289 17.7246C9.95038 18.2037 9.19895 18.8244 8.53711 19.3994C8.18779 19.7029 7.77644 19.7747 7.45215 19.6865C7.13917 19.6013 6.87522 19.3609 6.79395 18.9424C6.51488 17.5044 6.25 15.3805 6.25 12.5C6.25 9.62652 6.54615 7.59969 6.84082 6.29492C7.08505 5.21356 7.9671 4.44375 9.10156 4.26855C10.0289 4.12535 11.2091 4 12.4971 4Z"
+                      stroke="#F7FFFB"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </ButtonAddToBookmarks>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+      {isErrorArticle && (
+        <div className={styles.notFoundWrapper}>
+          <h2 className={styles.notFoundTitle}>Article is not found</h2>
+          <Link to="/articles" className={styles.goBackLink}>
+            Go back to articles
+          </Link>
+        </div>
+      )}
+    </>
   );
 }

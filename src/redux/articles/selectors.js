@@ -1,3 +1,11 @@
 export const selectArticles = (state) => state.articles.items;
-export const selectLoading = (state) => state.articles.isLoading;
-export const selectError = (state) => state.articles.isError;
+export const selectLoadingArticles = (state) =>
+  state.articles.isLoadingArticles;
+export const selectErrorArticles = (state) => state.articles.isErrorArticles;
+
+export const selectSelectedArticle = (state) => state.articles.selectedArticle;
+export const selectLoadingArticle = (state) => state.articles.isLoadingArticle;
+export const selectErrorArticle = (state) => state.articles.isErrorArticle;
+
+export const selectTotalArticles = (state) => state.articles.total;
+export const selectHasNextPage = (state) => state.articles.hasNextPage;

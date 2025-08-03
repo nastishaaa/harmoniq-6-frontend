@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import clsx from "clsx";
 import styles from "./ButtonAddToBookmarks.module.css";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
-import { selectIsLoggedIn } from "../../redux/auth/selector.js";
+import { selectIsLoggedIn } from "../../redux/authorization/selectors";
 
 export default function ButtonAddToBookmarks({ articleId, children }) {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
 
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+ 
   // Підвантажую початковий стан isSaved
   useEffect(() => {
     if (!isLoggedIn) return;

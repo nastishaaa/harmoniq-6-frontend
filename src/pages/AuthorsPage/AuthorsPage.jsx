@@ -3,18 +3,20 @@ import AuthorsList from "../../components/AuthorsList/AuthorsList";
 import styles from "./AuthorsPage.module.css";
 
 const AuthorsPage = () => {
-  const [allAuthors, setAllAuthors] = useState([]);
-  const [visibleAuthors, setVisibleAuthors] = useState([]);
+  const [authors, setAuthors] = useState([]);
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const authorsPerPage = 20;
 
   useEffect(() => {
-    fetchAuthors();
-  }, []);
+    fetchAuthors(page);
+  }, [page]);
 
-  const fetchAuthors = async () => {
+  const fetchAuthors = async (pageNumber) => {
     try {
-      const response = await fetch("https://harmoniq-6.onrender.com/users/");
+      const response = await fetch(
+        `https://harmoniq-6.onrender.com/users?page=${pageNumber}&perPage=${authorsPerPage}`
+      );
 
       if (!response.ok) {
         throw new Error("Error loading authors");
@@ -22,10 +24,9 @@ const AuthorsPage = () => {
 
       const data = await response.json();
 
-      if (data && data.data) {
-        setAllAuthors(data.data);
-        setVisibleAuthors(data.data.slice(0, authorsPerPage));
-        setHasMore(data.data.length > authorsPerPage);
+      if (data?.data) {
+        setAuthors((prev) => [...prev, ...data.data]);
+        setHasMore(data.pagination?.hasMore);
       }
     } catch (error) {
       console.error("Error loading authors:", error);
@@ -33,16 +34,13 @@ const AuthorsPage = () => {
   };
 
   const handleLoadMore = () => {
-    const currentLength = visibleAuthors.length;
-    const newVisible = allAuthors.slice(0, currentLength + authorsPerPage);
-    setVisibleAuthors(newVisible);
-    setHasMore(newVisible.length < allAuthors.length);
+    setPage((prev) => prev + 1);
   };
 
   return (
     <div className={styles.authorsPage}>
       <h1 className={styles.authorsName}>Authors</h1>
-      <AuthorsList authors={visibleAuthors} />
+      <AuthorsList authors={authors} />
       {hasMore && (
         <button className={styles.loadMore} onClick={handleLoadMore}>
           Load More

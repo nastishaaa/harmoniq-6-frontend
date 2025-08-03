@@ -17,8 +17,9 @@
 
 .section {
   max-width: 393px;
+  width: 100%;
   margin: 48px auto;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 .itemsTotal {
   font-family: "Manrope";
@@ -32,8 +33,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 361px;
-  height: 33px;
+  width: 100%;      
+  max-width: 361px;  
+    height: 33px;
   margin: 16px 0;
   gap: 12px;
   flex-wrap: wrap;
@@ -59,16 +61,34 @@
   color: var(--color-off-white);
   cursor: pointer;
 }
+.notFoundWrapper { 
+  display: flex;
+  margin: 20% auto;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+.notFoundTitle {
+  text-align: center;
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark-blue);
+}
+.goBackLink {
+  color: var(--color-dark-green);
+}
+.goBackLink:hover {
+  color: var(--color-dark-blue);
+}
 @media (min-width: 768px) {
   .section {
     max-width: 704px;
   }
   .infoPanel {
-    width: 704px;
+    max-width: 704px;
   }
-  .btnLoadMore{
-      width: 390px;
-
+  .btnLoadMore {
+    max-width: 390px;
   }
 }
 
@@ -77,6 +97,6 @@
     max-width: 1225px;
   }
   .infoPanel {
-    width: 1225px;
+    max-width: 1225px;
   }
 }
