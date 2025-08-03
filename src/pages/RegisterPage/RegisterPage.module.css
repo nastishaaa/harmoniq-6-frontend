@@ -18,7 +18,7 @@
 border-radius: 32px;
 padding: 48px 32px;
 width: 360px;
-height: 632px;
+
 margin: 85px 16.5px; 
  background-color: #d1e0d8;
 
@@ -64,18 +64,13 @@ margin: 85px 16.5px;
 }
 
 .eyeIcon {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   pointer-events: none;
+  
 }
 
-.eyeButton img {
-  width: 16px;   
-  height: 20px;
-  user-select: none;
-  pointer-events: none; 
-  fill: black;
-}
+
 
 
 
@@ -85,8 +80,10 @@ margin: 85px 16.5px;
    margin: auto;
     width: 296px;
     gap: 16px;
+   
 }
 .hedline{
+  font-family: var(--font-family);
     font-weight: 700;
 font-size: 32px;
 text-align: center;
@@ -94,13 +91,15 @@ color: var(--black);
 margin: 0 20px;
 }
 .text{
+  font-family: var(--font-family);
     font-weight: 400;
 font-size: 16px;
 line-height: 155%;
 text-align: center;
-padding: 20px 50px;
+padding: 20px 10px;
 }
 .label{
+  font-family: var(--font-family);
     font-weight: 400;
 font-size: 12px;
     align-items: center;
@@ -108,10 +107,13 @@ font-size: 12px;
 }
 
 .button{
-     background-color: #649179;
+ background-color: #649179;
      color: var(--color-off-white);
-    cursor: pointer;
-     border-radius: 64px;
+     font-family: var(--font-family);
+     font-weight: 700;
+     font-size: 16px;
+cursor: pointer;
+border-radius: 64px;
 padding: 8px;
 width: 296px;
 height: 38px;
@@ -129,35 +131,50 @@ color: var(--black);
 font-weight: 700;
 text-decoration: underline;
 text-decoration-skip-ink: none;
-padding: 8px;
+ text-decoration-thickness: 1px;
+  text-underline-offset: 2px;  
+
 }
 .linkbox{
-    padding:  22px;
+  font-family: var(--font-family);
     align-items: center;
     font-weight: 400;
 font-size: 16px;
+padding: 0 20px;
 }  
+
 @media (min-width: 768px) {
     .section{width: 522px;
         margin: 120px 123px;
-height: 632px;}
+}
 .form {width: 458px;
-height: 357px;}
+}
 .field {width: 458px;
 height: 41px;}
 .button {width: 458px;
 height: 38px;}
+.eyeIcon {
+  width: 24px;
+  height: 24px;
+}
+.text{
+  padding: 20px 90px;
+}
+.linkbox{
+  padding: 0 80px;
+}
+
 }
 
 @media (min-width: 1440px){
     .section{
         width: 392px;
-height: 632px;
 margin: 50px 524px;
+padding: 48px 32px;
     }
     .form{
         width: 328px;
-height: 357px;
+
     }
     .field{
         width: 328px;
@@ -167,4 +184,18 @@ height: 61px;
         width: 328px;
 height: 38px;
     }
+   .linkbox{
+    margin-bottom: 32px;
+   }
+ .eyeIcon {
+  width: 32px;
+  height: 32px; 
+  stroke-width: 1px;
+}
+.text{
+  padding: 10px 30px;
+}
+.linkbox{
+  padding: 0 40px;
+}
 }

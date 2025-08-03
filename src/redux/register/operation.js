@@ -19,6 +19,8 @@ export const registerThunk = createAsyncThunk('register', async (body, thunkAPI)
     
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+    const status = error.response?.data?.status;
+      const message = error.response?.data?.data?.message || error.response?.data?.message;
+    return thunkAPI.rejectWithValue({status, message});
   }
 });

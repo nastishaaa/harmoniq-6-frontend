@@ -1,10 +1,10 @@
-import React from 'react'
-import AuthorsItem from '../AuthorsItem/AuthorsItem'
-import styles from './AuthorsList.module.css'
+import React from "react";
+import AuthorsItem from "../AuthorsItem/AuthorsItem";
+import styles from "./AuthorsList.module.css";
 
 const AuthorsList = ({ authors }) => {
   if (!authors.length) {
-    return <p>Нет данных об авторах</p>
+    return <p>No author info to show at the moment.</p>;
   }
 
   return (
@@ -13,7 +13,7 @@ const AuthorsList = ({ authors }) => {
         <AuthorsItem key={index} author={author} />
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default AuthorsList
+export default AuthorsList;

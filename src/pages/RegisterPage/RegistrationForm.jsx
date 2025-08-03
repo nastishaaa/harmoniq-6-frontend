@@ -1,14 +1,17 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { registerThunk } from '../../redux/register/operation';
 import styles from './RegisterPage.module.css';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import  EyeIcon from '../../assets/icons/EyeOffIcon.svg';
 import EyeOffIcon from '../../assets/icons/EyeIcon.svg';
-import { useNavigate } from 'react-router-dom';
+
+
+
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -56,9 +59,17 @@ const RegistrationForm = () => {
       toast.success('Registration successful!');
       resetForm();
        navigate('/photo');
-      console.log('Форма відправлена успішно! Дані:', values);
+    
     } else {
-      toast.error(resultAction.payload || 'Something went wrong during registration.');
+      const { status, message } = resultAction.payload || {};
+      if (status === 400) {
+  toast.error(message || 'Invalid form data');
+}
+      else if (status === 409) {
+        toast.error('Email in use!')
+      } else {
+        toast.error(message || 'Something went wrong');
+      }
     }
   };
 
@@ -75,13 +86,11 @@ const RegistrationForm = () => {
           <Field type="text" name="name" id="name"  className={`${styles.field} ${errors.name && touched.name ? styles.errorField : ''}`} />
           <ErrorMessage name="name" component="div" className={styles.error} />
         </div>
-
         <div className={styles.inputbox}>
           <label htmlFor="email" className={styles.label}>Enter your email address</label>
           <Field type="email" name="email" id="email"  placeholder="email@gmail.com" className={`${styles.field} ${errors.name && touched.name ? styles.errorField : ''}`} />
           <ErrorMessage name="email" component="div" className={styles.error} />
           </div>
-          
          <div className={styles.inputbox}>
          <label htmlFor="password" className={styles.label}>Create a strong password</label>
          <div className={styles.inputWrapper }>
@@ -95,11 +104,12 @@ const RegistrationForm = () => {
       type="button"
       onClick={togglePassword}
       className={styles.eyeButton}
-      aria-label="Toggle password visibility"
-    >
-      <img src={showPassword ? EyeOffIcon : EyeIcon} alt="Toggle password visibility" className={styles.eyeIcon} />
+      aria-label="Toggle password visibility">
+               <img src={showPassword ? EyeOffIcon : EyeIcon} alt="Toggle password visibility" className={styles.eyeIcon} />
+               {/*  <svg className={styles.eyeIcon} >
+                  <use href={`/public/eye-symbol-defs.svg#${showPassword ? 'icon-eye-icon-off-xs' : 'icon-eye-icon-xs'}`} />
+                </svg>    */}          
     </button>
-   
   </div>
   <ErrorMessage name="password" component="div" className={styles.error} />
 </div>
@@ -118,23 +128,18 @@ const RegistrationForm = () => {
       type="button"
       onClick={toggleConfirm}
       className={styles.eyeButton}
-      aria-label="Toggle password visibility"
-    >
-      <img src={showConfirm ? EyeOffIcon : EyeIcon} alt="Toggle password visibility" className={styles.eyeIcon} />
+      aria-label="Toggle password visibility" >       
+       <img src={showConfirm ? EyeOffIcon : EyeIcon} alt="Toggle password visibility" className={styles.eyeIcon} />          
     </button>
   </div>
   <ErrorMessage name="confirmPassword" component="div" className={styles.error} />
 </div>
-       
         <button type="submit" className={styles.button}>
-          Register
+          Create account
         </button>
-
          <span className={styles.linkbox}>
            Already have an account?
-        <Link to="/login" className={styles.link}>
-          Log In!
-          </Link>
+        <Link to="/login" className={styles.link}> Log In!</Link>
           </span>
         </Form>
           )}
