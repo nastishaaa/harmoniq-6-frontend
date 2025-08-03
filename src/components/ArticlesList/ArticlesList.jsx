@@ -2,10 +2,21 @@ import styles from "./ArticlesList.module.css";
 import { useSelector } from "react-redux";
 import { selectArticles } from "../../redux/articles/selectors";
 import ArticlesItem from "../ArticlesItem/ArticlesItem";
+import { Link } from "react-router-dom";
 
 export default function ArticlesList() {
-  // filterArticles---Зробити логіку фільтру
-  const articlesItems = useSelector(selectArticles);
+   const articlesItems = useSelector(selectArticles);
+  
+  if (!articlesItems || articlesItems.length === 0) {
+    return (
+      <div className={styles.notFoundWrapper}>
+        <h2 className={styles.notFoundTitle}>No articles available</h2>
+        <Link to="/" className={styles.goBackLink}>
+          Go back to home
+        </Link>
+      </div>
+    );
+  }
     return (
     <div>
       <ul className={styles.list}>
@@ -15,6 +26,6 @@ export default function ArticlesList() {
           </li>
         ))}
       </ul>
-    </div>
+    </div> 
   );
 }

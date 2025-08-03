@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchArticleById, fetchArticles } from "./operations";
 const initialState = {
   items: [],
+  total: 0,
+  hasNextPage: false,
+  page: 1,
   selectedArticle: null,
   isLoadingArticles: false,
   isErrorArticles: false,
@@ -20,7 +23,14 @@ const slice = createSlice({
       })
       .addCase(fetchArticles.fulfilled, (state, action) => {
         state.isLoadingArticles = false;
-        state.items = action.payload;
+        state.total = action.payload.total;
+        state.hasNextPage = action.payload.hasNextPage;
+        state.page = action.payload.page;
+        if (action.payload.page === 1) {
+          state.items = action.payload.data;
+        } else {
+          state.items = [...state.items, ...action.payload.data];
+        }
       })
       .addCase(fetchArticles.rejected, (state) => {
         state.isLoadingArticles = false;
