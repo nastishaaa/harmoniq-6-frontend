@@ -12,16 +12,25 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
 
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
- 
+
   // Підвантажую початковий стан isSaved
   useEffect(() => {
     if (!isLoggedIn) return;
 
     const fetchSavedStatus = async () => {
       try {
-        const res = await fetch(`/api/articles/${articleId}/is-saved`, {
-          credentials: "include",
-        });
+        const method = isSaved ? "DELETE" : "POST";
+
+        const res = await fetch(
+          `http://localhost:3000/api/articles/${articleId}/${
+            isSaved ? "unsave" : "save"
+          }`,
+          {
+            method,
+            credentials: "include",
+          }
+        );
+
         if (!res.ok) throw new Error("Failed to fetch saved status");
 
         const data = await res.json();
@@ -35,6 +44,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
   }, [articleId, isLoggedIn]);
 
   const handleClick = async () => {
+    console.log("isLoggedIn:", isLoggedIn);
     if (!isLoggedIn) {
       dispatch(setIsModalErrorSaveOpen(true));
       return;
