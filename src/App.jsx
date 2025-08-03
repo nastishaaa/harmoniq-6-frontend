@@ -58,19 +58,16 @@ function App() {
   //   dispatch(refresh());
   // }, []);
 
-  
   useEffect(() => {
     const token = store.getState().authorization.token;
-  if (token) {
-    dispatch(refresh());
-  }
+    if (token) {
+      dispatch(refresh());
+    }
   }, []);
   return (
     <>
-      {isGlobalLoading && <Loader /> || isRefreshing && <Loader />}
-      <RouterProvider router={router}>
-        <ModalErrorSave />
-      </RouterProvider>
+      {(isGlobalLoading && <Loader />) || (isRefreshing && <Loader />)}
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }
