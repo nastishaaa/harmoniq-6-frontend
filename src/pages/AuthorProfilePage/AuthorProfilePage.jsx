@@ -74,7 +74,13 @@ export default function AuthorProfilePage() {
   }, [id, dispatch, isOwnProfile, activeTab]);
 
   const handleLoadMore = () => {
-    dispatch(fetchAuthorArticles({ authorId: id, page }));
+    dispatch(fetchAuthorArticles({ authorId: id, page })).then(() => {
+      // Скрол до початку статей
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
   };
 
   const displayArticles = isOwnProfile
