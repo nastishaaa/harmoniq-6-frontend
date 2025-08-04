@@ -143,8 +143,6 @@
 .formContainer{
   display: flex;
   justify-content: center;
-  margin-top: 48px;
-  margin-bottom: 48px;
 }
 
 .form {

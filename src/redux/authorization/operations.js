@@ -2,8 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const API = axios.create({
-    baseURL: 'https://harmoniq-6.onrender.com',
+    baseURL: 'https://harmoniq-6.onrender.com'
 });
+API.defaults.withCredentials = true;
 
 export const setAuthHeader = token => {
     API.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -78,29 +79,22 @@ export const logoutThunk = createAsyncThunk('auth/logout',
 
 export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   try {
-    // Виконуємо запит до сервера для рефрешу токена
-      const res = await API.get('/auth/refresh',  { withCredentials: true });
-      
-    // Перевіряємо, чи містить відповідь accessToken
-    const { accessToken } = res.data.data;
-    
+    const res = await API.get('/auth/refresh');
+    const accessToken = res.data.data?.accessToken;
+
     if (!accessToken) {
       return thunkAPI.rejectWithValue('No access token in response');
     }
 
-    // Оновлюємо заголовок авторизації для всіх майбутніх запитів
     setAuthHeader(accessToken);
 
-    // Повертаємо новий токен для оновлення стану
     return accessToken;
   } catch (error) {
-    // Перевіряємо, чи є error.response для отримання детальної інформації
     const errorMessage = error.response?.data?.message || error.message || 'Unexpected error';
-    
-    // Відправляємо повідомлення про помилку в Redux
     return thunkAPI.rejectWithValue(errorMessage);
   }
 });
+
 
 export const uploadAvatarThunk = createAsyncThunk(
     'auth/uploadAvatar',
