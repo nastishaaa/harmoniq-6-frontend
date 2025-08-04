@@ -1,1 +1,0 @@
-export const selectIsLoggedIn = state => state.register.isLoggedIn;

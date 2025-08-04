@@ -1,26 +1,30 @@
 import AddArticleForm from "../../components/AddArticleForm/AddArticleForm";
 import { useSelector } from "react-redux";
-//import { useEffect } from "react";
-import { selectLoading, selectError } from "../../redux/articles/selectors.js";
-//import {addArticle} from '../../redux/addArticles/addArticlesOperations.js';
+import { useEffect } from "react";
+import { selectIsLoading, selectIsError } from "../../redux/addArticle/addArticleSelectors.js";
+// import {addArticle} from '../../redux/addArticles/addArticlesOperations.js';
 import css from "./CreateArticlePage.module.css";
-import { selectIsLoggedIn } from "../../redux/register/selector.js";
+import { selectIsLoggedIn } from "../../redux/authorization/selectors.js";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateArticlePage() {
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const loading = useSelector(selectIsLoading);
+  const error = useSelector(selectIsError);
 
+  const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  if (!isLoggedIn) {
-    return <Navigate to="/login" />;
-  }
+    useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]); 
   return (
     <div className={css.form}>
-      <h1>Create an article</h1>
+      <h1 className={css.createArticle}>Create an article</h1>
       {loading && <p>Loading ...</p>}
-
       {error && <p>{error}</p>}
       <AddArticleForm />
     </div>
+
   );
 }

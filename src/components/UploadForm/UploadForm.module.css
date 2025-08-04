@@ -1,0 +1,96 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 32px;
+  padding: 32px;
+  width: 360px;
+  height: 322px;
+  background-color: #d1e0d8;
+  gap: 20px;
+}
+
+.formExpanded {
+  height: 378px;
+}
+
+.title {
+  font-family: Manrope Bold;
+  font-weight: 700;
+  font-size: 32px;
+  text-align: center;
+  color: #070721;
+}
+.hidden {
+  display: none;
+}
+
+.customUpload {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 128px;
+  width: 136px;
+  height: 136px;
+  background: #649179;
+}
+
+.icon {
+  width: 72px;
+  height: 61px;
+  fill: #070707;
+}
+
+.previewImage {
+  border-radius: 256px;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.btn {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 16px;
+  color: #f7fffb;
+  border: none;
+  border-radius: 64px;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  width: 296px;
+  height: 38px;
+  box-shadow: 0 0 0 6px #4e46b41f, 0 0 0 2px #fff;
+  background: #649179;
+  opacity: 0.3;
+}
+
+.active {
+  opacity: 1;
+  background: #374f42;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+@media only screen and (min-width: 768px) {
+  .form {
+    width: 522px;
+    height: 354px;
+    padding: 48px 32px;
+  }
+
+  .btn {
+    width: 458px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .form {
+    width: 392px;
+  }
+
+  .btn {
+    width: 328px;
+  }
+}

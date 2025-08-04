@@ -1,10 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import RootLayout from "./layout/RootLayout";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Loader } from "./components/Loader/Loader.jsx";
 import { isLoading } from "./redux/global/selectors.js";
-import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
+import { selectIsRefreshing } from "./redux/authorization/selectors.js";
+import { refresh } from "./redux/authorization/operations.js";
+import { store } from "./redux/store.js";
+// import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
 import { Toaster } from 'react-hot-toast';
 
 
@@ -38,7 +41,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "articles", element: <ArticlesPage /> },
       { path: "articles/:id", element: <ArticleDetailPage /> },
-      { path: "authors", element: <AuthorsPage /> },
+      { path: "users", element: <AuthorsPage /> },
       { path: "register", element: <RegisterPage /> },
       { path: "photo", element: <UploadPhotoPage /> },
       { path: "login", element: <LoginPage /> },
@@ -49,14 +52,23 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const isRefreshing = useSelector(selectIsRefreshing);
   const isGlobalLoading = useSelector(isLoading);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(refresh());
+  // }, []);
+
+  useEffect(() => {
+  dispatch(refresh());
+  }, [dispatch]);
+
   return (
     <>
          <Toaster position="top-center" reverseOrder={false} />
-      {isGlobalLoading && <Loader />}
-      <RouterProvider router={router}>
-        <ModalErrorSave />
-      </RouterProvider>
+      {(isGlobalLoading && <Loader />) || (isRefreshing && <Loader />)}
+      <RouterProvider router={router}/>
     </>
   );
 }

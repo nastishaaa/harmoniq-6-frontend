@@ -46,7 +46,7 @@ export const ModalErrorSave = () => {
           onClick={() => dispatch(setIsModalErrorSaveOpen(false))}
         >
           <img src="src/assets/icons/close.svg" alt="Close icon" />
-        </button>
+        </button> 
         <p className={styles.title}>Error while saving</p>
         <p className={styles.caption}>
           To save this article, you need to authorize first
