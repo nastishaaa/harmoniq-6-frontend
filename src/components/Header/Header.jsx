@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 
-import BurgerOpen from "/src/assets/icons/burger.svg";
-import BurgerClose from "/src/assets/icons/close.svg";
+import HeaderLogo from '../../public/icons/header-logo.svg'
+import BurgerOpen from "../../public/icons/burger.svg";
+import BurgerClose from "../../public/icons/close.svg";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function Header() {
           <div className={styles.logo}>
             <Link to="/">
               <img
-                src="/src/assets/icons/header-logo.svg"
+                src={HeaderLogo}
                 alt="Harmoniq logo"
               />
             </Link>
