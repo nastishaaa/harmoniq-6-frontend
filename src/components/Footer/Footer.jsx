@@ -1,5 +1,6 @@
 import styles from "./Footer.module.css";
 import { Link } from "react-router-dom";
+import FooterLogo from '../../public/icons/footer-logo.svg'
 
 export default function Footer() {
   return (
@@ -7,7 +8,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link to="/">
-            <img src="/src/assets/icons/footer-logo.svg" alt="Harmoniq logo" />
+            <img src={FooterLogo} alt="Harmoniq logo" />
           </Link>
         </div>
 

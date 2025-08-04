@@ -2,8 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const API = axios.create({
-    baseURL: 'https://harmoniq-6.onrender.com',
+    baseURL: 'https://harmoniq-6.onrender.com'
 });
+API.defaults.withCredentials = true;
 
 export const setAuthHeader = token => {
     API.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -17,11 +18,12 @@ export const login = createAsyncThunk(
     async (credentials, thunkAPI) => {
         try {
             const response = await API.post('/auth/login', credentials);
-            
+
             setAuthHeader(response.data.data.token);
             
             return {
                 accessToken: response.data.data.token,
+                refreshToken: response.data.data.refreshToken,
                 user: response.data.data.user,
     };
         } catch (error) {
@@ -56,23 +58,50 @@ export const logoutThunk = createAsyncThunk('auth/logout',
     }
 );
 
-export const refresh = createAsyncThunk('auth/refresh',
-    async (_, thunkAPI) => {
-        const state = thunkAPI.getState();
-        const persistedToken = state.authorization.token;
+// export const refresh = createAsyncThunk('auth/refresh',
+//     async (_, thunkAPI) => {
+//         const state = thunkAPI.getState();
+//         const persistedToken = state.authorization.token;
 
-        if (persistedToken === null || !persistedToken) {
-            return thunkAPI.rejectWithValue('Unable to fetch user');
-        }
+//         if (persistedToken === null || !persistedToken) {
+//             return thunkAPI.rejectWithValue('Unable to fetch user');
+//         }
 
-        try {
-            setAuthHeader(persistedToken);
-            const res = await API.get('/users/me');
-            return res.data;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    });
+//         try {
+//             setAuthHeader(persistedToken);
+//             const res = await API.post('/auth/refresh');
+//             console.log('RES', res);
+            
+//             return res.data;
+//         } catch (error) {
+//             return thunkAPI.rejectWithValue(error.message);
+//         }
+//     });
+
+export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  const refreshToken = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('refreshToken='))
+        ?.split('=')[1]; 
+    
+  if (!refreshToken) {
+    return thunkAPI.rejectWithValue('No refresh token found');
+  }
+
+  try {
+    const res = await API.post('/auth/refresh', { refreshToken });
+
+    const { accessToken } = res.data.data;
+      if (!accessToken) {
+          return thunkAPI.rejectWithValue('Failed to refresh token');
+      }
+      
+    setAuthHeader(accessToken);
+    return accessToken;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
 
 export const uploadAvatarThunk = createAsyncThunk(
     'auth/uploadAvatar',

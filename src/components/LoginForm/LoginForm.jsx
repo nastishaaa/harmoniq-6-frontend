@@ -83,6 +83,7 @@ return (
                       {...field}
                       type={passwordEye ? "text" : "password"}
                       placeholder="*********"
+                      
                       className={clsx(
                         css.fieldLoginForm,
                         meta.touched && meta.error && css.errorInput

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { useField } from 'formik';
+import css from './AddArticleForm.module.css';
 
 export default function AutoResizeTextarea({ name, className, placeholder, id, ...props }) {
   const [field, meta] = useField(name);
@@ -37,7 +38,7 @@ export default function AutoResizeTextarea({ name, className, placeholder, id, .
         id={id}
         ref={textareaRef}
         placeholder={placeholder}
-        className={className}
+        className={css.textarea}
         onChange={handleChange}
         style={{ overflow: 'hidden' }}
       />

@@ -62,7 +62,7 @@
   color: #070721;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .footer {
     height: 94px;
     padding: 0;

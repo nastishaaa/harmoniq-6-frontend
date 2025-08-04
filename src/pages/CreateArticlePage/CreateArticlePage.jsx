@@ -1,12 +1,11 @@
 import AddArticleForm from "../../components/AddArticleForm/AddArticleForm";
 import { useSelector } from "react-redux";
-//import { useEffect } from "react";
+import { useEffect } from "react";
 import { selectIsLoading, selectIsError } from "../../redux/addArticle/addArticleSelectors.js";
-//import {addArticle} from '../../redux/addArticles/addArticlesOperations.js';
+// import {addArticle} from '../../redux/addArticles/addArticlesOperations.js';
 import css from "./CreateArticlePage.module.css";
 import { selectIsLoggedIn } from "../../redux/authorization/selectors.js";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function CreateArticlePage() {
   const loading = useSelector(selectIsLoading);
@@ -14,18 +13,19 @@ export default function CreateArticlePage() {
 
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  //   useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate("/login");
-  //   }
-  // }, [isLoggedIn, navigate]); 
+    
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]); 
   return (
     <div className={css.form}>
-      <h1>Create an article</h1>
+      <h1 className={css.createArticle}>Create an article</h1>
       {loading && <p>Loading ...</p>}
-
       {error && <p>{error}</p>}
       <AddArticleForm />
     </div>
+
   );
 }

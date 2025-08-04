@@ -12,8 +12,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
 
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
- 
-  // Підвантажую початковий стан isSaved
+
   useEffect(() => {
     if (!isLoggedIn) return;
 

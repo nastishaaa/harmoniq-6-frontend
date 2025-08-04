@@ -1,12 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import articlesReducer from "./articles/slice";
-import { homeDataReducer } from "./homeData/slice";
-import globalReducer from "./global/slice";
-import userReducer from "./user/userSlice";
-import authorArticlesReducer from "./authorArticles/authorArticlesSlice";
+import { configureStore } from '@reduxjs/toolkit'
+import articlesReducer from './articles/slice'
+import { homeDataReducer } from './homeData/slice'
+import globalReducer from './global/slice'
+import userReducer from './user/userSlice'
+import authorArticlesReducer from './authorArticles/authorArticlesSlice'
 // import { authReducer } from "./auth/slice.js";
 // import { registerReducer } from "./register/slice.js";
-import { authorizationReducer } from "./authorization/slice.js";
+import { authorizationReducer } from './authorization/slice.js'
+import authorsReducer from './authors/slice.js'
 import {
   persistStore,
   persistReducer,
@@ -16,15 +17,15 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { addArticlesReducer } from "./addArticle/addArticlesSlice.js";
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { addArticlesReducer } from './addArticle/addArticlesSlice.js'
 
 const authPersistConfig = {
-    key: 'authorization',
-    storage,
-    whitelist: ['token', 'user'],
-};
+  key: 'authorization',
+  storage,
+  whitelist: ['token', 'user', 'isLoggedIn', 'refreshToken'],
+}
 
 export const store = configureStore({
   reducer: {
@@ -37,13 +38,14 @@ export const store = configureStore({
     // register: registerReducer,
     user: userReducer,
     authorArticles: authorArticlesReducer,
+    authors: authorsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-          serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-          },
-        }),
-});
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store)
