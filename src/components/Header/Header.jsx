@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import BurgerOpen from "/src/assets/icons/burger.svg";
 import BurgerClose from "/src/assets/icons/close.svg";
+import HeaderAuth from "../HeaderAuth/HeaderAuth.jsx";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

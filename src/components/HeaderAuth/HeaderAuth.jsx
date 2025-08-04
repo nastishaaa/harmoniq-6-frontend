@@ -1,53 +1,85 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/authorization/selectors.js";
 import { NavLink, useNavigate } from "react-router-dom";
+import { logoutThunk } from "../../redux/authorization/operations.js";
+import { useState } from "react";
 import s from "./HeaderAuth.module.css";
 
 const HeaderAuth = () => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleExit = () => {
-    navigate("/login");
+    dispatch(logoutThunk());
+    setMenuOpen(false);
+    navigate("/");
   };
+
   const handleCreateArticle = () => {
     navigate("/create");
+    setMenuOpen(false);
   };
+
+  const closeMenu = () => setMenuOpen(false);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   return (
     <header className={s.header}>
       <div className={s.container}>
-        <a href="/">
+        <a href="/" className={s.logoLink}>
           <img
-            className={s.logo}
             src="/src/assets/icons/header-logo.svg"
             alt="logo"
+            className={s.logo}
           />
         </a>
 
-        <div className={s.page}>
+        <button
+          className={s.burger}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          <span className={s.line}></span>
+          <span className={s.line}></span>
+          <span className={s.line}></span>
+        </button>
+
+        <nav className={`${s.page} ${menuOpen ? s.open : ""}`}>
+          <button
+            className={s.closeBtn}
+            onClick={closeMenu}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+
           <ul className={s.itemPage}>
-            <li className={s.listPage}>
+            <li>
               <NavLink
                 to="/"
                 end
+                onClick={closeMenu}
                 className={({ isActive }) => (isActive ? s.activeLink : "")}
               >
                 Home
               </NavLink>
             </li>
-            <li className={s.listPage}>
+            <li>
               <NavLink
                 to="/articles"
+                onClick={closeMenu}
                 className={({ isActive }) => (isActive ? s.activeLink : "")}
               >
                 Articles
               </NavLink>
             </li>
-            <li className={s.listPage}>
+            <li>
               <NavLink
                 to="/users"
                 end
+                onClick={closeMenu}
                 className={({ isActive }) => (isActive ? s.activeLink : "")}
               >
                 Creators
@@ -103,7 +135,7 @@ const HeaderAuth = () => {
               </button>
             </div>
           )}
-        </div>
+        </nav>
       </div>
     </header>
   );
