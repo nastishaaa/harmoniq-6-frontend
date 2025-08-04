@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
 import { isModalErrorSaveOpen } from "../../redux/global/selectors";
 
+import CloseButton from '../../public/icons/close.svg'
 import styles from "./ModalErrorSave.module.css";
 
 export const ModalErrorSave = () => {
@@ -45,7 +46,7 @@ export const ModalErrorSave = () => {
           className={styles.closeButton}
           onClick={() => dispatch(setIsModalErrorSaveOpen(false))}
         >
-          <img src="src/assets/icons/close.svg" alt="Close icon" />
+          <img src={CloseButton} alt="Close icon" />
         </button> 
         <p className={styles.title}>Error while saving</p>
         <p className={styles.caption}>

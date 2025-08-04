@@ -5,6 +5,8 @@ import { logoutThunk } from "../../redux/authorization/operations.js";
 import { useState } from "react";
 import s from "./HeaderAuth.module.css";
 
+import HeaderLogo from '../../public/icons/header-logo.svg';
+
 const HeaderAuth = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const HeaderAuth = () => {
       <div className={s.container}>
         <a href="/" className={s.logoLink}>
           <img
-            src="/src/assets/icons/header-logo.svg"
+            src={HeaderLogo}
             alt="logo"
             className={s.logo}
           />
