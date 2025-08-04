@@ -139,6 +139,14 @@
     width: 704px;
   }
 }*/
+
+.formContainer{
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
 .form {
   width: 100%;
   max-width: 320px;

@@ -45,7 +45,8 @@ const handleSubmit = async (values, actions) => {
 
   try {
     const resultAction = await dispatch(addArticle(formData));
-
+    console.log(resultAction.payload); 
+    
     if (addArticle.fulfilled.match(resultAction)) {
       toast.success('Article published successfully!');
        navigate(`/articles/${resultAction.payload._id}`);
@@ -60,8 +61,9 @@ const handleSubmit = async (values, actions) => {
 
 const articlenameId = useId();
 
-    return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={ArticleFormSchema}>
+  return (
+    <div className={css.formContainer}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={ArticleFormSchema}>
         {({ setFieldValue }) => (
       <Form className={css.form}>
         <div className={css.formLayout}>
@@ -102,6 +104,8 @@ const articlenameId = useId();
     </Form>
         )}
     </Formik>
+      </div>
+    
     );
 };
 /*as="textarea" className={css.fieldArticleField} placeholder="Enter a text"
