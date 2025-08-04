@@ -2,7 +2,7 @@ import ButtonAddToBookmarks from "../ButtonAddToBookmarks/ButtonAddToBookmarks";
 import styles from "./ArticlesItem.module.css";
 import { Link } from "react-router-dom";
 
-export default function ArticlesItem({ article, id }) {
+export default function ArticlesItem({ article, id }) { 
   return (
     <article className={styles.card}>
       <img

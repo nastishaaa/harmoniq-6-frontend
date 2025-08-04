@@ -12,7 +12,7 @@ import {
 import { Loader } from "../../components/Loader/Loader";
 import ButtonAddToBookmarks from "../../components/ButtonAddToBookmarks/ButtonAddToBookmarks";
 
-import {
+import { 
   fetchArticleById,
   fetchArticles,
 } from "../../redux/articles/operations";

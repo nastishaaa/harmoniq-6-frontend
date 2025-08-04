@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchArticleById, fetchArticles } from "./operations";
+import { addArticle } from "../addArticle/addArticleOperations";
+
 const initialState = {
   items: [],
+  total: 0,
+  hasNextPage: false,
+  page: 1,
   selectedArticle: null,
   isLoadingArticles: false,
   isErrorArticles: false,
@@ -20,7 +25,14 @@ const slice = createSlice({
       })
       .addCase(fetchArticles.fulfilled, (state, action) => {
         state.isLoadingArticles = false;
-        state.items = action.payload;
+        state.total = action.payload.total;
+        state.hasNextPage = action.payload.hasNextPage;
+        state.page = action.payload.page;
+        if (action.payload.page === 1) {
+          state.items = action.payload.data;
+        } else {
+          state.items = [...state.items, ...action.payload.data];
+        }
       })
       .addCase(fetchArticles.rejected, (state) => {
         state.isLoadingArticles = false;
@@ -38,7 +50,18 @@ const slice = createSlice({
         state.selectedArticle = null;
         state.isLoadingArticle = false;
         state.isErrorArticle = true;
-      });
+      })
+      .addCase(addArticle.fulfilled, (state, action) => {
+  const newArticle = action.payload;
+
+  if (state.page === 1) {
+    state.items.unshift(newArticle);
+    state.total += 1;
+  } else {
+    state.total += 1;
+  }
+});
+
   },
 });
 

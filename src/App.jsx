@@ -4,10 +4,11 @@ import RootLayout from "./layout/RootLayout";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader } from "./components/Loader/Loader.jsx";
 import { isLoading } from "./redux/global/selectors.js";
-
 import { selectIsRefreshing } from "./redux/authorization/selectors.js";
 import { refresh } from "./redux/authorization/operations.js";
-import { store } from "./redux/store.js";
+// import { store } from "./redux/store.js";
+// import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -59,15 +60,14 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    const token = store.getState().authorization.token;
-    if (token) {
-      dispatch(refresh());
-    }
-  }, []);
+    dispatch(refresh());
+  }, [dispatch]);
+
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       {(isGlobalLoading && <Loader />) || (isRefreshing && <Loader />)}
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router} />
     </>
   );
 }
