@@ -18,153 +18,45 @@
 border-radius: 32px;
 padding: 48px 32px;
 width: 360px;
-height: 632px;
+
 margin: 85px 16.5px; 
  background-color: #d1e0d8;
 
 }
-.inputWrapper {
-  position: relative;
-  width: 100%;
-}
-
-.field {
-  width: 100%;
-  height: 41px;
-  padding: 8px 36px 8px 8px; 
-  border-radius: 8px;
-  border: 1px solid var(--light-gray);
-  background-color: white;
-  box-sizing: border-box;
-  color: var(--color-dark-blue);
-}
-.errorField {
-  border-color: red;
-  outline: 1.5px solid red;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.eyeButton {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  height: 24px;
-}
-
-.eyeIcon {
-  width: 20px;
-  height: 20px;
-  pointer-events: none;
-}
-
-.eyeButton img {
-  width: 16px;   
-  height: 20px;
-  user-select: none;
-  pointer-events: none; 
-  fill: black;
-}
-
-
-
-.form {
-    display: flex;
-    flex-direction: column;
-   margin: auto;
-    width: 296px;
-    gap: 16px;
+ .text{
+  font-family: var(--font-family);
+    font-weight: 400;
+font-size: 16px;
+line-height: 155%;
+text-align: center;
+padding: 20px 10px;
 }
 .hedline{
+  font-family: var(--font-family);
     font-weight: 700;
 font-size: 32px;
 text-align: center;
 color: var(--black);
 margin: 0 20px;
 }
-.text{
-    font-weight: 400;
-font-size: 16px;
-line-height: 155%;
-text-align: center;
-padding: 20px 50px;
-}
-.label{
-    font-weight: 400;
-font-size: 12px;
-    align-items: center;
-    margin-bottom: 4px;
-}
 
-.button{
-     background-color: #649179;
-     color: var(--color-off-white);
-    cursor: pointer;
-     border-radius: 64px;
-padding: 8px;
-width: 296px;
-height: 38px;
-margin-top: 20px;
-font-weight: 700;
-font-size: 16px;
-}
-
-.link{
-    font-weight: 400;
-font-size: 16px;
-line-height: 155%;
-text-align: center;
-color: var(--black);
-font-weight: 700;
-text-decoration: underline;
-text-decoration-skip-ink: none;
-padding: 8px;
-}
-.linkbox{
-    padding:  22px;
-    align-items: center;
-    font-weight: 400;
-font-size: 16px;
-}  
 @media (min-width: 768px) {
     .section{width: 522px;
         margin: 120px 123px;
-height: 632px;}
-.form {width: 458px;
-height: 357px;}
-.field {width: 458px;
-height: 41px;}
-.button {width: 458px;
-height: 38px;}
+}
+.text{
+  padding: 20px 90px;
+}
+
 }
 
 @media (min-width: 1440px){
     .section{
         width: 392px;
-height: 632px;
 margin: 50px 524px;
+padding: 48px 32px;
     }
-    .form{
-        width: 328px;
-height: 357px;
-    }
-    .field{
-        width: 328px;
-height: 61px;
-    }
-    .button{
-        width: 328px;
-height: 38px;
-    }
+   .text{
+  padding: 10px 30px;
+} 
 }

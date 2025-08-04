@@ -8,6 +8,8 @@ import { selectIsRefreshing } from "./redux/authorization/selectors.js";
 import { refresh } from "./redux/authorization/operations.js";
 import { store } from "./redux/store.js";
 // import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
+import { Toaster } from 'react-hot-toast';
+
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -64,6 +66,7 @@ function App() {
 
   return (
     <>
+         <Toaster position="top-center" reverseOrder={false} />
       {(isGlobalLoading && <Loader />) || (isRefreshing && <Loader />)}
       <RouterProvider router={router}/>
     </>

@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 import { useSelector } from "react-redux";
-import RegistrationForm from "./RegistrationForm";
+import RegistrationForm from "../../components/RegisterForm/RegistrationForm";
 import { selectIsLoggedIn } from "../../redux/authorization/selectors";
 
 export default function RegisterPage() {
