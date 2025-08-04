@@ -8,7 +8,12 @@ import heroDesktop from './images/hero-desktop.png';
 import heroDesktop2x from './images/hero-desktop@2x.png';
 import { Link } from 'react-router-dom';
 
+import { selectIsLoggedIn } from '../../redux/authorization/selectors';
+import { useSelector } from 'react-redux';
+
 const Hero = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   function handleSmoothScroll(event, targetId) {
   event.preventDefault();
   const element = document.getElementById(targetId);
@@ -45,9 +50,10 @@ const Hero = () => {
                   <a href='#home-articles'
                     className={styles.heroGoToBtn}
                     onClick={(e) => handleSmoothScroll(e, 'home-articles')}>Go to Articles
-                  </a>
-                  <Link to="/register" className={styles.heroRegisterBtn}>Register</Link>
-                </div>
+          </a>
+          {!isLoggedIn ? <Link to="/register" className={styles.heroRegisterBtn}>Register</Link> :
+          <Link to="/create" className={styles.heroRegisterBtn} >Create Article</Link>}
+                  </div>
               </div>
       </section>
   )
