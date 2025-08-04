@@ -45,7 +45,8 @@ const handleSubmit = async (values, actions) => {
 
   try {
     const resultAction = await dispatch(addArticle(formData));
-
+    console.log(resultAction.payload); 
+    
     if (addArticle.fulfilled.match(resultAction)) {
       toast.success('Article published successfully!');
        navigate(`/articles/${resultAction.payload._id}`);
@@ -60,8 +61,9 @@ const handleSubmit = async (values, actions) => {
 
 const articlenameId = useId();
 
-    return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={ArticleFormSchema}>
+  return (
+    <div className={css.formContainer}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={ArticleFormSchema}>
         {({ setFieldValue }) => (
       <Form className={css.form}>
         <div className={css.formLayout}>
@@ -87,7 +89,7 @@ const articlenameId = useId();
     }
   </Field>
        </label>
-       <ErrorMessage name="img" component="span" className={css.error} />
+       <ErrorMessage name="img" component="span" className={css.errorImg} />
        </div>
        <div className={`${css.formTitle} ${css.formGroup}`}>
         <label htmlFor={articlenameId} className={css.formTitleLabel}>Title</label>
@@ -102,14 +104,7 @@ const articlenameId = useId();
     </Form>
         )}
     </Formik>
+      </div>
+    
     );
 };
-/*as="textarea" className={css.fieldArticleField} placeholder="Enter a text"
- <ErrorMessage name="articletext" component="span" className={css.error}/>
-  <div className={css.formDatePublish}>
-       <label htmlFor={articleDateId} className={css.formTitleLabel}>Publish date</label>
-       <DatePicker className={css.formDate} id={articleDateId} selected={values.publishDate} onChange={(date) => setFieldValue("publishDate", date)}showTimeSelect
-        dateFormat="MMMM d, yyyy h:mm aa"/>
-       <ErrorMessage name="publishDate" component="span" className={css.error} />
-      </div>
-      const articleDateId = useId();*/

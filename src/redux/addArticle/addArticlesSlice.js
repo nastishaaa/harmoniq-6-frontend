@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addArticle } from './addArticlesOperations.js';
+import { addArticle } from './addArticleOperations';
 
 const initialState = {
   isLoading: false,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const articlesSlice = createSlice({
-  name: 'articles',
+  name: 'addArticles',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -28,4 +28,4 @@ const articlesSlice = createSlice({
   },
 });
 
-export  default  articlesSlice.reducer;
+export  const  addArticlesReducer = articlesSlice.reducer;

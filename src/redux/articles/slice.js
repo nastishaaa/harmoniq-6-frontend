@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchArticleById, fetchArticles } from "./operations";
+import { addArticle } from "../addArticle/addArticleOperations";
+
 const initialState = {
   items: [],
   total: 0,
@@ -48,7 +50,18 @@ const slice = createSlice({
         state.selectedArticle = null;
         state.isLoadingArticle = false;
         state.isErrorArticle = true;
-      });
+      })
+      .addCase(addArticle.fulfilled, (state, action) => {
+  const newArticle = action.payload;
+
+  if (state.page === 1) {
+    state.items.unshift(newArticle);
+    state.total += 1;
+  } else {
+    state.total += 1;
+  }
+});
+
   },
 });
 
