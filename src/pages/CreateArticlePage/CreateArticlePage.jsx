@@ -13,8 +13,9 @@ export default function CreateArticlePage() {
 
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-    useEffect(() => {
-    if (!isLoggedIn) {
+    
+  useEffect(() => {
+    if (isLoggedIn === false) {
       navigate("/login");
     }
   }, [isLoggedIn, navigate]); 

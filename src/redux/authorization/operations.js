@@ -18,11 +18,12 @@ export const login = createAsyncThunk(
     async (credentials, thunkAPI) => {
         try {
             const response = await API.post('/auth/login', credentials);
-            
+
             setAuthHeader(response.data.data.token);
             
             return {
                 accessToken: response.data.data.token,
+                refreshToken: response.data.data.refreshToken,
                 user: response.data.data.user,
     };
         } catch (error) {
@@ -78,23 +79,29 @@ export const logoutThunk = createAsyncThunk('auth/logout',
 //     });
 
 export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  const refreshToken = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('refreshToken='))
+        ?.split('=')[1]; 
+    
+  if (!refreshToken) {
+    return thunkAPI.rejectWithValue('No refresh token found');
+  }
+
   try {
-    const res = await API.get('/auth/refresh');
-    const accessToken = res.data.data?.accessToken;
+    const res = await API.post('/auth/refresh', { refreshToken });
 
-    if (!accessToken) {
-      return thunkAPI.rejectWithValue('No access token in response');
-    }
-
+    const { accessToken } = res.data.data;
+      if (!accessToken) {
+          return thunkAPI.rejectWithValue('Failed to refresh token');
+      }
+      
     setAuthHeader(accessToken);
-
     return accessToken;
   } catch (error) {
-    const errorMessage = error.response?.data?.message || error.message || 'Unexpected error';
-    return thunkAPI.rejectWithValue(errorMessage);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
-
 
 export const uploadAvatarThunk = createAsyncThunk(
     'auth/uploadAvatar',
