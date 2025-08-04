@@ -24,7 +24,7 @@ import { addArticlesReducer } from './addArticle/addArticlesSlice.js'
 const authPersistConfig = {
   key: 'authorization',
   storage,
-  whitelist: ['token', 'user'],
+  whitelist: ['token', 'user', 'isLoggedIn', 'refreshToken'],
 }
 
 export const store = configureStore({
