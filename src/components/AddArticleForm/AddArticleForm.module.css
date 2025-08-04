@@ -3,6 +3,10 @@
   /*justify-content: center;*/
 }
 
+.textarea{
+  background: #f7fffb;
+}
+
 .form {
   width: 100%;
   max-width: 320px;
@@ -49,7 +53,8 @@ padding: 45px 25px;
   padding: 12px;
   border: 1px solid  #9f9f9f;
   border-radius: 8px;
-  width: 260px;
+  width: 260px; 
+  background: #f7fffb;
 }
 .fieldArticleField {
     border: 1px solid  #9f9f9f;
