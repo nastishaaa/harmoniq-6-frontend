@@ -74,19 +74,19 @@
 }
 
 .topCreatorsList li {
-  width: 172px;
+  width: 172px !important;
 
   @media screen and (min-width: 768px) {
-    width: 184px;
+    width: 184px !important;
   }
 }
 
-.topCreatorsList li > img {
-  width: 148px;
-  height: 148px;
+.topCreatorsList li img {
+  width: 148px !important;
+  height: 148px !important;
 
   @media screen and (min-width: 768px) {
-    width: 160px;
-    height: 160px;
+    width: 160px !important;
+    height: 160px !important;
   }
 }
