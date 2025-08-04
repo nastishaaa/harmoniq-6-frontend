@@ -7,7 +7,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link to="/">
-            <img src="/src/assets/icons/footer-logo.svg" alt="Harmoniq logo" />
+            <img src="/public/icons/footer-logo.svg" alt="Harmoniq logo" />
           </Link>
         </div>
 
