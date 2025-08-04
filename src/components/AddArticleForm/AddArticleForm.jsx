@@ -89,7 +89,7 @@ const articlenameId = useId();
     }
   </Field>
        </label>
-       <ErrorMessage name="img" component="span" className={css.error} />
+       <ErrorMessage name="img" component="span" className={css.errorImg} />
        </div>
        <div className={`${css.formTitle} ${css.formGroup}`}>
         <label htmlFor={articlenameId} className={css.formTitleLabel}>Title</label>
@@ -108,12 +108,3 @@ const articlenameId = useId();
     
     );
 };
-/*as="textarea" className={css.fieldArticleField} placeholder="Enter a text"
- <ErrorMessage name="articletext" component="span" className={css.error}/>
-  <div className={css.formDatePublish}>
-       <label htmlFor={articleDateId} className={css.formTitleLabel}>Publish date</label>
-       <DatePicker className={css.formDate} id={articleDateId} selected={values.publishDate} onChange={(date) => setFieldValue("publishDate", date)}showTimeSelect
-        dateFormat="MMMM d, yyyy h:mm aa"/>
-       <ErrorMessage name="publishDate" component="span" className={css.error} />
-      </div>
-      const articleDateId = useId();*/
