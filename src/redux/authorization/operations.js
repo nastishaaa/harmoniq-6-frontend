@@ -56,23 +56,51 @@ export const logoutThunk = createAsyncThunk('auth/logout',
     }
 );
 
-export const refresh = createAsyncThunk('auth/refresh',
-    async (_, thunkAPI) => {
-        const state = thunkAPI.getState();
-        const persistedToken = state.authorization.token;
+// export const refresh = createAsyncThunk('auth/refresh',
+//     async (_, thunkAPI) => {
+//         const state = thunkAPI.getState();
+//         const persistedToken = state.authorization.token;
 
-        if (persistedToken === null || !persistedToken) {
-            return thunkAPI.rejectWithValue('Unable to fetch user');
-        }
+//         if (persistedToken === null || !persistedToken) {
+//             return thunkAPI.rejectWithValue('Unable to fetch user');
+//         }
 
-        try {
-            setAuthHeader(persistedToken);
-            const res = await API.get('/users/me');
-            return res.data;
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    });
+//         try {
+//             setAuthHeader(persistedToken);
+//             const res = await API.post('/auth/refresh');
+//             console.log('RES', res);
+            
+//             return res.data;
+//         } catch (error) {
+//             return thunkAPI.rejectWithValue(error.message);
+//         }
+//     });
+
+export const refresh = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  try {
+    // Виконуємо запит до сервера для рефрешу токена
+      const res = await API.get('/auth/refresh',  { withCredentials: true });
+      
+    // Перевіряємо, чи містить відповідь accessToken
+    const { accessToken } = res.data.data;
+    
+    if (!accessToken) {
+      return thunkAPI.rejectWithValue('No access token in response');
+    }
+
+    // Оновлюємо заголовок авторизації для всіх майбутніх запитів
+    setAuthHeader(accessToken);
+
+    // Повертаємо новий токен для оновлення стану
+    return accessToken;
+  } catch (error) {
+    // Перевіряємо, чи є error.response для отримання детальної інформації
+    const errorMessage = error.response?.data?.message || error.message || 'Unexpected error';
+    
+    // Відправляємо повідомлення про помилку в Redux
+    return thunkAPI.rejectWithValue(errorMessage);
+  }
+});
 
 export const uploadAvatarThunk = createAsyncThunk(
     'auth/uploadAvatar',
