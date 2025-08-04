@@ -28,6 +28,16 @@
   cursor: pointer;
 }
 
+.loadMore:hover {
+  background: #374f42;
+}
+
+.loadMore:focus {
+  outline: none;
+  border: 2px solid #f7fffb;
+  box-shadow: 0 0 6px rgba(78, 70, 180, 0.12);
+}
+
 @media (min-width: 768px) {
   .authorsPage {
     margin: 48px 32px;
