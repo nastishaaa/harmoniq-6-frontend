@@ -32,7 +32,7 @@ const TopCreators = () => {
       </div>
       <ul className={styles.topCreatorsList}>
         {topCreators.map((author, index) => (
-          <AuthorsItem key={index} author={author} isShowOlyName={true} />
+          <AuthorsItem key={index} author={author} isShowOnlyName={true} />
         ))}
       </ul>
     </section>
