@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
+
 import clsx from "clsx";
 import styles from "./ButtonAddToBookmarks.module.css";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
@@ -61,14 +62,21 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
         throw new Error(data?.message || "Failed to update bookmark");
       }
 
-      setIsSaved((prev) => !prev);
+      setIsSaved((prev) => {
+        const newState = !prev;
+        if (newState) {
+          toast.success("Article saved");
+        } else {
+          toast.success("Article removed from saved items");
+        }
+        return newState;
+      });
     } catch (error) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error.message || "Error updating saved");
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <button
       className={clsx(styles.button, isSaved && styles.saved)}
