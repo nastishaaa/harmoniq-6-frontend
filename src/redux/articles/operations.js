@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchAll",
-  async ({ page = 1, perPage = 12, filter = "all" }, thunkAPI) => {
+  async ({ page = 1, perPage = 12, filter = "all" }={}, thunkAPI) => {
     try {
       const params = { page, perPage };
 
