@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+// import axios from "axios";
 // import { login } from "../../redux/auth/operations.js"; //ask for athorization thunk
 import {login} from '../../redux/authorization/operations'
 
@@ -11,8 +12,8 @@ import css from "./LoginForm.module.css";
 
 import { Eye, EyeClosed } from "./icons.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Toaster } from "react-hot-toast";
+// import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 
   const loginSchema = Yup.object().shape({
@@ -34,22 +35,58 @@ export default function LoginForm() {
   const handleSubmit = async (values, actions) => {
     try {
       await dispatch(login(values)).unwrap();
+      toast.success("You are logged in");
       actions.resetForm();
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      // const errorMessage = () => toast("Login");
-      const errorMessage = error?.response?.data?.message || error.message || "Login failed";
+    // navigate(`/users/${userId}`)
+        navigate("/users")
+    }
+  // const handleSubmit = async (values, actions) => { try { const result = await dispatch(login(values)).unwrap(); 
+  //   // const token = result.token;
+    // localStorage.setItem("token", token); 
+    // const response = await axios.get("/api/users/me", { headers: { Authorization: `Bearer ${token}`,}, });
+    // const userId = response.data.id
+    // toast.success("You are logged in");
+    // actions.resetForm(); 
+    // // navigate(`/users/${userId}`)
+    //     navigate("/users")
+  // }
+    catch (error) {
+      console.log(error)
+      // const errorMessage = error?.response?.data?.message || error.message || toast.error('Login failed');
+      
 
       // shows the same message for both fields
-      actions.setFieldError("email", errorMessage);
-      actions.setFieldError("password", errorMessage);
+      // actions.setFieldError("email", errorMessage);
+      // actions.setFieldError("password", errorMessage);
 
       // makes fields "touched" to make the frame red
       actions.setTouched({ email: true, password: true }, false);
-      toast.error(errorMessage);
+      toast.error('Login failed. Please register.');
     }
   };
+
+//    const handleSubmit = async (values, { resetForm }) => {
+//   try {
+//     const resultAction = await dispatch(registerThunk(values));
+
+//     if (registerThunk.fulfilled.match(resultAction)) {
+//       resetForm();
+//       navigate('/photo');
+//     } else {
+//       const { status, message } = resultAction.payload || {};
+//       if (status === 400) {
+//         toast.error(message || 'Invalid form data');
+//       } else if (status === 409) {
+//         toast.error('Email in use!');
+//       } else {
+//         toast.error(message || 'Something went wrong');
+//       }
+//     }
+//   // eslint-disable-next-line no-unused-vars
+//   } catch (error) {
+//     toast.error('Unexpected error. Try again later.');
+//   }
+// };
 
 return (
   <div className={css.containerLoginForm}>
