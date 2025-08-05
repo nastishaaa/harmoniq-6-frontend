@@ -5,6 +5,7 @@ import { logoutThunk } from "../../redux/authorization/operations.js";
 import { useEffect, useState } from "react";
 import s from "./HeaderAuth.module.css";
 
+import LogoutIcon from '../../public/icons/Exit.svg';
 import HeaderLogo from "../../public/icons/header-logo.svg";
 
 const HeaderAuth = () => {
@@ -153,7 +154,7 @@ const HeaderAuth = () => {
 
               <button onClick={handleExit} className={s.btnExit}>
                 <img
-                  src="/src/assets/icons/Exit.svg"
+                  src={LogoutIcon}
                   className={s.svgExit}
                   alt="Close"
                 />
