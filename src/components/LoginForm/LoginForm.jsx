@@ -11,6 +11,7 @@ import css from "./LoginForm.module.css";
 import { Eye, EyeClosed } from "./icons.jsx";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 
   const loginSchema = Yup.object().shape({
@@ -37,7 +38,7 @@ export default function LoginForm() {
     } catch (error) {
       console.error(error);
       // const errorMessage = () => toast("Login");
-        const errorMessage = error?.response?.data?.message || error.message || "Login failed";
+      const errorMessage = error?.response?.data?.message || error.message || "Login failed";
 
       // shows the same message for both fields
       actions.setFieldError("email", errorMessage);
@@ -114,14 +115,7 @@ return (
     </Formik>
       <p className={css.descriptionRedirect}>
       Don't have an account? 
-      <NavLink className={css.linkRedirect} to="/register">
-      Register
-      </NavLink>  
-       {/* <CreateLink
-          className={css.linkRedirect}
-          text="Register"
-          to="/api/auth/register"
-        /> */}
+        <Link to="/register" className={css.linkRedirect}> Register</Link>
     </p>
      </div>
   );
@@ -129,15 +123,7 @@ return (
 
 
 
- 	// TO do:
+ 	
 
-// -how to make it send to backend?
-// adaptive design
-  
-
-// По результату валідації:
-// - у разі наявності помилок валідації - біля відповідних полів форми потрібно вивести повідомлення з суттю помилки і заблокувати відправку запиту з форми на backend.
-// - у разі, якщо всі значення валідні, - дані слід відправити на backend.
 // - якщо backend повернув помилку - необхідно її обробити і відобразити користувачеві у вигляді пуш-повідомлення.
 // - якщо запит на backend пройшов успішно і дані про користувача отримано - необхідно реалізувати автоматичну авторизацію і переадресувати користувача на приватну сторінку HomeAuthorised	
-// Посилання "Register" слід реалізувати як компонент Link, використовуючи бібліотеку react-router-dom click, який перенаправляє користувача на RegisterPage
