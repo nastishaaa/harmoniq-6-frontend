@@ -6,10 +6,10 @@ import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import css from "./UploadForm.module.css";
 import uploadIcon from "../../assets/icons/photo.svg";
-import { registerThunk } from "../../redux/authorization/operations.js"
+import { registerThunk } from "../../redux/authorization/operations.js";
 import { selectUser } from "../../redux/authorization/selectors.js";
 import { setAuth } from "../../redux/authorization/slice.js";
-import { clearUserData } from "../../redux/authorization/slice.js"
+import { clearUserData } from "../../redux/authorization/slice.js";
 const validationSchema = Yup.object().shape({
   avatar: Yup.mixed()
     .required("Please select a photo.")
@@ -73,10 +73,17 @@ const UploadForm = () => {
         // Поміняти після реалізації роуту
         navigate("/home-authorised");
       } else {
-        toast.error(resultAction.payload || "Registration failed.");
+        const { status, message } = resultAction.payload || {};
+        if (status === 400) {
+          toast.error(message || "Invalid form data");
+        } else if (status === 409) {
+          toast.error("Email in use!");
+        } else {
+          toast.error(message || "Something went wrong");
+        }
       }
+      // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      console.log(error);
       toast.error("Unexpected error during registration.");
     } finally {
       setSubmitting(false);
