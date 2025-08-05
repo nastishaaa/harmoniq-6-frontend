@@ -56,12 +56,15 @@ padding: 45px 25px;
 .fieldTitle {
   padding: 12px;
   border: 1px solid  #9f9f9f;
+  color: #595d62;
   border-radius: 8px;
   width: 260px; 
   background: #f7fffb;
 }
 .fieldArticleField {
     border: 1px solid  #9f9f9f;
+    color: #595d62;
+    background: #f7fffb;
     border-radius: 8px;
     padding: 12px;
     width: 260px;

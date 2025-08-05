@@ -49,7 +49,7 @@ const handleSubmit = async (values, actions) => {
     
     if (addArticle.fulfilled.match(resultAction)) {
       toast.success('Article published successfully!');
-       navigate(`/articles/${resultAction.payload._id}`);
+       navigate(`/articles/${resultAction.payload.data._id}`);
       actions.resetForm();
     } else {
       toast.error(resultAction.payload || 'Something went wrong');

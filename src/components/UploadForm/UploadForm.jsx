@@ -58,6 +58,8 @@ const UploadForm = () => {
     }
 
     try {
+      console.log('USER', userData);
+      
       const resultAction = await dispatch(
         registerThunk({ ...userData, avatar: values.avatar })
       );
@@ -71,7 +73,7 @@ const UploadForm = () => {
         toast.success("Registration successful!");
         dispatch(clearUserData());
         // Поміняти після реалізації роуту
-        navigate("/home-authorised");
+        navigate("/");
       } else {
         const { status, message } = resultAction.payload || {};
         if (status === 400) {
