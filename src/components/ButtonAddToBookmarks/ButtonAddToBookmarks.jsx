@@ -5,30 +5,36 @@ import { toast } from "react-hot-toast";
 import clsx from "clsx";
 import styles from "./ButtonAddToBookmarks.module.css";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
-import { selectIsLoggedIn } from "../../redux/authorization/selectors";
+import {
+  selectIsLoggedIn,
+  selectToken,
+} from "../../redux/authorization/selectors";
 
 export default function ButtonAddToBookmarks({ articleId, children }) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const token = useSelector(selectToken);
+  console.log("token:", token);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!isLoggedIn) return;
-
+    if (!isLoggedIn || !token) return;
+    console.log("useEffect запустився");
     const fetchSavedStatus = async () => {
       try {
-        const res = await fetch(
-          "http://localhost:3000/api/users/me/saved-articles",
-          {
-            credentials: "include",
-          }
-        );
+        console.log("token in useEffect:", token);
+        const res = await fetch("/api/users/me/saved-articles", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
 
         if (!res.ok) throw new Error("Failed to fetch saved articles");
 
         const data = await res.json();
+        console.log("Отримано saved articles:", data);
         const isArticleSaved = data.data.some((item) => item._id === articleId);
         setIsSaved(isArticleSaved);
       } catch (error) {
@@ -37,7 +43,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
     };
 
     fetchSavedStatus();
-  }, [articleId, isLoggedIn]);
+  }, [articleId, isLoggedIn, token]);
 
   const handleClick = async () => {
     if (!isLoggedIn) {
@@ -49,13 +55,14 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
 
     try {
       const method = isSaved ? "DELETE" : "POST";
-      const res = await fetch(
-        `http://localhost:3000/api/users/me/saved-articles/${articleId}`,
-        {
-          method,
-          credentials: "include",
-        }
-      );
+      console.log("token:", token);
+      const res = await fetch(`/api/users/me/saved-articles/${articleId}`, {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!res.ok) {
         const data = await res.json();
