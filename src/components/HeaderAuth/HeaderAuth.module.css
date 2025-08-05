@@ -20,7 +20,7 @@ a:hover {
   display: block;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .menuHeader .logoLink {
     display: none;
   }
@@ -87,13 +87,13 @@ a:hover {
   margin: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1439px) {
   .menuHeader {
     padding: 18px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .page {
     position: static;
     height: auto;
@@ -213,7 +213,7 @@ a:hover {
 /* #endregion mobile */
 
 /* #region tablet */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1439px) {
   .container {
     display: flex;
     gap: 0;
@@ -252,7 +252,7 @@ a:hover {
 /* #endregion tablet */
 
 /* #region desctop */
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .header {
     padding: 14px 108px;
     height: 74px;
