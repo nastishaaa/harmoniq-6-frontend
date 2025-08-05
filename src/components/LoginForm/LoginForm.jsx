@@ -4,12 +4,12 @@ import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/operations.js"; //ask for athorization thunk
+import { login } from "../../redux/auth/operations.js"; 
 
 import css from "./LoginForm.module.css";
 
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { NavLink, useNavigate } from "react-router-dom";//navigation for redirect and maybe use location to know where the user came from?
+import { Eye, EyeClosed } from "./icons.jsx";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
@@ -36,8 +36,8 @@ export default function LoginForm() {
       navigate("/");
     } catch (error) {
       console.error(error);
-      const errorMessage =
-        error?.response?.data?.message || error.message || "Login failed";
+      // const errorMessage = () => toast("Login");
+        const errorMessage = error?.response?.data?.message || error.message || "Login failed";
 
       // shows the same message for both fields
       actions.setFieldError("email", errorMessage);
@@ -48,23 +48,12 @@ export default function LoginForm() {
       toast.error(errorMessage);
     }
   };
-//  const handleSubmit = async (values, actions) => {
-//     try {
-//       await dispatch(login(values)).unwrap();
-//       actions.resetForm();
-//       navigate("/");
-//     } catch (error) {
-//       console.error(error);
-//       toast.error('Invalid username or password. Please try again.');
-
-//     }
-//   };
 
 return (
   <div className={css.containerLoginForm}>
-    <h2>Login</h2>
+    <h2 className={css.loginHeader}>Login</h2>
     <Formik validationSchema={loginSchema} initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
-      <Form autoComplete='off'>
+      <Form className={css.formLoginForm} autoComplete='off'>
         
         <label className={css.labelLoginForm}>Enter your email address
            <Field name="email">
@@ -86,13 +75,8 @@ return (
               )}
           </Field>
             </label>
-          {/* ========================================================
-        <Field className={css.fieldLoginForm} type='email' name='email' placeholder="email@gmail.com"/>
-            <ErrorMessage name='email' component='span' />
-        </label>
-        =========================================================== */}
           
-          <label htmlFor='password' className={css.labelLoginForm}>  Enter your password
+          <label htmlFor='password' className={css.labelLoginForm}>  Enter a password
           <div className={css.label}>
               <Field name="password">
                 {({ field, meta }) => (
@@ -113,17 +97,13 @@ return (
                   </>
                 )}
               </Field>
-            {/* =================================================================
-            <Field className={css.fieldLoginForm} type='password' name='password'  placeholder="*********" />
-            <ErrorMessage name='password' component='span' />   
-          ====================================================================   */}
              <button
               type="button"
               className={css.eyeButton}
                 onClick={handlePasswordClick}
                 aria-label={passwordEye ? "Hide password" : "Show password"}
             >
-              {passwordEye ? <FiEye /> : <FiEyeOff />}
+                {passwordEye ? <Eye /> : <EyeClosed />}
             </button>
              </div>
         </label>
@@ -132,11 +112,16 @@ return (
           </button>
         </Form>
     </Formik>
-      <p>
-      Don't have an account?
-      <NavLink to="/register">
-        Register
-        </NavLink>   
+      <p className={css.descriptionRedirect}>
+      Don't have an account? 
+      <NavLink className={css.linkRedirect} to="/register">
+      Register
+      </NavLink>  
+       {/* <CreateLink
+          className={css.linkRedirect}
+          text="Register"
+          to="/api/auth/register"
+        /> */}
     </p>
      </div>
   );
@@ -145,7 +130,7 @@ return (
 
 
  	// TO do:
-  // -find the solution to the eye button
+
 // -how to make it send to backend?
 // adaptive design
   
