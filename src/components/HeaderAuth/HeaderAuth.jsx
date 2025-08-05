@@ -69,7 +69,7 @@ const HeaderAuth = () => {
           </div>
 
           <ul className={s.itemPage}>
-            <li>
+            <li className={s.listPage}>
               <NavLink
                 to="/"
                 end
@@ -81,7 +81,7 @@ const HeaderAuth = () => {
                 Home
               </NavLink>
             </li>
-            <li>
+            <li className={s.listPage}>
               <NavLink
                 to="/articles"
                 onClick={closeMenu}
@@ -92,7 +92,7 @@ const HeaderAuth = () => {
                 Articles
               </NavLink>
             </li>
-            <li>
+            <li className={s.listPage}>
               <NavLink
                 to="/users"
                 end
