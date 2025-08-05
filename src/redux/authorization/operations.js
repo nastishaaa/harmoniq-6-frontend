@@ -85,30 +85,46 @@ export const logoutThunk = createAsyncThunk(
 //         }
 //     });
 
-export const refresh = createAsyncThunk("auth/refresh", async (_, thunkAPI) => {
-  const refreshToken = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("refreshToken="))
-    ?.split("=")[1];
+export const refresh = createAsyncThunk(
+  "auth/refresh",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
 
-  if (!refreshToken) {
-    return thunkAPI.rejectWithValue("No refresh token found");
-  }
+    let refreshToken = state.authorization.refreshToken;
 
-  try {
-    const res = await API.post("/auth/refresh", { refreshToken });
-
-    const { accessToken } = res.data.data;
-    if (!accessToken) {
-      return thunkAPI.rejectWithValue("Failed to refresh token");
+    if (!refreshToken) {
+      refreshToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("refreshToken="))
+        ?.split("=")[1];
     }
 
-    setAuthHeader(accessToken);
-    return accessToken;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    if (!refreshToken) {
+      return thunkAPI.rejectWithValue("No refresh token found");
+    }
+
+    try {
+      const res = await API.post("/auth/refresh", { refreshToken });
+
+      const { accessToken, refreshToken: newRefreshToken } = res.data.data;
+
+      if (!accessToken) {
+        return thunkAPI.rejectWithValue("Failed to refresh token");
+      }
+
+      setAuthHeader(accessToken);
+
+      return {
+        accessToken,
+        refreshToken: newRefreshToken || refreshToken,
+      };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
+    }
   }
-});
+);
 
 export const uploadAvatarThunk = createAsyncThunk(
   "auth/uploadAvatar",
