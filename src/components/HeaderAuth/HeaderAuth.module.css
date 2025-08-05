@@ -255,7 +255,7 @@ a:hover {
 @media (min-width: 1440px) {
   .header {
     padding: 14px 108px;
-    height: 74px;
+    max-width: 100%;
   }
 
   .container {

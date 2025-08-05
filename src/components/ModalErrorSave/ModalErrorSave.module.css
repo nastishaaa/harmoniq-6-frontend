@@ -103,6 +103,11 @@
   background-color: #374f42;
 }
 
+.buttonRegister:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 2px #f7fffb, 0px 0px 0px 6px rgba(78, 70, 180, 0.12);
+}
+
 .buttonLogin,
 .buttonLogin:visited {
   color: #000;
@@ -111,6 +116,12 @@
 
 .buttonLogin:hover {
   background-color: #f7fffb;
+}
+
+.buttonLogin:focus {
+  outline: none;
+  background-color: #f7fffb;
+  box-shadow: 0px 0px 0px 6px rgba(78, 70, 180, 0.12);
 }
 
 @media screen and (max-width: 770px) {
