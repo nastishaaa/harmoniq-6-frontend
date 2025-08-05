@@ -4,7 +4,11 @@
 }
 
 .textarea{
+  border: 1px solid #9f9f9f;
+  border-radius: 8px;
+  padding: 12px;
   background: #f7fffb;
+  height: 393px;
 }
 
 .form {
