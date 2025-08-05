@@ -10,7 +10,7 @@ import {login} from '../../redux/authorization/operations'
 import css from "./LoginForm.module.css";
 
 import { Eye, EyeClosed } from "./icons.jsx";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Toaster } from "react-hot-toast";
 
