@@ -1,49 +1,40 @@
-import React, { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { authors } from '../../redux/authors/selectors'
+import { fetchAuthors } from '../../redux/authors/operations'
 import AuthorsList from '../../components/AuthorsList/AuthorsList'
+
 import styles from './AuthorsPage.module.css'
 
 const AuthorsPage = () => {
-  const [allAuthors, setAllAuthors] = useState([])
-  const [visibleAuthors, setVisibleAuthors] = useState([])
-  const [hasMore, setHasMore] = useState(true)
-  const authorsPerPage = 20
+  const dispatch = useDispatch()
+  const [page, setPage] = useState(1)
+  const { data, pagination } = useSelector(authors) || {}
+
+  const newItemRef = useRef(null)
+  const prevDataLength = useRef(0)
 
   useEffect(() => {
-    fetchAuthors()
-  }, [])
+    dispatch(fetchAuthors({ page }))
+  }, [dispatch, page])
 
-  const fetchAuthors = async () => {
-    try {
-      const response = await fetch('https://harmoniq-6.onrender.com/users/authors')
-
-      if (!response.ok) {
-        throw new Error('Ошибка при загрузке авторов')
-      }
-
-      const data = await response.json()
-
-      if (data && data.data) {
-        setAllAuthors(data.data)
-        setVisibleAuthors(data.data.slice(0, authorsPerPage))
-        setHasMore(data.data.length > authorsPerPage)
-      }
-    } catch (error) {
-      console.error('Ошибка при загрузке авторов:', error)
+  useEffect(() => {
+    if (page > 1 && newItemRef.current) {
+      newItemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+    prevDataLength.current = data?.length || 0
+  }, [data, page])
+  const handleLoadMore = () => {
+    if (pagination?.hasMore) setPage((prev) => prev + 1)
   }
 
-  const handleLoadMore = () => {
-    const currentLength = visibleAuthors.length
-    const newVisible = allAuthors.slice(0, currentLength + authorsPerPage)
-    setVisibleAuthors(newVisible)
-    setHasMore(newVisible.length < allAuthors.length)
-  }
+  const firstNewIndex = prevDataLength.current
 
   return (
     <div className={styles.authorsPage}>
       <h1 className={styles.authorsName}>Authors</h1>
-      <AuthorsList authors={visibleAuthors} />
-      {hasMore && (
+      {data && <AuthorsList authors={data} newItemRef={newItemRef} firstNewIndex={firstNewIndex} />}
+      {pagination?.hasMore && (
         <button className={styles.loadMore} onClick={handleLoadMore}>
           Load More
         </button>

@@ -4,7 +4,8 @@ import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/operations.js"; 
+// import { login } from "../../redux/auth/operations.js"; //ask for athorization thunk
+import {login} from '../../redux/authorization/operations'
 
 import css from "./LoginForm.module.css";
 
@@ -86,6 +87,7 @@ return (
                       {...field}
                       type={passwordEye ? "text" : "password"}
                       placeholder="*********"
+                      
                       className={clsx(
                         css.fieldLoginForm,
                         meta.touched && meta.error && css.errorInput

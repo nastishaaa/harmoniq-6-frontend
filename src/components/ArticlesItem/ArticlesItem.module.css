@@ -1,19 +1,26 @@
 .card {
-  width: 361px;
+  width: 100%;
+  max-width: 361px;
   height: 492px;
   box-sizing: border-box;
   justify-content: space-between;
-  opacity: 1;
   border-radius: 32px;
   padding: 12px;
   background-color: #d1e0d8;
+
+  @media screen and (min-width: 768px) {
+    max-width: 340px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    max-width: 392px;
+  }
 }
 .image {
   display: block;
   margin: 0 auto;
-  width: 337px;
+  width: 100%;
   height: 233px;
-  opacity: 1;
   border-radius: 24px;
 }
 .content {
@@ -76,9 +83,8 @@
 .btnLearnMore {
   box-sizing: border-box;
   background-color: transparent;
-  width: 280px;
+  width: 289px;
   height: 40px;
-  opacity: 1;
   border-radius: 64px;
   border: 1px solid #374f42;
   display: flex;
@@ -87,40 +93,19 @@
   text-decoration: none;
   color: #374f42;
   font-weight: 600;
+
+  @media screen and (min-width: 768px) {
+    width: 268px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 320px;
+  }
 }
 .btnLearnMore:hover {
   color: #070721;
   border-color: #070721;
 }
-
-@media (min-width: 768px) {
-  .card {
-    width: 340px;
-  }
-  .image {
-    width: 316px;
-  }
-  .content {
-    height: 195px;
-  }
-  .btnLearnMore {
-    width: 268px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .card {
-    width: 392px;
-  }
-  .image {
-    width: 368px;
-  }
-  .btnLearnMore {
-    width: 320px;
-  }
-}
-
-/* Виправити */
 .bookmarkIcon:hover rect {
   fill: #649179;
 }

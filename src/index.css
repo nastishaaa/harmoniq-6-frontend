@@ -13,15 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   color: black;
@@ -51,9 +42,41 @@ button {
   transition: border-color 0.25s;
 }
 
-ul,
-ol {
-  padding: 0;
+ul {
   margin: 0;
+  padding: 0;
   list-style: none;
+}
+
+/* CONTAINERS_STYLES */
+
+/* default (mobile-first) */
+.container {
+  min-width: 320px;
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* phone */
+@media only screen and (min-width: 393px) {
+  .container {
+    max-width: 393px;
+  }
+}
+
+/* tablet*/
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-inline: 32px;
+  }
+}
+
+/* desktop */
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding-inline: 107px;
+  }
 }

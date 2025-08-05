@@ -1,5 +1,42 @@
 .form {
-    min-width: 320px;
-    padding-left: 16px;
-    padding-right: 16px;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 768px) {
+  .form {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .form {
+    padding-left: 108px;
+    padding-right: 108px;
+  }
+}
+
+.createArticle {
+  text-align: start;
+  margin-bottom: 16px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  color: #070721;
+}
+
+.createArticleTitle {
+  font-weight: 500;
+  font-size: 30px;
+  color: black;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 393px) {
+  .createArticleTitle {
+    font-size: 40px;
+  }
 }

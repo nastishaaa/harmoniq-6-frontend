@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
 const slice = createSlice({
   name: 'global',
@@ -14,6 +14,18 @@ const slice = createSlice({
     setIsModalErrorSaveOpen(state, action) {
       state.isModalErrorSaveOpen = action.payload
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(isPending, (state) => {
+        state.isLoading = true
+      })
+      .addMatcher(isFulfilled, (state) => {
+        state.isLoading = false
+      })
+      .addMatcher(isRejected, (state) => {
+        state.isLoading = false
+      })
   },
 })
 

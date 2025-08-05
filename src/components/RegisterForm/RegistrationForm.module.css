@@ -1,0 +1,152 @@
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.field {
+  width: 100%;
+  height: 41px;
+  padding: 8px 36px 8px 8px; 
+  border-radius: 8px;
+  border: 1px solid var(--light-gray);
+  background-color: white;
+  box-sizing: border-box;
+  color: var(--color-dark-blue);
+}
+.errorField {
+  border-color: red;
+  outline: 1.5px solid red;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 24px;
+}
+
+.eyeIcon {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  
+}
+
+
+
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+   margin: auto;
+    width: 296px;
+    gap: 16px;
+   
+}
+
+
+.label{
+  font-family: var(--font-family);
+    font-weight: 400;
+font-size: 12px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.button{
+ background-color: #649179;
+     color: var(--color-off-white);
+     font-family: var(--font-family);
+     font-weight: 700;
+     font-size: 16px;
+cursor: pointer;
+border-radius: 64px;
+padding: 8px;
+width: 296px;
+height: 38px;
+margin-top: 20px;
+font-weight: 700;
+font-size: 16px;
+}
+
+.link{
+    font-weight: 400;
+font-size: 16px;
+line-height: 155%;
+text-align: center;
+color: var(--black);
+font-weight: 700;
+text-decoration: underline;
+text-decoration-skip-ink: none;
+ text-decoration-thickness: 1px;
+  text-underline-offset: 2px;  
+
+}
+.linkbox{
+  font-family: var(--font-family);
+    align-items: center;
+    font-weight: 400;
+font-size: 16px;
+padding: 0 20px;
+}  
+
+@media (min-width: 768px) {
+
+.form {width: 458px;
+}
+.field {width: 458px;
+height: 41px;}
+.button {width: 458px;
+height: 38px;}
+.eyeIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.linkbox{
+  padding: 0 80px;
+}
+
+}
+
+@media (min-width: 1440px){
+    
+    .form{
+        width: 328px;
+
+    }
+    .field{
+        width: 328px;
+height: 61px;
+    }
+    .button{
+        width: 328px;
+height: 38px;
+    }
+   .linkbox{
+    margin-bottom: 32px;
+   }
+ .eyeIcon {
+  width: 32px;
+  height: 32px; 
+  stroke-width: 1px;
+}
+
+.linkbox{
+  padding: 0 40px;
+}
+}

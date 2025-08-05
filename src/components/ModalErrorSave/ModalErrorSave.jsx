@@ -5,8 +5,8 @@ import { createPortal } from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setIsModalErrorSaveOpen } from '../../redux/global/slice'
 import { isModalErrorSaveOpen } from '../../redux/global/selectors'
-
-import styles from './ModalErrorSave.module.css'
+import CloseButton from '../../public/icons/close.svg'
+import styles from "./ModalErrorSave.module.css";
 
 export const ModalErrorSave = () => {
   const dispatch = useDispatch()
@@ -35,17 +35,31 @@ export const ModalErrorSave = () => {
       className={clsx(styles.wrapper, isModalOpen && styles.wrapperOpen)}
       onClick={() => dispatch(setIsModalErrorSaveOpen(false))}
     >
-      <div className={clsx(styles.modal, isModalOpen && styles.modalOpen)} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeButton} onClick={() => dispatch(setIsModalErrorSaveOpen(false))}>
-          <img src="src/assets/icons/close.svg" alt="Close icon" />
-        </button>
+      <div
+        className={clsx(styles.modal, isModalOpen && styles.modalOpen)}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className={styles.closeButton}
+          onClick={() => dispatch(setIsModalErrorSaveOpen(false))}
+        >
+          <img src={CloseButton} alt="Close icon" />
+        </button> 
         <p className={styles.title}>Error while saving</p>
         <p className={styles.caption}>To save this article, you need to authorize first</p>
         <div className={styles.buttonsContainer}>
-          <Link to={'/login'} className={clsx(styles.button, styles.buttonLogin)}>
+          <Link
+            to={'/login'}
+            onClick={() => dispatch(setIsModalErrorSaveOpen(false))}
+            className={clsx(styles.button, styles.buttonLogin)}
+          >
             Login
           </Link>
-          <Link to={'/register'} className={clsx(styles.button, styles.buttonRegister)}>
+          <Link
+            to={'/register'}
+            onClick={() => dispatch(setIsModalErrorSaveOpen(false))}
+            className={clsx(styles.button, styles.buttonRegister)}
+          >
             Register
           </Link>
         </div>
