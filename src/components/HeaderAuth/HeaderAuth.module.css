@@ -276,7 +276,6 @@ a:hover {
     width: 2px;
     height: 45px;
     background-color: #374f42;
-  }
 
   .itemPage {
     flex-direction: row;
@@ -291,7 +290,6 @@ a:hover {
 
   .btnCreate {
     display: block;
-
     min-width: 161px;
     height: 46px;
     margin: 0;
