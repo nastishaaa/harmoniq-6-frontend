@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/authorization/selectors.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logoutThunk } from "../../redux/authorization/operations.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./HeaderAuth.module.css";
 
-import HeaderLogo from '../../public/icons/header-logo.svg';
+import HeaderLogo from "../../public/icons/header-logo.svg";
 
 const HeaderAuth = () => {
   const user = useSelector(selectUser);
@@ -27,17 +27,20 @@ const HeaderAuth = () => {
   const closeMenu = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  }, [menuOpen]);
+
   return (
     <header className={s.header}>
       <div className={s.container}>
         <a href="/" className={s.logoLink}>
-          <img
-            src={HeaderLogo}
-            alt="logo"
-            className={s.logo}
-          />
+          <img src={HeaderLogo} alt="logo" className={s.logo} />
         </a>
-
+       <div className={s.btnCon}>
+         <button className={s.btnCreateTablet} onClick={handleCreateArticle}>
+          Create an article
+        </button>
         <button
           className={s.burger}
           onClick={toggleMenu}
@@ -48,14 +51,21 @@ const HeaderAuth = () => {
           <span className={s.line}></span>
         </button>
 
+       </div>
         <nav className={`${s.page} ${menuOpen ? s.open : ""}`}>
-          <button
-            className={s.closeBtn}
-            onClick={closeMenu}
-            aria-label="Close menu"
-          >
-            ✕
-          </button>
+          <div className={s.menuHeader}>
+            <a href="/" className={s.logoLink} onClick={closeMenu}>
+              <img src={HeaderLogo} alt="logo" className={s.logo} />
+            </a>
+
+            <button
+              className={s.closeBtn}
+              onClick={closeMenu}
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
 
           <ul className={s.itemPage}>
             <li>
@@ -63,7 +73,9 @@ const HeaderAuth = () => {
                 to="/"
                 end
                 onClick={closeMenu}
-                className={({ isActive }) => (isActive ? s.activeLink : "")}
+                className={({ isActive }) =>
+                  isActive ? s.activeLink : s.pageList
+                }
               >
                 Home
               </NavLink>
@@ -72,7 +84,9 @@ const HeaderAuth = () => {
               <NavLink
                 to="/articles"
                 onClick={closeMenu}
-                className={({ isActive }) => (isActive ? s.activeLink : "")}
+                className={({ isActive }) =>
+                  isActive ? s.activeLink : s.pageList
+                }
               >
                 Articles
               </NavLink>
@@ -82,7 +96,9 @@ const HeaderAuth = () => {
                 to="/users"
                 end
                 onClick={closeMenu}
-                className={({ isActive }) => (isActive ? s.activeLink : "")}
+                className={({ isActive }) =>
+                  isActive ? s.activeLink : s.pageList
+                }
               >
                 Creators
               </NavLink>
@@ -91,12 +107,17 @@ const HeaderAuth = () => {
               <li className={s.listPage}>
                 <NavLink
                   to={`/users/${user._id}`}
-                  className={({ isActive }) => (isActive ? s.activeLink : "")}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    isActive ? s.activeLink : s.pageList
+                  }
                 >
                   My Profile
                 </NavLink>
               </li>
             )}
+
+            
           </ul>
 
           <button className={s.btnCreate} onClick={handleCreateArticle}>
@@ -105,9 +126,13 @@ const HeaderAuth = () => {
 
           {user && (
             <div className={s.conUser}>
-              <NavLink to={`/users/${user._id}`} className={s.itemUser}>
-                <ul className={s.itemUser}>
-                  <li className={s.listImg}>
+              <NavLink
+                to={`/users/${user._id}`}
+                className={s.itemUser}
+                onClick={closeMenu}
+              >
+                <div className={s.userContent}>
+                  <div className={s.listImg}>
                     <img
                       className={s.listUserImg}
                       src={
@@ -119,9 +144,9 @@ const HeaderAuth = () => {
                       }
                       alt="User avatar"
                     />
-                  </li>
-                  <li className={s.listUser}>{user.name}</li>
-                </ul>
+                  </div>
+                  <span className={s.listUser}>{user.name}</span>
+                </div>
               </NavLink>
 
               <div className={s.divider}></div>
@@ -130,8 +155,6 @@ const HeaderAuth = () => {
                 <img
                   src="/src/assets/icons/Exit.svg"
                   className={s.svgExit}
-                  //   width="17"
-                  //   height="16"
                   alt="Close"
                 />
               </button>
