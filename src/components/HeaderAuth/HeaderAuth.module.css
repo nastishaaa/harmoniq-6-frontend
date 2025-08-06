@@ -27,7 +27,7 @@ a:hover {
 }
 
 .page {
-  height: calc(100vh - 74px);
+  /* height: calc(100vh - 74px); */
   top: 74px;
 
   position: fixed;
@@ -166,6 +166,7 @@ a:hover {
 }
 
 .btnCreate {
+  color: white;
   border-radius: 64px;
   padding: 12px 16px;
   width: 161px;
@@ -234,6 +235,7 @@ a:hover {
   }
 
   .btnCreateTablet {
+    color: white;
     display: block;
     border-radius: 64px;
     padding: 12px 16px;
