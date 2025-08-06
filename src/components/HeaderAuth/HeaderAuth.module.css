@@ -136,6 +136,9 @@ a:hover {
   background-color: #d1e0d8;
   padding: 14px 16px;
   height: 74px;
+
+  display: flex;
+  justify-content: center;
 }
 
 .container {
@@ -145,6 +148,7 @@ a:hover {
   align-items: center;
   /* padding: 0 18px; */
   top: 0;
+  min-width: 320px;
 }
 
 .itemPage {
@@ -219,6 +223,13 @@ a:hover {
   .container {
     display: flex;
     gap: 0;
+    width: 768px;
+    padding: 0 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
   }
 
   .itemPage {
@@ -258,13 +269,15 @@ a:hover {
 @media (min-width: 1440px) {
   .header {
     display: flex;
-
-    padding: 14px 108px;
+    justify-content: center;
     max-width: 100%;
     align-items: center;
   }
   .container {
-    height: 74px;
+    padding: 14px 108px;
+
+    /* height: 74px; */
+    width: 1440px;
   }
   .divider {
     width: 2px;
@@ -277,11 +290,11 @@ a:hover {
     padding: 0;
   }
   .page {
-    display: flex;
-    max-width: 1440px;
-    padding-right: 108px;
+    /* display: flex; */
+    /* max-width: 1440px; */
+    /* padding-right: 108px; */
     gap: 32px;
-    position: absolute;
+    /* position: absolute; */
   }
 
   .listPage {
