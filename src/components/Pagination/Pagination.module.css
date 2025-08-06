@@ -37,7 +37,6 @@
   align-items: center;
   gap: 4px;
   margin: 0 22px;
-  overflow: scroll;
 }
 
 .page {
@@ -79,7 +78,7 @@
   }
 
   .ellipsis {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
   }
 }
