@@ -6,10 +6,8 @@ import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import css from "./UploadForm.module.css";
 import uploadIcon from "../../assets/icons/photo.svg";
-import { registerThunk } from "../../redux/authorization/operations.js";
+import { login, registerThunk } from "../../redux/authorization/operations.js";
 import { selectUser } from "../../redux/authorization/selectors.js";
-import { setAuth } from "../../redux/authorization/slice.js";
-import { clearUserData } from "../../redux/authorization/slice.js";
 const validationSchema = Yup.object().shape({
   avatar: Yup.mixed()
     .required("Please select a photo.")
@@ -32,7 +30,7 @@ const UploadForm = () => {
   const userData = useSelector(selectUser);
 
   useEffect(() => {
-    if (!userData.name || !userData.email || !userData.password) {
+    if (userData && (!userData.name || !userData.email)) {
       toast.error("Incomplete registration data");
       navigate("/register");
     }
@@ -58,23 +56,11 @@ const UploadForm = () => {
     }
 
     try {
-      console.log('USER', userData);
-      
       const resultAction = await dispatch(
         registerThunk({ ...userData, avatar: values.avatar })
       );
 
-      if (registerThunk.fulfilled.match(resultAction)) {
-        const { token, user } = resultAction.payload;
-
-        localStorage.setItem("token", token);
-        dispatch(setAuth({ user, token }));
-
-        toast.success("Registration successful!");
-        dispatch(clearUserData());
-        // Поміняти після реалізації роуту
-        navigate("/");
-      } else {
+      if (!registerThunk.fulfilled.match(resultAction)) {
         const { status, message } = resultAction.payload || {};
         if (status === 400) {
           toast.error(message || "Invalid form data");
@@ -83,6 +69,17 @@ const UploadForm = () => {
         } else {
           toast.error(message || "Something went wrong");
         }
+      }
+
+      toast.success("Registration successful!");
+      const loginActions = await dispatch(
+        login({ email: userData.email, password: userData.password })
+      );
+
+      if (login.fulfilled.match(loginActions)) {
+        const { token } = loginActions.payload;
+        localStorage.setItem("token", token);
+        navigate("/");
       }
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
