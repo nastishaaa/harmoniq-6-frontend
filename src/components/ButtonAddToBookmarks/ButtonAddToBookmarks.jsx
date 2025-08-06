@@ -1,40 +1,43 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
+
 import clsx from "clsx";
 import styles from "./ButtonAddToBookmarks.module.css";
 import { setIsModalErrorSaveOpen } from "../../redux/global/slice";
-import { selectIsLoggedIn } from "../../redux/authorization/selectors";
+import {
+  selectIsLoggedIn,
+  selectToken,
+} from "../../redux/authorization/selectors";
+import { selectSavedArticles } from "../../redux/user/userSelectors";
+import {
+  removeSavedArticleThunk,
+  saveArticleThunk,
+} from "../../redux/user/savedArticlesOperations";
 
 export default function ButtonAddToBookmarks({ articleId, children }) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const token = useSelector(selectToken);
+  // console.log("token:", token);
+  const savedArticles = useSelector(selectSavedArticles);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!isLoggedIn) return;
-
-    const fetchSavedStatus = async () => {
-      try {
-        const res = await fetch(`/api/articles/${articleId}/is-saved`, {
-          credentials: "include",
-        });
-        if (!res.ok) throw new Error("Failed to fetch saved status");
-
-        const data = await res.json();
-        setIsSaved(data.isSaved);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchSavedStatus();
-  }, [articleId, isLoggedIn]);
+    if (!isLoggedIn || !token || !savedArticles) {
+      setIsSaved(false);
+      return;
+    }
+    const isArticleSaved = savedArticles.some(
+      (article) => article._id === articleId
+    );
+    setIsSaved(isArticleSaved);
+  }, [savedArticles, articleId, isLoggedIn, token]);
 
   const handleClick = async () => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn || !token) {
       dispatch(setIsModalErrorSaveOpen(true));
       return;
     }
@@ -42,19 +45,16 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
     setIsLoading(true);
 
     try {
-      const url = `/api/articles/${articleId}/${isSaved ? "unsave" : "save"}`;
-      const method = isSaved ? "DELETE" : "POST";
-
-      const res = await fetch(url, {
-        method,
-        credentials: "include",
-      });
-
-      if (!res.ok) throw new Error("Failed to update bookmark");
-
-      setIsSaved(!isSaved);
+      if (isSaved) {
+        await dispatch(removeSavedArticleThunk(articleId)).unwrap();
+        toast.success("Article removed from saved items");
+      } else {
+        await dispatch(saveArticleThunk(articleId)).unwrap();
+        toast.success("Article saved");
+      }
+      setIsSaved((prev) => !prev);
     } catch (error) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error || "Failed to save/delete article");
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +68,18 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
       aria-label="Toggle save article"
       aria-pressed={isSaved}
     >
-      {isLoading ? <span className={styles.spinner}></span> : children}
+      {isLoading ? (
+        <span className={styles.spinner}></span>
+      ) : React.isValidElement(children) ? (
+        React.cloneElement(children, {
+          className: clsx(
+            children.props.className,
+            isSaved && styles.bookmarkIcon
+          ),
+        })
+      ) : (
+        children
+      )}
     </button>
   );
 }

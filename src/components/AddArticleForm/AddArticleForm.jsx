@@ -43,6 +43,9 @@ const handleSubmit = async (values, actions) => {
   formData.append('img', values.img);
   formData.append('date', values.date.toISOString());
 
+  console.log('DATA', formData);
+  
+
   try {
     const resultAction = await dispatch(addArticle(formData));
     console.log(resultAction.payload); 

@@ -4,14 +4,16 @@ import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+// import axios from "axios";
 // import { login } from "../../redux/auth/operations.js"; //ask for athorization thunk
 import {login} from '../../redux/authorization/operations'
 
 import css from "./LoginForm.module.css";
 
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { NavLink, useNavigate } from "react-router-dom";//navigation for redirect and maybe use location to know where the user came from?
-import { toast } from "react-toastify";
+import { Eye, EyeClosed } from "./icons.jsx";
+import { Link, useNavigate } from "react-router-dom";
+// import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 
   const loginSchema = Yup.object().shape({
@@ -30,23 +32,67 @@ export default function LoginForm() {
     setPasswordEye((prev) => !prev);
   };
 
- const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values, actions) => {
     try {
       await dispatch(login(values)).unwrap();
+      toast.success("You are logged in");
       actions.resetForm();
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-      toast.error('Invalid username or password. Please try again.');
+    // navigate(`/users/${userId}`)
+        navigate("/users")
+    }
+  // const handleSubmit = async (values, actions) => { try { const result = await dispatch(login(values)).unwrap(); 
+  //   // const token = result.token;
+    // localStorage.setItem("token", token); 
+    // const response = await axios.get("/api/users/me", { headers: { Authorization: `Bearer ${token}`,}, });
+    // const userId = response.data.id
+    // toast.success("You are logged in");
+    // actions.resetForm(); 
+    // // navigate(`/users/${userId}`)
+    //     navigate("/users")
+  // }
+    catch (error) {
+      console.log(error)
+      // const errorMessage = error?.response?.data?.message || error.message || toast.error('Login failed');
+      
 
+      // shows the same message for both fields
+      // actions.setFieldError("email", errorMessage);
+      // actions.setFieldError("password", errorMessage);
+
+      // makes fields "touched" to make the frame red
+      actions.setTouched({ email: true, password: true }, false);
+      toast.error('Login failed. Please register.');
     }
   };
 
+//    const handleSubmit = async (values, { resetForm }) => {
+//   try {
+//     const resultAction = await dispatch(registerThunk(values));
+
+//     if (registerThunk.fulfilled.match(resultAction)) {
+//       resetForm();
+//       navigate('/photo');
+//     } else {
+//       const { status, message } = resultAction.payload || {};
+//       if (status === 400) {
+//         toast.error(message || 'Invalid form data');
+//       } else if (status === 409) {
+//         toast.error('Email in use!');
+//       } else {
+//         toast.error(message || 'Something went wrong');
+//       }
+//     }
+//   // eslint-disable-next-line no-unused-vars
+//   } catch (error) {
+//     toast.error('Unexpected error. Try again later.');
+//   }
+// };
+
 return (
   <div className={css.containerLoginForm}>
-    <h2>Login</h2>
+    <h2 className={css.loginHeader}>Login</h2>
     <Formik validationSchema={loginSchema} initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
-      <Form autoComplete='off'>
+      <Form className={css.formLoginForm} autoComplete='off'>
         
         <label className={css.labelLoginForm}>Enter your email address
            <Field name="email">
@@ -68,13 +114,8 @@ return (
               )}
           </Field>
             </label>
-          {/* ========================================================
-        <Field className={css.fieldLoginForm} type='email' name='email' placeholder="email@gmail.com"/>
-            <ErrorMessage name='email' component='span' />
-        </label>
-        =========================================================== */}
           
-          <label htmlFor='password' className={css.labelLoginForm}>  Enter your password
+          <label htmlFor='password' className={css.labelLoginForm}>  Enter a password
           <div className={css.label}>
               <Field name="password">
                 {({ field, meta }) => (
@@ -96,17 +137,13 @@ return (
                   </>
                 )}
               </Field>
-            {/* =================================================================
-            <Field className={css.fieldLoginForm} type='password' name='password'  placeholder="*********" />
-            <ErrorMessage name='password' component='span' />   
-          ====================================================================   */}
              <button
               type="button"
               className={css.eyeButton}
                 onClick={handlePasswordClick}
                 aria-label={passwordEye ? "Hide password" : "Show password"}
             >
-              {passwordEye ? <FiEye /> : <FiEyeOff />}
+                {passwordEye ? <Eye /> : <EyeClosed />}
             </button>
              </div>
         </label>
@@ -115,11 +152,9 @@ return (
           </button>
         </Form>
     </Formik>
-      <p>
-      Don't have an account?
-      <NavLink to="/register">
-        Register
-        </NavLink>   
+      <p className={css.descriptionRedirect}>
+      Don't have an account? 
+        <Link to="/register" className={css.linkRedirect}> Register</Link>
     </p>
      </div>
   );
@@ -127,12 +162,7 @@ return (
 
 
 
- 	// TO do:
-  // -find the solution to the eye button
-  // -how to make it send to backend? 
-// По результату валідації:
-// - у разі наявності помилок валідації - біля відповідних полів форми потрібно вивести повідомлення з суттю помилки і заблокувати відправку запиту з форми на backend.
-// - у разі, якщо всі значення валідні, - дані слід відправити на backend.
+ 	
+
 // - якщо backend повернув помилку - необхідно її обробити і відобразити користувачеві у вигляді пуш-повідомлення.
 // - якщо запит на backend пройшов успішно і дані про користувача отримано - необхідно реалізувати автоматичну авторизацію і переадресувати користувача на приватну сторінку HomeAuthorised	
-// Посилання "Register" слід реалізувати як компонент Link, використовуючи бібліотеку react-router-dom click, який перенаправляє користувача на RegisterPage

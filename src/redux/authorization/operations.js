@@ -25,8 +25,7 @@ export const login = createAsyncThunk(
 
       setAuthHeader(accessToken);
 
-      // 🧠 ДОДАЙ КОРИСТУВАЧА У userSlice
-      thunkAPI.dispatch(setCurrentUser(user)); // <== ⬅️ Ось це потрібно
+      thunkAPI.dispatch(setCurrentUser(user));
 
       return {
         accessToken,
@@ -58,40 +57,42 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
-export const logoutThunk = createAsyncThunk(
-  "auth/logout",
-  async (_, thunkAPI) => {
-    try {
-      await API.post("/auth/logout");
-      clearAuthHeader();
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
 export const refresh = createAsyncThunk("auth/refresh", async (_, thunkAPI) => {
-  const refreshToken = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("refreshToken="))
-    ?.split("=")[1];
-
-  if (!refreshToken) {
-    return thunkAPI.rejectWithValue("No refresh token found");
-  }
-
   try {
-    const res = await API.post("/auth/refresh", { refreshToken });
+    const refreshToken =
+      thunkAPI.getState().authorization.refreshToken ||
+      document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("refreshToken="))
+        ?.split("=")[1];
 
-    const { accessToken } = res.data.data;
+    if (!refreshToken) {
+      return thunkAPI.rejectWithValue("No refresh token found");
+    }
+
+    const res = await API.post(
+      "/auth/refresh",
+      { refreshToken },
+      { withCredentials: true }
+    );
+
+    const { accessToken, refreshToken: newRefreshToken, user } = res.data.data;
+
     if (!accessToken) {
       return thunkAPI.rejectWithValue("Failed to refresh token");
     }
 
     setAuthHeader(accessToken);
-    return accessToken;
+
+    return {
+      accessToken,
+      refreshToken: newRefreshToken || refreshToken,
+      user,
+    };
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(
+      error.response?.data?.message || error.message
+    );
   }
 });
 
