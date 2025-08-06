@@ -11,17 +11,28 @@ import { selectIsLoggedIn } from "../redux/authorization/selectors";
 export default function RootLayout() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
+  const style = {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "95vh",
+  };
+  const mainContentStyle = {
+    flexGrow: 1,
+  };
+
   return (
     <>
-      {isLoggedIn ? <HeaderAuth/> : <Header />}
-      <main>
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
-      </main>
-      <ModalErrorSave />
+      <div style={style}>
+        {isLoggedIn ? <HeaderAuth /> : <Header />}
+        <main style={mainContentStyle}>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
+        </main>
+        <ModalErrorSave />
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }
