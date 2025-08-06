@@ -143,7 +143,7 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 18px;
+  /* padding: 0 18px; */
   top: 0;
 }
 
@@ -257,74 +257,72 @@ a:hover {
 /* #region desctop */
 @media (min-width: 1440px) {
   .header {
+    display: flex;
+
     padding: 14px 108px;
     max-width: 100%;
+    align-items: center;
   }
-
   .container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+    height: 74px;
   }
-
-  .page {
-    display: flex;
-    gap: 32px;
-
-    align-items: center;
-  }
-
   .divider {
     width: 2px;
     height: 45px;
     background-color: #374f42;
-
-    .itemPage {
-      flex-direction: row;
-      padding: 0;
-    }
-
-    .listPage {
-      min-width: 60px;
-      font-weight: 700;
-      font-size: 12px;
-    }
-
-    .btnCreate {
-      display: block;
-      min-width: 161px;
-      height: 46px;
-      margin: 0;
-    }
-
-    .burger,
-    .closeBtn,
-    .btnCreateTablet {
-      display: none;
-    }
-
-    .pageList {
-      padding: 0px 0px 4px 0px;
-      height: 20px;
-    }
-
-    .conUser {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .userContent {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-    .listUserImg {
-      width: 32px;
-      height: 32px;
-      object-fit: cover;
-    }
   }
-  /* #endregion desctop */
+
+  .itemPage {
+    flex-direction: row;
+    padding: 0;
+  }
+  .page {
+    display: flex;
+    max-width: 1440px;
+    padding-right: 108px;
+    gap: 32px;
+    position: absolute;
+  }
+
+  .listPage {
+    min-width: 60px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .btnCreate {
+    display: block;
+    min-width: 161px;
+    height: 46px;
+    margin: 0;
+  }
+
+  .burger,
+  .closeBtn,
+  .btnCreateTablet {
+    display: none;
+  }
+
+  .pageList {
+    padding: 0px 0px 4px 0px;
+    height: 20px;
+  }
+
+  .conUser {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .userContent {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .listUserImg {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+  }
 }
+/* #endregion desctop */
