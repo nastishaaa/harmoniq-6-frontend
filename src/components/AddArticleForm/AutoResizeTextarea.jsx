@@ -42,7 +42,7 @@ export default function AutoResizeTextarea({ name, className, placeholder, id, .
         style={{ overflow: 'hidden' }}
       />
       {meta.touched && meta.error ? (
-        <span className={props.errorClassName}>{meta.error}</span>
+        <span style={{color: 'red'}}>{meta.error}</span>
       ) : null}
     </>
   );

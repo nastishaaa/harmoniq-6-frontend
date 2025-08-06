@@ -26,6 +26,5 @@ export default function CreateArticlePage() {
       {error && <p>{error}</p>}
       <AddArticleForm />
     </div>
-
   );
 }

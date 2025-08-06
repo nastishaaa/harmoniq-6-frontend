@@ -3,12 +3,23 @@
   margin-bottom: 48px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  max-width: 300px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 393px) {
   .form {
-    padding-left: 32px;
-    padding-right: 32px;
+    max-width: 361px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1439px) {
+  .form {
+    /*padding-left: 32px;
+    padding-right: 32px;*/
+    margin-left: 32px;
+    margin-right: 32px;
+    max-width: 704px;
   }
 }
 
@@ -16,6 +27,9 @@
   .form {
     padding-left: 108px;
     padding-right: 108px;
+  }
+  .createArticle {
+    width: 1226px;
   }
 }
 

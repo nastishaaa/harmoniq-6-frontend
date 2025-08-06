@@ -16,7 +16,7 @@ export const addArticle = createAsyncThunk(
         },
       });
 
-      return { data: response.data };
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
     }
