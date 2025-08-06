@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./AuthorProfilePage.module.css";
-
+import AlertIcon from "../../public/icons/alert.svg";
 import ArticlesListReusable from "../../components/ArticlesList/ArticlesListReusable";
 import { resetAuthorArticles } from "../../redux/authorArticles/authorArticlesSlice";
 import { fetchAuthorArticles } from "../../redux/authorArticles/authorArticlesOperations";
@@ -35,7 +35,6 @@ export default function AuthorProfilePage() {
   const authUser = useSelector(selectAuthUser);
   const currentUser = useSelector(selectCurrentUser);
 
-  // ✅ Копіюємо з authorization → userSlice
   useEffect(() => {
     if (!currentUser && authUser?._id) {
       dispatch(setCurrentUser(authUser));
@@ -98,16 +97,28 @@ export default function AuthorProfilePage() {
       ? createdArticles
       : savedArticles
     : articles;
-  console.log(activeTab, createdArticles, savedArticles);
-  const articleCount = isOwnProfile ? createdArticles.length : articles.length;
 
-  console.log("📦 displayArticles =", displayArticles);
+  const articleCount = isOwnProfile ? createdArticles.length : articles.length;
 
   const displayName = isOwnProfile ? currentUser?.name : authorInfo?.name;
   const avatarUrl = isOwnProfile ? currentUser?.avatar : authorInfo?.avatarUrl;
 
+  const emptyText =
+    isOwnProfile && activeTab === "saved"
+      ? "Save your first article"
+      : "Write your first article";
+
+  const emptyBtnText =
+    isOwnProfile && activeTab === "saved"
+      ? "Go to articles"
+      : "Create an article";
+
+  const emptyBtnLink =
+    isOwnProfile && activeTab === "saved" ? "/articles" : "/create";
+
   return (
     <div className={`container ${styles.wrapper}`}>
+      {isOwnProfile && <h1 className={styles.profileTitle}>My Profile</h1>}
       <div className={styles.authorHeader}>
         {avatarUrl ? (
           <img
@@ -151,21 +162,34 @@ export default function AuthorProfilePage() {
         </div>
       )}
 
-      <ArticlesListReusable
-        articles={displayArticles}
-        isOwnProfile={isOwnProfile}
-        activeTab={activeTab}
-        currentUserId={currentUser?._id}
-      />
+      {displayArticles?.length === 0 ? (
+        <div className={styles.emptyWrapper}>
+          <img src={AlertIcon} alt="Alert icon" className={styles.emptyIcon} />
+          <h3 className={styles.emptyTitle}>Nothing found.</h3>
+          <p className={styles.emptyText}>{emptyText}</p>
+          <Link to={emptyBtnLink} className={styles.emptyBtn}>
+            {emptyBtnText}
+          </Link>
+        </div>
+      ) : (
+        <>
+          <ArticlesListReusable
+            articles={displayArticles}
+            isOwnProfile={isOwnProfile}
+            activeTab={activeTab}
+            currentUserId={currentUser?._id}
+          />
 
-      {!isOwnProfile && hasMore && (
-        <button
-          className={styles.loadMoreBtn}
-          onClick={handleLoadMore}
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading..." : "Load More"}
-        </button>
+          {!isOwnProfile && hasMore && (
+            <button
+              className={styles.loadMoreBtn}
+              onClick={handleLoadMore}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
+          )}
+        </>
       )}
     </div>
   );
