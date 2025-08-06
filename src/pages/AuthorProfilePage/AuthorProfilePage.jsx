@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./AuthorProfilePage.module.css";
-
+import AlertIcon from "../../public/icons/alert.svg";
 import ArticlesListReusable from "../../components/ArticlesList/ArticlesListReusable";
 import { resetAuthorArticles } from "../../redux/authorArticles/authorArticlesSlice";
 import { fetchAuthorArticles } from "../../redux/authorArticles/authorArticlesOperations";
@@ -18,17 +18,30 @@ import {
   fetchSavedArticles,
   fetchCreatedArticles,
 } from "../../redux/user/userOperations";
+
 import {
   selectSavedArticles,
   selectCreatedArticles,
+  selectUser as selectCurrentUser,
 } from "../../redux/user/userSelectors";
+
+import { selectUser as selectAuthUser } from "../../redux/authorization/selectors";
+import { setCurrentUser } from "../../redux/user/userSlice";
 
 export default function AuthorProfilePage() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const currentUserId = useSelector((state) => state.user.currentUser?._id);
-  const isOwnProfile = id === currentUserId;
+  const authUser = useSelector(selectAuthUser);
+  const currentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    if (!currentUser && authUser?._id) {
+      dispatch(setCurrentUser(authUser));
+    }
+  }, [authUser, currentUser, dispatch]);
+
+  const isOwnProfile = String(currentUser?._id) === String(id);
 
   const [activeTab, setActiveTab] = useState("my");
   const [authorInfo, setAuthorInfo] = useState(null);
@@ -75,11 +88,7 @@ export default function AuthorProfilePage() {
 
   const handleLoadMore = () => {
     dispatch(fetchAuthorArticles({ authorId: id, page })).then(() => {
-      // Скрол до початку статей
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   };
 
@@ -89,31 +98,46 @@ export default function AuthorProfilePage() {
       : savedArticles
     : articles;
 
-  const articleCount = displayArticles.length;
+  const articleCount = isOwnProfile ? createdArticles.length : articles.length;
+
+  const displayName = isOwnProfile ? currentUser?.name : authorInfo?.name;
+  const avatarUrl = isOwnProfile ? currentUser?.avatar : authorInfo?.avatarUrl;
+
+  const emptyText =
+    isOwnProfile && activeTab === "saved"
+      ? "Save your first article"
+      : "Write your first article";
+
+  const emptyBtnText =
+    isOwnProfile && activeTab === "saved"
+      ? "Go to articles"
+      : "Create an article";
+
+  const emptyBtnLink =
+    isOwnProfile && activeTab === "saved" ? "/articles" : "/create";
 
   return (
     <div className={`container ${styles.wrapper}`}>
-      {!isOwnProfile && authorInfo && (
-        <div className={styles.authorHeader}>
-          {authorInfo.avatarUrl ? (
-            <img
-              src={authorInfo.avatarUrl}
-              alt={authorInfo.name}
-              width="137"
-              height="137"
-              className={styles.avatar}
-            />
-          ) : (
-            <div className={styles.avatarPlaceholder}>
-              {authorInfo.name?.charAt(0).toUpperCase()}
-            </div>
-          )}
-          <div>
-            <h2 className={styles.name}>{authorInfo.name}</h2>
-            <p className={styles.count}>{articleCount} articles</p>
+      {isOwnProfile && <h1 className={styles.profileTitle}>My Profile</h1>}
+      <div className={styles.authorHeader}>
+        {avatarUrl ? (
+          <img
+            src={avatarUrl}
+            alt={displayName}
+            width="137"
+            height="137"
+            className={styles.avatar}
+          />
+        ) : (
+          <div className={styles.avatarPlaceholder}>
+            {displayName?.charAt(0).toUpperCase()}
           </div>
+        )}
+        <div>
+          <h2 className={styles.name}>{displayName}</h2>
+          <p className={styles.count}>{articleCount} articles</p>
         </div>
-      )}
+      </div>
 
       {isOwnProfile && (
         <div className={styles.tabs}>
@@ -138,16 +162,34 @@ export default function AuthorProfilePage() {
         </div>
       )}
 
-      <ArticlesListReusable articles={displayArticles} />
+      {displayArticles?.length === 0 ? (
+        <div className={styles.emptyWrapper}>
+          <img src={AlertIcon} alt="Alert icon" className={styles.emptyIcon} />
+          <h3 className={styles.emptyTitle}>Nothing found.</h3>
+          <p className={styles.emptyText}>{emptyText}</p>
+          <Link to={emptyBtnLink} className={styles.emptyBtn}>
+            {emptyBtnText}
+          </Link>
+        </div>
+      ) : (
+        <>
+          <ArticlesListReusable
+            articles={displayArticles}
+            isOwnProfile={isOwnProfile}
+            activeTab={activeTab}
+            currentUserId={currentUser?._id}
+          />
 
-      {!isOwnProfile && hasMore && (
-        <button
-          className={styles.loadMoreBtn}
-          onClick={handleLoadMore}
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading..." : "Load More"}
-        </button>
+          {!isOwnProfile && hasMore && (
+            <button
+              className={styles.loadMoreBtn}
+              onClick={handleLoadMore}
+              disabled={isLoading}
+            >
+              {isLoading ? "Loading..." : "Load More"}
+            </button>
+          )}
+        </>
       )}
     </div>
   );

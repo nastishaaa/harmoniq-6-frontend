@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { API } from "../authorization/operations";
 
 export const fetchCreatedArticles = createAsyncThunk(
   "user/fetchCreatedArticles",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get("/users/me/created-articles");
+      const res = await API.get("/users/me/created-articles");
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -19,7 +19,7 @@ export const fetchSavedArticles = createAsyncThunk(
   "user/fetchSavedArticles",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get("/users/me/saved-articles");
+      const res = await API.get("/users/me/saved-articles");
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(

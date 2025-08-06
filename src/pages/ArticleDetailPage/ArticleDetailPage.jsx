@@ -12,7 +12,7 @@ import {
 import { Loader } from "../../components/Loader/Loader";
 import ButtonAddToBookmarks from "../../components/ButtonAddToBookmarks/ButtonAddToBookmarks";
 
-import { 
+import {
   fetchArticleById,
   fetchArticles,
 } from "../../redux/articles/operations";
@@ -74,7 +74,7 @@ export default function ArticleDetailPage() {
               <aside className={styles.sidebar}>
                 <h3>
                   Author:{" "}
-                  <Link to={`/authors/${article.ownerId}`}>
+                  <Link to={`/users/${article.ownerId}`}>
                     <span className={styles.author}>
                       {article.author ?? "Author"}
                     </span>
