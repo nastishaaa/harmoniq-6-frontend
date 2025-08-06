@@ -65,8 +65,8 @@ export default function ArticleDetailPage() {
             <div
               className={styles.articleTextWrapper}
               dangerouslySetInnerHTML={{
-                __html: article?.article
-                  ? article.article.replace(/\/n/g, "<br/><br/>")
+                __html: article?.desc
+                  ? article.desc.replace(/\/n/g, "<br/><br/>")
                   : "",
               }}
             />

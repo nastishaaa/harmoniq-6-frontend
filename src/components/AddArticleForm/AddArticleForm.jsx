@@ -44,6 +44,11 @@ const handleSubmit = async (values, actions) => {
   formData.append('date', values.date.toISOString());
 
   console.log('DATA', formData);
+  console.log('Formik values:', values);
+console.log('Description value:', values.desc);
+for (const [key, value] of formData.entries()) {
+  console.log(`${key}:`, value);
+}
   
 
   try {
@@ -52,7 +57,9 @@ const handleSubmit = async (values, actions) => {
     
     if (addArticle.fulfilled.match(resultAction)) {
       toast.success('Article published successfully!');
-       navigate(`/articles/${resultAction.payload._id}`);
+      const newArticleId = resultAction.payload._id;
+      //navigate(`/articles/${resultAction.payload._id}`);
+    navigate(`/articles/${newArticleId}`);
       actions.resetForm();
     } else {
       toast.error(resultAction.payload || 'Something went wrong');
