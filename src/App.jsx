@@ -6,10 +6,9 @@ import { Loader } from "./components/Loader/Loader.jsx";
 import { isLoading } from "./redux/global/selectors.js";
 import { selectIsRefreshing } from "./redux/authorization/selectors.js";
 import { refresh } from "./redux/authorization/operations.js";
-import { store } from "./redux/store.js";
 // import { ModalErrorSave } from "./components/ModalErrorSave/ModalErrorSave.jsx";
-import { Toaster } from 'react-hot-toast';
-
+import { Toaster } from "react-hot-toast";
+import { setCurrentUser } from "./redux/user/userSlice";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
 const ArticlesPage = lazy(() =>
@@ -56,19 +55,22 @@ function App() {
   const isGlobalLoading = useSelector(isLoading);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(refresh());
-  // }, []);
-
   useEffect(() => {
-  dispatch(refresh());
+    const refreshAndSetUser = async () => {
+      const action = await dispatch(refresh());
+      if (refresh.fulfilled.match(action)) {
+        dispatch(setCurrentUser(action.payload.user));
+      }
+    };
+
+    refreshAndSetUser();
   }, [dispatch]);
 
   return (
     <>
-         <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       {(isGlobalLoading && <Loader />) || (isRefreshing && <Loader />)}
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
   );
 }
