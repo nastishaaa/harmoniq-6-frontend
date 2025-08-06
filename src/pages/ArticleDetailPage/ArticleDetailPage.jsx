@@ -42,7 +42,7 @@ export default function ArticleDetailPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     dispatch(fetchArticleById(articleId));
-    dispatch(fetchArticles());
+    dispatch(fetchArticles({ filter: "popular" }));
   }, [dispatch, articleId]);
 
   const related = articles
@@ -65,9 +65,10 @@ export default function ArticleDetailPage() {
             <div
               className={styles.articleTextWrapper}
               dangerouslySetInnerHTML={{
-                __html: article?.desc
-                  ? article.desc.replace(/\/n/g, "<br/><br/>")
-                  : "",
+                __html: (article?.article || article?.desc || "").replace(
+                  /\/n/g,
+                  "<br/><br/>"
+                ),
               }}
             />
             <div className={styles.sidebarWithAction}>
