@@ -16,7 +16,7 @@
 body {
   margin: 0;
   color: black;
-
+  overflow-x: hidden;
   min-height: 100vh;
 }
 
