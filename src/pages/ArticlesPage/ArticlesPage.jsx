@@ -9,18 +9,19 @@ import {
   selectErrorArticles,
   selectLoadingArticles,
   selectTotalArticles,
-  selectHasNextPage,
+  // selectHasNextPage,
   selectArticles,
 } from '../../redux/articles/selectors'
 import ArticlesList from '../../components/ArticlesList/ArticlesList'
 import { Link } from 'react-router-dom'
+import { Pagination } from '../../components/Pagination/Pagination'
 
 export default function ArticlesPage() {
   const isLoading = useSelector(selectLoadingArticles)
   const isError = useSelector(selectErrorArticles)
   const articles = useSelector(selectArticles)
   const totalArticles = useSelector(selectTotalArticles)
-  const hasNextPage = useSelector(selectHasNextPage)
+  // const hasNextPage = useSelector(selectHasNextPage)
 
   const [selectedOption, setSelectedOption] = useState({
     value: 'popular',
@@ -64,6 +65,8 @@ export default function ArticlesPage() {
 
   const dispatch = useDispatch()
 
+  const totalPages = Math.ceil(totalArticles / 12)
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setPage(1)
@@ -73,11 +76,11 @@ export default function ArticlesPage() {
     dispatch(fetchArticles({ filter: selectedOption.value, page }))
   }, [dispatch, selectedOption, page])
 
-  const handleLoadMore = () => {
-    if (!isLoading && hasNextPage) {
-      setPage((prev) => prev + 1)
-    }
-  }
+  // const handleLoadMore = () => {
+  //   if (!isLoading && hasNextPage) {
+  //     setPage((prev) => prev + 1)
+  //   }
+  // }
 
   return (
     <div className={styles.section}>
@@ -106,11 +109,12 @@ export default function ArticlesPage() {
           </Link>
         </div>
       )}
-      {hasNextPage && (
+      {/* {hasNextPage && (
         <button className={styles.btnLoadMore} onClick={handleLoadMore}>
           Load More
         </button>
-      )}{' '}
+      )} */}
+      <Pagination currentPage={page} totalPages={totalPages} onPageChange={(newPage) => setPage(newPage)} />
     </div>
   )
 }
