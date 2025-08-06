@@ -1,5 +1,7 @@
 import clsx from 'clsx'
 
+import ArrowIcon from '../../assets/icons/top-right.svg'
+
 import styles from './Pagination.module.css'
 
 export const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) => {
@@ -67,14 +69,14 @@ export const Pagination = ({ currentPage = 1, totalPages = 1, onPageChange }) =>
   return (
     <div className={styles.container}>
       <div className={styles.iconWrapper} onClick={() => onPageChange(Math.max(1, currentPage - 1))}>
-        <img className={clsx(styles.icon, styles.iconPrev)} src="src/assets/icons/top-right.svg" alt="Arrow icon" />
+        <img className={clsx(styles.icon, styles.iconPrev)} src={ArrowIcon} />
       </div>
       <div className={styles.pagesContainer}>{renderPages()}</div>
       <div
         className={clsx(styles.iconWrapper, styles.iconNext)}
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
       >
-        <img className={clsx(styles.icon, styles.iconNext)} src="src/assets/icons/top-right.svg" alt="Arrow icon" />
+        <img className={clsx(styles.icon, styles.iconNext)} src={ArrowIcon} />
       </div>
     </div>
   )

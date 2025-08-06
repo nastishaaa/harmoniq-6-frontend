@@ -145,9 +145,10 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 515px) {
   .modal {
-    width: 361px;
+    margin: 0 6px;
+    max-width: 361px;
   }
 
   .caption {
