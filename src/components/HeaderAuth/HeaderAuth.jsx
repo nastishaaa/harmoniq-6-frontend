@@ -137,8 +137,8 @@ const HeaderAuth = () => {
                     <img
                       className={s.listUserImg}
                       src={
-                        user.avatarUrl?.trim()
-                          ? user.avatarUrl
+                        user.avatar?.trim()
+                          ? user.avatar
                           : `https://ui-avatars.com/api/?name=${encodeURIComponent(
                               user.name
                             )}&background=random`
