@@ -69,8 +69,15 @@ const authSlice = createSlice({
       .addCase(refresh.fulfilled, (state, action) => {
         state.token = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.user = action.payload.user || state.user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
+      })
+      .addCase(refresh.rejected, (state) => {
+        state.isRefreshing = false;
+        if (!state.token && !state.refreshToken) {
+          state.isLoggedIn = false;
+        }
       })
       .addMatcher(
         isAnyOf(
@@ -88,7 +95,6 @@ const authSlice = createSlice({
           registerThunk.rejected,
           login.rejected,
           logoutThunk.rejected,
-          refresh.rejected
         ),
         (state, action) => {
           handleRejected(state, action);
@@ -98,4 +104,4 @@ const authSlice = createSlice({
 
 export const { setUserData, clearUserData, setAuth } = authSlice.actions;
 
-export const authorizationReducer = authSlice.reducer;
+export const authorizationReducer = authSlice.reducer;  

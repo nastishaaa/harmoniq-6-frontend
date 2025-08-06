@@ -85,28 +85,29 @@ export const logoutThunk = createAsyncThunk(
 //         }
 //     });
 
+
 export const refresh = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-
-    let refreshToken = state.authorization.refreshToken;
-
-    if (!refreshToken) {
-      refreshToken = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("refreshToken="))
-        ?.split("=")[1];
-    }
-
-    if (!refreshToken) {
-      return thunkAPI.rejectWithValue("No refresh token found");
-    }
-
     try {
-      const res = await API.post("/auth/refresh", { refreshToken });
+      const refreshToken =
+        thunkAPI.getState().authorization.refreshToken ||
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("refreshToken="))
+          ?.split("=")[1];
 
-      const { accessToken, refreshToken: newRefreshToken } = res.data.data;
+      if (!refreshToken) {
+        return thunkAPI.rejectWithValue("No refresh token found");
+      }
+
+      const res = await API.post(
+        "/auth/refresh",
+        { refreshToken },
+        { withCredentials: true }
+      );
+
+      const { accessToken, refreshToken: newRefreshToken, user } = res.data.data;
 
       if (!accessToken) {
         return thunkAPI.rejectWithValue("Failed to refresh token");
@@ -117,6 +118,7 @@ export const refresh = createAsyncThunk(
       return {
         accessToken,
         refreshToken: newRefreshToken || refreshToken,
+        user,
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -125,6 +127,7 @@ export const refresh = createAsyncThunk(
     }
   }
 );
+
 
 export const uploadAvatarThunk = createAsyncThunk(
   "auth/uploadAvatar",
