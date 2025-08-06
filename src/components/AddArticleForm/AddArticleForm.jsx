@@ -49,7 +49,6 @@ console.log('Description value:', values.desc);
 for (const [key, value] of formData.entries()) {
   console.log(`${key}:`, value);
 }
-  
 
   try {
     const resultAction = await dispatch(addArticle(formData));

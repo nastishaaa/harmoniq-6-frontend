@@ -91,17 +91,6 @@ padding: 45px 25px;
 .errorImg {
   color: red;
 }
-/*.erroTitle {
- border-color: red;
-  outline: 1.5px solid red;
-}
-.fieldTError {
-   border-color: red;
-  outline: 1.5px solid red;
-}*/
-/*.error{
-  color: red;
-}*/
 /*Mobile: 393px*/
 @media (min-width: 393px) {
    .form {

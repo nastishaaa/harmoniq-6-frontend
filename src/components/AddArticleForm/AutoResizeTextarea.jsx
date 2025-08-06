@@ -17,13 +17,6 @@ export default function AutoResizeTextarea({ name, className, placeholder, id, .
     resizeTextarea();
   }, [field.value]);
 
-  /*useEffect(() => {
-    const textarea = textareaRef.current;
-    if (textarea && !field.value) {
-      textarea.style.height = '393px';
-    }
-  }, []);*/
-
   const handleChange = (e) => {
     field.onChange(e);
     resizeTextarea();
