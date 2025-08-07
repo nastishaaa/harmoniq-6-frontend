@@ -1,6 +1,7 @@
 .wrapper {
-  padding-top: 46px;
-  padding-bottom: 46px;
+  padding-top: 20px;
+  padding-bottom: 93px;
+  /* min-height: calc(100vh - 266px); */
 }
 
 .authorHeader {
@@ -102,20 +103,20 @@
 .emptyIcon {
   width: 64px;
   height: 64px;
-  margin-bottom: 16px;
 }
 
 .emptyWrapper {
   background: #d1e0d8;
   border-radius: 32px;
-  padding: 32px 24px;
+  padding: 12px;
   margin: 51px 0;
   text-align: start;
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-width: 393px;
+  max-width: 361px;
+  height: 299px;
 }
 
 .emptyTitle {
@@ -130,7 +131,7 @@
   font-size: 16px;
   line-height: 1.5;
   color: #070721;
-  margin: 0;
+  margin-bottom: 63px;
 }
 
 .emptyBtn {
@@ -138,7 +139,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 48px;
+  height: 38px;
   border-radius: 64px;
   padding: 0 24px;
   font-weight: 700;
@@ -157,13 +158,15 @@
   .wrapper {
     padding-left: 32px;
     padding-right: 32px;
+    padding-bottom: 40px;
+    /* min-height: calc(100vh - 200px); */
   }
+
   .loadMoreBtn {
     margin: 24px auto 46px auto;
   }
   .emptyWrapper {
     max-width: 520px;
-    /* padding: 32px 40px; */
   }
 }
 
@@ -171,9 +174,9 @@
   .wrapper {
     padding-left: 108px;
     padding-right: 108px;
+    min-height: calc(100vh - 94px);
   }
   .emptyWrapper {
     max-width: 497px;
-    /* padding: 40px 48px; */
   }
 }
