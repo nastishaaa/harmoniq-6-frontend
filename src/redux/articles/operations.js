@@ -15,7 +15,7 @@ export const fetchArticles = createAsyncThunk(
       const response = await axios.get(
         "https://harmoniq-6.onrender.com/articles",
         {
-          params,
+          params, 
         }
       );
       return {
