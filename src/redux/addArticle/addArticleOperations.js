@@ -15,8 +15,7 @@ export const addArticle = createAsyncThunk(
             Authorization: `Bearer ${token}`, 
         },
       });
-
-      return { data: response.data };
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
     }

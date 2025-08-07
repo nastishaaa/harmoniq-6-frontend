@@ -49,7 +49,6 @@ console.log('Description value:', values.desc);
 for (const [key, value] of formData.entries()) {
   console.log(`${key}:`, value);
 }
-  
 
   try {
     const resultAction = await dispatch(addArticle(formData));
@@ -57,9 +56,9 @@ for (const [key, value] of formData.entries()) {
     
     if (addArticle.fulfilled.match(resultAction)) {
       toast.success('Article published successfully!');
-      const newArticleId = resultAction.payload._id;
-      //navigate(`/articles/${resultAction.payload._id}`);
-    navigate(`/articles/${newArticleId}`);
+      //const newArticleId = resultAction.payload._id;
+      navigate(`/articles/${resultAction.payload._id}`);
+    //navigate(`/articles/${newArticleId}`);
       actions.resetForm();
     } else {
       toast.error(resultAction.payload || 'Something went wrong');
@@ -103,11 +102,11 @@ const articlenameId = useId();
        </div>
        <div className={`${css.formTitle} ${css.formGroup}`}>
         <label htmlFor={articlenameId} className={css.formTitleLabel}>Title</label>
-        <Field className={css.fieldTitle} placeholder="Enter the title" type="text" name="title" id={articlenameId} />
-        <ErrorMessage name="title" component="span" className={css.error}/>
+        <Field className={`${css.fieldTitle} ${css.erroTitle}`} placeholder="Enter the title" type="text" name="title" id={articlenameId} />
+        <ErrorMessage name="title" component="span" className={css.errorImg}/>
         </div>
         <div className={`${css.formArticle} ${css.formGroup}`}> 
-       <AutoResizeTextarea  name="desc" id="articletext" placeholder="Enter a text" className={css.fieldArticleField} />
+       <AutoResizeTextarea  name="desc" id="articletext" placeholder="Enter a text" className={`${css.fieldArticleField} ${css.fieldTError}`} />
         </div>
         </div>
       <button className={css.btnFormArticle} type="submit">Publish Article</button>
