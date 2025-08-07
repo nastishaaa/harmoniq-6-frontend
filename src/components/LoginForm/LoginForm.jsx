@@ -18,7 +18,14 @@ import { toast } from "react-hot-toast";
 
   const loginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(8, 'Too Short!At least 8 characters').max(20, 'Too Long!').required('Required'),
+    password: Yup.string()
+        .min(8, "Too short!")
+        .max(64, "Too long!")
+        .matches(
+          /^(?=.*[A-Z])(?=.*\d).{6,18}$/,
+          "Password must be 6-18 characters, with at least one capital letter and one number"
+        )
+        .required("Required"),
   });
 
 

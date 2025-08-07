@@ -23,6 +23,15 @@ margin: 85px 16.5px;
  background-color: #d1e0d8;
 
 }
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-off-white);
+}
+
  .text{
   font-family: var(--font-family);
     font-weight: 400;
