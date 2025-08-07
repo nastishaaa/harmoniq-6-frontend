@@ -18,3 +18,10 @@
     padding: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .authorsList {
+    flex-direction: column;
+    align-items: center;
+  }
+}
