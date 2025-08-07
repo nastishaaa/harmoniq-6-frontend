@@ -6,11 +6,13 @@ export default function ArticlesListReusable({
   isOwnProfile = false,
   activeTab = "my",
   currentUserId = null,
+  newItemRef = null,
+  firstNewIndex = null,
 }) {
   return (
     <ul className={s.list}>
       {(Array.isArray(articles) ? articles : []).map((article, index) => (
-        <li key={article._id}>
+        <li key={article._id} ref={index === firstNewIndex ? newItemRef : null}>
           <ArticlesItem
             article={article}
             id={article._id}

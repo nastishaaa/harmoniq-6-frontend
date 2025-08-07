@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -35,16 +35,9 @@ export default function AuthorProfilePage() {
   const authUser = useSelector(selectAuthUser);
   const currentUser = useSelector(selectCurrentUser);
 
-  useEffect(() => {
-    if (!currentUser && authUser?._id) {
-      dispatch(setCurrentUser(authUser));
-    }
-  }, [authUser, currentUser, dispatch]);
-
-  const isOwnProfile = String(currentUser?._id) === String(id);
-
   const [activeTab, setActiveTab] = useState("my");
   const [authorInfo, setAuthorInfo] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const articles = useSelector(selectAuthorArticles);
   const savedArticles = useSelector(selectSavedArticles);
@@ -52,6 +45,17 @@ export default function AuthorProfilePage() {
   const isLoading = useSelector(selectAuthorArticlesLoading);
   const hasMore = useSelector(selectAuthorArticlesHasMore);
   const page = useSelector(selectAuthorArticlesPage);
+
+  const isOwnProfile = String(currentUser?._id) === String(id);
+
+  const newItemRef = useRef(null);
+  const prevDataLength = useRef(0);
+
+  useEffect(() => {
+    if (!currentUser && authUser?._id) {
+      dispatch(setCurrentUser(authUser));
+    }
+  }, [authUser, currentUser, dispatch]);
 
   useEffect(() => {
     if (!isOwnProfile) {
@@ -84,21 +88,38 @@ export default function AuthorProfilePage() {
     } else {
       dispatch(fetchAuthorArticles({ authorId: id, page: 1 }));
     }
+
+    setVisibleCount(12);
   }, [id, dispatch, isOwnProfile, activeTab]);
 
+  useEffect(() => {
+    if (isOwnProfile && visibleCount > 12 && newItemRef.current) {
+      newItemRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    prevDataLength.current = allArticles.length;
+  }, [visibleCount, isOwnProfile]);
+
   const handleLoadMore = () => {
-    dispatch(fetchAuthorArticles({ authorId: id, page })).then(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    if (isOwnProfile) {
+      setVisibleCount((prev) => prev + 12);
+    } else {
+      dispatch(fetchAuthorArticles({ authorId: id, page })).then(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
   };
 
-  const displayArticles = isOwnProfile
+  const allArticles = isOwnProfile
     ? activeTab === "my"
       ? createdArticles
       : savedArticles
     : articles;
 
-  const articleCount = isOwnProfile ? createdArticles.length : articles.length;
+  const displayArticles = isOwnProfile
+    ? allArticles.slice(0, visibleCount)
+    : allArticles;
+
+  const articleCount = allArticles.length;
 
   const displayName = isOwnProfile ? currentUser?.name : authorInfo?.name;
   const avatarUrl = isOwnProfile ? currentUser?.avatar : authorInfo?.avatarUrl;
@@ -178,9 +199,13 @@ export default function AuthorProfilePage() {
             isOwnProfile={isOwnProfile}
             activeTab={activeTab}
             currentUserId={currentUser?._id}
+            newItemRef={newItemRef}
+            firstNewIndex={visibleCount - 12}
           />
 
-          {!isOwnProfile && hasMore && (
+          {(isOwnProfile
+            ? displayArticles.length < allArticles.length
+            : hasMore) && (
             <button
               className={styles.loadMoreBtn}
               onClick={handleLoadMore}
