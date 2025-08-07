@@ -70,13 +70,8 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
     >
       {isLoading ? (
         <span className={styles.spinner}></span>
-      ) : React.isValidElement(children) ? (
-        React.cloneElement(children, {
-          className: clsx(
-            children.props.className,
-            isSaved && styles.bookmarkIcon
-          ),
-        })
+      ) : typeof children === "function" ? (
+        children({ isSaved }) // ← Ось звідси береться isSaved
       ) : (
         children
       )}
