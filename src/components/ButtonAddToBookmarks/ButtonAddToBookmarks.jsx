@@ -15,6 +15,7 @@ import {
   removeSavedArticleThunk,
   saveArticleThunk,
 } from "../../redux/user/savedArticlesOperations";
+import { fetchSavedArticles } from "../../redux/user/userOperations";
 
 export default function ButtonAddToBookmarks({ articleId, children }) {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
         toast.success("Article saved");
       }
       setIsSaved((prev) => !prev);
+      dispatch(fetchSavedArticles());
     } catch (error) {
       toast.error(error || "Failed to save/delete article");
     } finally {
@@ -71,7 +73,7 @@ export default function ButtonAddToBookmarks({ articleId, children }) {
       {isLoading ? (
         <span className={styles.spinner}></span>
       ) : typeof children === "function" ? (
-        children({ isSaved }) // ← Ось звідси береться isSaved
+        children({ isSaved }) 
       ) : (
         children
       )}
