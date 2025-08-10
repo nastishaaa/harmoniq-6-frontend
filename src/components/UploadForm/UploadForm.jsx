@@ -8,9 +8,11 @@ import css from "./UploadForm.module.css";
 import uploadIcon from "../../assets/icons/photo.svg";
 import { login, registerThunk } from "../../redux/authorization/operations.js";
 import { selectUser } from "../../redux/authorization/selectors.js";
+import closeIcon from "../../assets/icons/close.svg";
+
 const validationSchema = Yup.object().shape({
   avatar: Yup.mixed()
-    .required("Please select a photo.")
+    .notRequired()
     .test(
       "fileSize",
       "File must be at most 1MB.",
@@ -49,15 +51,9 @@ const UploadForm = () => {
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    if (!values.avatar) {
-      toast.error("Please select a photo before submitting.");
-      setSubmitting(false);
-      return;
-    }
-
     try {
       const resultAction = await dispatch(
-        registerThunk({ ...userData, avatar: values.avatar })
+        registerThunk({ ...userData, avatar: values?.avatar || null })
       );
 
       if (!registerThunk.fulfilled.match(resultAction)) {
@@ -99,6 +95,13 @@ const UploadForm = () => {
       >
         {({ setFieldValue, isSubmitting, values }) => (
           <Form className={`${css.form} ${preview ? css.formExpanded : ""}`}>
+            <button
+              type="submit"
+              className={css.closeButton}
+              aria-label="Close upload form"
+            >
+              <img src={closeIcon} alt="Close" className={css.closeIcon} />
+            </button>
             <h1 className={css.title}>Upload your photo</h1>
 
             {preview ? (
@@ -108,7 +111,6 @@ const UploadForm = () => {
                 <img src={uploadIcon} alt="Upload" className={css.icon} />
               </label>
             )}
-
             <input
               id="file-upload"
               type="file"
@@ -132,7 +134,6 @@ const UploadForm = () => {
               }}
               className={css.hidden}
             />
-
             <button
               className={`${css.btn} ${values.avatar ? css.active : ""}`}
               type="submit"
