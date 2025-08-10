@@ -46,6 +46,9 @@ export const registerThunk = createAsyncThunk(
       formData.append("name", body.name);
       formData.append("email", body.email);
       formData.append("password", body.password);
+      if (body.avatar) {
+        formData.append("avatar", body.avatar);
+      }
 
       const response = await API.post("/auth/register", formData);
       return response.data.data;
