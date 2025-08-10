@@ -1,12 +1,40 @@
-# React + Vite
+# Harmoniq — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🎨 Макет
 
-Currently, two official plugins are available:
+[Figma](https://www.figma.com/design/tWO4RvXS2zFhL9keRcNJtb/Harmoniq)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Посилання
 
-## Expanding the ESLint configuration
+- **Frontend репозиторій:** [github.com/nastishaaa/harmoniq-6-frontend](https://github.com/nastishaaa/harmoniq-6-frontend)
+- **Жива сторінка:** [harmoniq-6-frontend.vercel.app](https://harmoniq-6-frontend.vercel.app)
+- **Backend репозиторій:** [github.com/nastishaaa/harmoniq-6](https://github.com/nastishaaa/harmoniq-6)
+- **Backend (Render):** [harmoniq-6.onrender.com](https://harmoniq-6.onrender.com)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📌 Опис проєкту
+
+**Harmoniq** — вебзастосунок для публікації, перегляду та збереження статей, створений у межах командного проєкту.  
+Фронтенд реалізовано на **React** з використанням:
+
+- **React Router DOM** — маршрутизація (публічні/приватні маршрути)
+- **Redux Toolkit + redux-persist** — стан та збереження токена користувача
+- **Formik + Yup** — форми та валідація
+- **CSS Modules** — стилізація компонентів
+- **Code splitting** — оптимізація завантаження сторінок
+- Адаптивна верстка (мобільна, планшетна, десктопна версії)
+
+## 👥 Команда "Почекай, ща пофіксю"
+
+- [Анастасія Парфенюк](https://github.com/nastishaaa) — Team Lead, Frontend & Backend
+- [Ольга Гнатенко](https://github.com/HnatenkoOlya) — Scrum Master, Frontend
+- [Єлизавета Журавльова](https://github.com/Elis89-lgtm) — Frontend & Backend
+- [Оксана Падучак](https://github.com/2992-OksanaPaduchak) — Frontend & Backend
+- [Євгеній Голубничий](https://github.com/Y-Holubnychyi) — Frontend & Backend
+- [Михайло Петровський](https://github.com/MykhailoPetrovkyi) — Frontend
+- [Даниїл Шевченко](https://github.com/Liberlay) — Frontend
+- [Юрій Шиян](https://github.com/yura6669) — Frontend
+- [Марина Дука](https://github.com/MarynaOr) — Frontend
+- [Анастасія Мотельчук](https://github.com/te1lwal) — Frontend
+- [Наталія Могила](https://github.com/mohyllllllllllllaaaaaaaaaaaaaaaaa) — Frontend
+- [Анастасія Савінова](https://github.com/AnastasiiaOc) — Frontend
+- [Тетяна Гуторова](https://github.com/TetianaHutorova) — Frontend
